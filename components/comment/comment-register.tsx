@@ -29,26 +29,28 @@ const RegisterButton = styled.button`
 
 interface IProps {
   postId: number
+  commentLength?: number
 }
 
-function CommentRegister({postId}: IProps) {
+function CommentRegister({postId, commentLength}: IProps) {
   const router = useRouter();
+  const queryId = router.query.id?.toString() ?? "";
   const commentRef = useRef<HTMLTextAreaElement>(null);
   const {mutate: addComment} = useAddComment(postId);
 
   const handleAddCommentClick = () => {
     const content = commentRef.current?.value
-    const queryId = router.query.id?.toString() ?? "";
     if (!content) {
       return;
     }
-    const postId = +queryId;
+    const postId = +queryId
+    commentRef.current.value = "";
     addComment({postId, content});
   };
 
   return (
     <div>
-      <NumberOfComment>2개의 댓글</NumberOfComment>
+      <NumberOfComment>{commentLength}개의 댓글</NumberOfComment>
       <div>
         <CommentTextArea name="" id="" placeholder="댓글을 작성하세요" ref={commentRef} />
         <ButtonWrapper>

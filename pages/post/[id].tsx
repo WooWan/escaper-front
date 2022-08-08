@@ -23,14 +23,13 @@ function PostDetail(props: IProps) {
   const router = useRouter();
   const postId = router.query.id ?? "";
   const {data: comments} = useCommentData(+postId);
-  console.log(comments)
   const [post] = useState(props.post);
 
   return (
     <Fragment>
       <Post data={post}/>
       <CommentSection>
-        <CommentRegister postId={+postId} />
+        <CommentRegister postId={+postId} commentLength={comments?.length} />
         <Comments comments={comments}/>
       </CommentSection>
     </Fragment>
