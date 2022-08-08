@@ -29,3 +29,14 @@ export interface IPost {
 export interface IPostsPagination {
   content: IPost[]
 }
+
+export interface IComment {
+  postId: number,
+  content: string
+}
+
+export interface ICommentResponse {
+  id: number
+  postId: number
+  content: string
+}
