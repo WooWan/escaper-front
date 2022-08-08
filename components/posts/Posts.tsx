@@ -1,4 +1,4 @@
-import PostItem from "./PostItem";
+import PostBox from "./PostBox";
 import styled from "styled-components";
 import {useEffect, useRef} from "react";
 import {IPost} from "../../types";
@@ -69,7 +69,7 @@ function Posts() {
       {
         data?.pages.map((group) =>
           group?.content.map(post => {
-            return <PostItem key={post.postId}{...post}/>
+            return <PostBox key={post.postId}{...post}/>
           })
         )
       }
