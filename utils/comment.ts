@@ -1,20 +1,27 @@
-import {useMutation, useQueryClient} from "@tanstack/react-query";
+import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
 import {httpClient} from "./httpClient";
+import {IComment, ICommentResponse} from "../types";
 
-interface IComment {
-  postId: number,
-  comment: string,
-}
 
 function addComment(comment: IComment) {
-  return httpClient.post("/api/comment", comment.comment, {params:{postId: comment.postId}});
+  const content = comment.content;
+  return httpClient.post("/api/comment", content, {params:{postId: comment.postId}});
 }
 
-export function useAddComment() {
+async function fetchComments(postId: number) {
+  const response = await httpClient.get("/api/comment", {params: {postId}});
+  return await response.data;
+}
+
+export const useCommentData = (postId: number) => {
+  return useQuery<ICommentResponse[]>(['comment', postId], () => fetchComments(+postId));
+};
+
+export function useAddComment(postId: number) {
   const queryClient = useQueryClient();
   return useMutation(addComment, {
     onSuccess: () => {
-      queryClient.invalidateQueries()
+      queryClient.invalidateQueries(['comment', postId])
     }
   });
 }
