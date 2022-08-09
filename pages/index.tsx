@@ -1,10 +1,16 @@
 import type { NextPage } from 'next'
 import Posts from "../components/posts/Posts";
+import Head from 'next/head'
+
 
 const Home: NextPage = () => {
-
   return (
-    <Posts/>
+    <div>
+      <Head>
+        <title>Room escaper</title>
+      </Head>
+      <Posts/>
+    </div>
   );
 }
 
