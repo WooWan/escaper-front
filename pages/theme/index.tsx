@@ -1,4 +1,4 @@
-import Sliders from "../../components/theme/SlidersWrapper";
+import Sliders from "../../components/theme/slider/SlidersWrapper";
 import {IThemesType} from "../../types";
 import {useQuery} from "@tanstack/react-query";
 import {fetchThemeTypes} from "../../utils/theme";
