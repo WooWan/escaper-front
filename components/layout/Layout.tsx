@@ -28,6 +28,9 @@ const GlobalStyle = createGlobalStyle`
     vertical-align: baseline;
     font-family: 'Noto Sans KR', sans-serif;
   }
+  ul {
+    list-style: none;
+  }
 
   /* HTML5 display-role reset for older browsers */
   article, aside, details, figcaption, figure,
