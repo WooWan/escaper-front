@@ -1,6 +1,6 @@
 import Slider from "./Slider";
 import styled from "styled-components";
-import {IThemesType} from "../../types";
+import {IThemesType} from "../../../types";
 
 const SlidersWrapper = styled.ul`
   display: flex;
