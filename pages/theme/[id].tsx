@@ -2,22 +2,30 @@ import {GetStaticPropsContext} from "next";
 import {ITheme} from "../../types";
 import {httpClient} from "../../utils/httpClient";
 import {fetchThemeById} from "../../utils/theme";
-import {useState} from "react";
+import styled from "styled-components";
+import ThemeInfo from "../../components/theme/ThemeInfo";
 
 interface IProps {
   theme: ITheme
 }
 
-function ThemePage(props:IProps) {
-  const [theme, setTheme] = useState(props.theme)
+const ThemeWrapper= styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 920px;
+  margin: 0 auto;
+  height: 100%;
+`
 
+
+
+function ThemePage({theme}:IProps) {
   return (
-    <div>
-      <h1>sdfds</h1>
-      <h1>{theme.name}</h1>
-    </div>
-  )
-    ;
+    <ThemeWrapper>
+     <ThemeInfo theme={theme}/>
+    </ThemeWrapper>
+  );
 }
 
 export async function getStaticProps(context: GetStaticPropsContext) {
