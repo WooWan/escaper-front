@@ -3,6 +3,7 @@ import RatingSection from "../ratings/rating-section";
 import styled, {css} from "styled-components";
 import {useState} from "react";
 import {ITheme} from "../../types";
+import Link from "next/link";
 
 const Description = styled.summary<{ isActive: boolean;}>`
   text-overflow: ellipsis;
@@ -33,6 +34,8 @@ const Theme = styled.h2`
 `
 const Cafe = styled.h3`
   font-size: 1.5rem;
+  cursor: pointer;
+  
 `
 const Row = styled.li`
   display: flex;
@@ -106,7 +109,9 @@ function ThemeInfo(props: IProps) {
           </InfoBox>
         </ImageContainer>
         <ThemeAbout>
-          <Cafe>키이스케이프</Cafe>
+          <Link href="/">
+            <Cafe>키이스케이프</Cafe>
+          </Link>
           <Theme>{theme.name}</Theme>
           <RatingSection/>
           <Row>
