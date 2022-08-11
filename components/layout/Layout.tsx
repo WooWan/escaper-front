@@ -20,7 +20,7 @@ const GlobalStyle = createGlobalStyle`
   article, aside, canvas, details, embed,
   figure, figcaption, footer, header, hgroup,
   main, menu, nav, output, ruby, section, summary,
-  time, mark, audio, video,button {
+  time, mark, audio, video, button {
     margin: 0;
     padding: 0;
     border: 0;
@@ -30,6 +30,9 @@ const GlobalStyle = createGlobalStyle`
   }
   ul {
     list-style: none;
+  }
+  button {
+    background: transparent;
   }
 
   /* HTML5 display-role reset for older browsers */
