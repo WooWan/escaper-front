@@ -1,7 +1,12 @@
-interface DefaultTheme {
-  borderGrey: string,
-}
+import {DefaultTheme} from "styled-components";
 
-export const theme: DefaultTheme = {
-  borderGrey: "#E9ECEF"
+
+export const lightTheme: DefaultTheme = {
+  bgColor: "white",
+  textColor: "black",
+  buttonText: "#FFEFEF",
+  destructiveColor: "#FF6B6B",
+  primaryColor: "#6200EE",
+  secondaryColor: "#03DAC5",
+  border: "#E9ECEF"
 };
