@@ -1,7 +1,7 @@
 import {useState} from 'react';
 import styled from "styled-components";
 import {GeneralRating, RatingInfo, RatingTitle, Score} from "../../styles/components";
-import {Rating} from "../rating-bar/rating";
+import {Rating} from "../core/rating-bar/rating";
 
 const UserRatingBox = styled(GeneralRating)`
 `
