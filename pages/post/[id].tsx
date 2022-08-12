@@ -29,7 +29,7 @@ function PostDetail(props: IProps) {
     <Fragment>
       <Post data={post}/>
       <CommentSection>
-        <CommentRegister postId={+postId} commentLength={comments?.length} />
+        <CommentRegister postId={+postId} commentLength={comments?.length}/>
         <Comments comments={comments}/>
       </CommentSection>
     </Fragment>
