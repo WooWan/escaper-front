@@ -8,5 +8,6 @@ export const lightTheme: DefaultTheme = {
   destructiveColor: "#FF6B6B",
   primaryColor: "#6200EE",
   secondaryColor: "#03DAC5",
-  border: "#E9ECEF"
+  border: "#E9ECEF",
+  gray1: "#505050"
 };
