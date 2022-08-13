@@ -37,19 +37,16 @@ function reducer(state: State, action: Action): State {
         ...state,
         hoverValue: action.payload
       }
-
     case 'PointerLeave':
       return {
         defaultValue: state.defaultValue,
         hoverValue: null
       }
-
     case 'MouseClick':
       return {
         ...state,
         defaultValue: action.payload
       }
-
     default:
       return state
   }
@@ -193,7 +190,6 @@ export function Rating({
           position: 'relative',
           display: 'inline-block',
           overflow: 'hidden',
-          cursor: readonly ? '' : 'pointer',
           verticalAlign: 'middle',
           userSelect: 'none',
           ...style
