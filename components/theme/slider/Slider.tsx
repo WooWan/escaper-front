@@ -105,7 +105,6 @@ function Slider({genre}: IThemesType) {
         <AnimatePresence initial={false} custom={back}>
           <Row
             custom={back}
-            onClick={nextSlide}
             variants={rowVariants}
             transition={{type: "tween", duration: 1}}
             initial="entry" animate="center" exit="exit"
