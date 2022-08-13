@@ -10,5 +10,6 @@ declare module 'styled-components' {
     buttonText: string
     destructiveColor: string
     border: string
+    gray1: string
   }
 }
