@@ -11,6 +11,7 @@ const Container = styled.ul`
 const Header= styled.header`
   display: flex;
   justify-content: space-between;
+  margin-bottom: 1.25rem;
 `
 const AlignButton = styled.button`
   display: flex;
@@ -37,13 +38,13 @@ function Reviews({reviews}: IProps) {
           <span>좋아요순</span>
           <SwitchVertical/>
         </AlignButton>
-        {
-          reviews?.map(review => (
-              <Review key={review.reviewId} {...review} />
-            )
-          )
-        }
       </Header>
+      {
+        reviews?.map(review => (
+            <Review key={review.reviewId} {...review} />
+          )
+        )
+      }
     </Container>
   );
 }
