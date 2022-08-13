@@ -31,9 +31,6 @@ const GlobalStyle = createGlobalStyle`
   ul {
     list-style: none;
   }
-  button {
-    background: transparent;
-  }
 
   /* HTML5 display-role reset for older browsers */
   article, aside, details, figcaption, figure,
