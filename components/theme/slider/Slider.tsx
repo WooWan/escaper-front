@@ -1,13 +1,14 @@
-import {useState} from "react";
-import {AnimatePresence, motion} from "framer-motion";
+import { useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import styled from "styled-components";
-import {ITheme, IThemesType} from "../../../types";
+import { ITheme, IThemesType } from "../../../types";
 import Link from "next/link";
 import useWindowSize from "../../../utils/hooks/useWindowSize";
 import AngleRight from "../../icons/angle-right";
 import AngleLeft from "../../icons/angle-left";
-import {useQuery} from "@tanstack/react-query";
-import {fetchPopularTheme, fetchThemeByGenre} from "../../../utils/theme";
+import { useQuery } from "@tanstack/react-query";
+import { fetchPopularTheme, fetchThemeByGenre } from "../../../utils/theme";
+import ThemeBox from "../../core/theme-box";
 
 const Row = styled(motion.div)`
   display: grid;
@@ -17,13 +18,7 @@ const Row = styled(motion.div)`
   width: 100%;
 `;
 
-const Box = styled(motion.div)`
-  background-image: url(https://yologuys.com/Escape_img/theme/3489.jpg);
-  background-size: cover;
-  background-position: center center;
-  height: 400px;
-`
-const Button = styled.div<{ visible: boolean; }>`
+const Button = styled.div<{ visible: boolean }>`
   display: flex;
   flex-direction: column;
   visibility: hidden;
@@ -40,26 +35,24 @@ const Slide = styled.li`
   justify-content: space-between;
   align-content: center;
   height: 450px;
-  &:hover ${Button}{
+  &:hover ${Button} {
     cursor: pointer;
     background-color: black;
     color: white;
     opacity: 0.6;
     visibility: visible;
   }
-`
-
+`;
 
 const OFFSET = 6;
 
-function Slider({genre}: IThemesType) {
-
-  const {data} = useQuery<ITheme[]>(["theme", genre],
-    genre === "popular"
-      ? fetchPopularTheme
-      : () => fetchThemeByGenre(genre));
-  const [visible, setVisible] = useState(false)
-  const [index, setIndex] = useState(0)
+function Slider({ genre }: IThemesType) {
+  const { data } = useQuery<ITheme[]>(
+    ["theme", genre],
+    genre === "popular" ? fetchPopularTheme : () => fetchThemeByGenre(genre)
+  );
+  const [visible, setVisible] = useState(false);
+  const [index, setIndex] = useState(0);
   const [leaving, setLeaving] = useState(false);
   const [back, setBack] = useState(false);
   const size = useWindowSize();
@@ -80,15 +73,15 @@ function Slider({genre}: IThemesType) {
     toggleLeaving();
     const totalMovies = data?.length;
     const maxIndex = totalMovies && Math.floor(totalMovies / OFFSET);
-    setIndex((prev) => prev === maxIndex ? 0 : prev + 1);
-    toggleLeaving()
+    setIndex((prev) => (prev === maxIndex ? 0 : prev + 1));
+    toggleLeaving();
   };
   const prevSlide = () => {
     if (leaving) return;
     setBack(true);
     toggleLeaving();
-    setIndex((prev) => prev === 0 ? 0 : prev - 1);
-    toggleLeaving()
+    setIndex((prev) => (prev === 0 ? 0 : prev - 1));
+    toggleLeaving();
   };
   const toggleLeaving = () => setLeaving((prev) => !prev);
 
@@ -100,32 +93,32 @@ function Slider({genre}: IThemesType) {
       <span>{genre}</span>
       <Slide onMouseOver={setVisibleOn} onMouseOut={setVisibleOff}>
         <Button onClick={prevSlide} visible={visible}>
-          <AngleLeft/>
+          <AngleLeft />
         </Button>
         <AnimatePresence initial={false} custom={back}>
           <Row
             custom={back}
             variants={rowVariants}
-            transition={{type: "tween", duration: 1}}
-            initial="entry" animate="center" exit="exit"
+            transition={{ type: "tween", duration: 1 }}
+            initial="entry"
+            animate="center"
+            exit="exit"
             key={index}
           >
-            {
-              data?.slice(OFFSET * index, OFFSET * index + OFFSET)
-                .map((theme) => (
-                  <Link key={theme.id} href={`/theme/${theme.id}`} passHref>
-                    <Box/>
-                  </Link>
-                ))
-            }
+            {data
+              ?.slice(OFFSET * index, OFFSET * index + OFFSET)
+              .map((theme) => (
+                <Link key={theme.id} href={`/theme/${theme.id}`} passHref>
+                  <ThemeBox href={`/theme/${theme.id}`} />
+                </Link>
+              ))}
           </Row>
         </AnimatePresence>
         <Button onClick={nextSlide} visible={visible}>
-          <AngleRight/>
+          <AngleRight />
         </Button>
       </Slide>
     </div>
-
   );
 }
 
