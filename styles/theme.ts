@@ -1,5 +1,4 @@
-import {DefaultTheme} from "styled-components";
-
+import { DefaultTheme } from "styled-components";
 
 export const lightTheme: DefaultTheme = {
   bgColor: "white",
@@ -7,7 +6,9 @@ export const lightTheme: DefaultTheme = {
   buttonText: "#FFEFEF",
   destructiveColor: "#FF6B6B",
   primaryColor: "#6200EE",
-  secondaryColor: "#03DAC5",
+  secondaryColor: "rgb(3,218,197)",
   border: "#E9ECEF",
-  gray1: "#505050"
+  gray: "rgba(107, 114, 128, 0.5)",
+  gray_lighter: "#E5E7EB",
+  kakao: "#FEE500",
 };
