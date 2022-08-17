@@ -1,11 +1,16 @@
-import React, {useMemo, useReducer, useCallback} from 'react'
-import {StarIcon} from "./star-icon";
+import React, { useMemo, useReducer, useCallback, Fragment } from "react";
+import { StarIcon } from "./star-icon";
 
-const isTouchDevice = () => 'ontouchstart' in window || navigator.maxTouchPoints > 0
+const isTouchDevice = () =>
+  "ontouchstart" in window || navigator.maxTouchPoints > 0;
 
-function calculateCurrentPosition(totalIcons: number, positionX: number, width: number) {
-  const iconWidth = width / totalIcons
-  let currentValue = totalIcons
+function calculateCurrentPosition(
+  totalIcons: number,
+  positionX: number,
+  width: number
+) {
+  const iconWidth = width / totalIcons;
+  let currentValue = totalIcons;
 
   for (let i = 0; i < totalIcons; i += 1) {
     // if position less then quarter icon
@@ -17,217 +22,310 @@ function calculateCurrentPosition(totalIcons: number, positionX: number, width: 
     }
   }
 
-  return currentValue
+  return currentValue;
 }
 
 type State = {
-  defaultValue: number | null
-  hoverValue: number | null
-}
+  defaultValue: number | null;
+  hoverValue: number | null;
+};
 
 type Action =
-  | { type: 'PointerMove'; payload: number | null }
-  | { type: 'PointerLeave' }
-  | { type: 'MouseClick'; payload: number }
+  | { type: "PointerMove"; payload: number | null }
+  | { type: "PointerLeave" }
+  | { type: "MouseClick"; payload: number };
 
 function reducer(state: State, action: Action): State {
   switch (action.type) {
-    case 'PointerMove':
+    case "PointerMove":
       return {
         ...state,
-        hoverValue: action.payload
-      }
-    case 'PointerLeave':
+        hoverValue: action.payload,
+      };
+
+    case "PointerLeave":
       return {
         defaultValue: state.defaultValue,
-        hoverValue: null
-      }
-    case 'MouseClick':
+        hoverValue: null,
+      };
+
+    case "MouseClick":
       return {
         ...state,
-        defaultValue: action.payload
-      }
+        defaultValue: action.payload,
+      };
+
     default:
-      return state
+      return state;
   }
 }
 
 export interface Props {
-  onClick?: (value: number) => void
-  initialValue?: number
-  ratingValue: number
-  iconsCount?: number
-  size?: number
-  readonly?: boolean
-  fillColor?: string
-  emptyColor?: string
-  allowHalfIcon?: boolean
-  allowHover?: boolean
-  transition?: boolean
-  className?: string
-  style?: React.CSSProperties
-  fullStyle?: React.CSSProperties
-  emptyStyle?: React.CSSProperties
-  fullClassName?: string
-  emptyClassName?: string
-  showTooltip?: boolean
-  tooltipDefaultText?: string
-  tooltipArray?: string[]
-  tooltipClassName?: string
-  tooltipStyle?: React.CSSProperties
+  onClick?: (value: number) => void;
+  initialValue?: number;
+  ratingValue: number;
+  iconsCount?: number;
+  size?: number;
+  readonly?: boolean;
+  fillColor?: string;
+  fillColorArray?: string[];
+  emptyColor?: string;
+  fullIcon?: React.ReactElement | null;
+  emptyIcon?: React.ReactElement | null;
+  customIcons?: {
+    icon: React.ReactElement;
+  }[];
+  rtl?: boolean;
+  allowHalfIcon?: boolean;
+  allowHover?: boolean;
+  transition?: boolean;
+  className?: string;
+  style?: React.CSSProperties;
+  fullClassName?: string;
+  emptyClassName?: string;
+  fullStyle?: React.CSSProperties;
+  emptyStyle?: React.CSSProperties;
+  showTooltip?: boolean;
+  tooltipDefaultText?: string;
+  tooltipArray?: string[];
+  tooltipClassName?: string;
+  tooltipStyle?: React.CSSProperties;
 }
 
 export function Rating({
-                         onClick,
-                         ratingValue = 0,
-                         iconsCount = 5,
-                         size = 40,
-                         readonly = false,
-                         fillColor = '#ffbc0b',
-                         emptyColor = '#cccccc',
-                         allowHalfIcon = false,
-                         allowHover = true,
-                         transition = false,
-                         style,
-                         showTooltip = false,
-                         tooltipDefaultText = 'Your Rate',
-                         tooltipArray = []
-                       }: Props) {
-  const [{defaultValue, hoverValue}, dispatch] = useReducer(reducer, {
+  onClick,
+  initialValue = 0,
+  ratingValue = 0,
+  iconsCount = 5,
+  size = 40,
+  readonly = false,
+  fillColor = "#ffbc0b",
+  fillColorArray = [],
+  emptyColor = "#cccccc",
+  fullIcon = null,
+  emptyIcon = null,
+  customIcons = [],
+  rtl = false,
+  allowHalfIcon = false,
+  allowHover = true,
+  transition = false,
+  className = "react-simple-star-rating",
+  style,
+  fullClassName = "filled-icons",
+  emptyClassName = "empty-icons",
+  fullStyle,
+  emptyStyle,
+  showTooltip = false,
+  tooltipDefaultText = "Your Rate",
+  tooltipArray = [],
+  tooltipClassName = "react-simple-star-rating-tooltip",
+  tooltipStyle,
+}: Props) {
+  const [{ defaultValue, hoverValue }, dispatch] = useReducer(reducer, {
     defaultValue: ratingValue,
-    hoverValue: null
-  })
+    hoverValue: null,
+  });
+
+  // re-render when ratingValue changes
+  React.useEffect(
+    () => dispatch({ type: "MouseClick", payload: ratingValue }),
+    [ratingValue]
+  );
 
   const onPointerMove = (event: React.PointerEvent<HTMLSpanElement>) => {
-    const {clientX, currentTarget} = event
+    const { clientX, currentTarget } = event;
     // get main span element position and width
-    const {left, width} = currentTarget.children[0].getBoundingClientRect()
+    const { left, right, width } =
+      currentTarget.children[0].getBoundingClientRect();
 
-    const positionX = clientX - left
+    // set for RTL
+    const positionX = rtl ? right - clientX : clientX - left;
 
     // Get current pointer position while moves over the icons
-    const currentValue = calculateCurrentPosition(totalIcons, positionX, width)
+    const currentValue = calculateCurrentPosition(totalIcons, positionX, width);
+
     // set the value to state
     if (currentValue > 0 && hoverValue !== currentValue) {
-      dispatch({type: 'PointerMove', payload: currentValue * 100 / totalIcons})
+      dispatch({
+        type: "PointerMove",
+        payload: (currentValue * 100) / totalIcons,
+      });
     }
-  }
+  };
 
   const onPointerEnter = (event: React.PointerEvent<HTMLSpanElement>) => {
     // enable only on touch devices
-    if (!isTouchDevice()) return
+    if (!isTouchDevice()) return;
 
     // call to get the value
-    onPointerMove(event)
-  }
+    onPointerMove(event);
+  };
 
-  const onHandleRating = () => {
+  const onRate = () => {
     if (hoverValue) {
-      dispatch({type: 'MouseClick', payload: hoverValue})
+      dispatch({ type: "MouseClick", payload: hoverValue });
       // update value on click
-      if (onClick) onClick(renderValue(hoverValue))
+      if (onClick) onClick(hoverValue);
     }
-  }
+  };
 
   const onPointerLeave = () => {
-    if (isTouchDevice()) onHandleRating()
+    if (isTouchDevice()) onRate();
 
-    dispatch({type: 'PointerLeave'})
-  }
+    dispatch({ type: "PointerLeave" });
+  };
 
+  // if there is a local rating value, convert it to precentage
+  const localRating = useMemo(
+    () => Math.round((initialValue / iconsCount) * 100),
+    [initialValue, iconsCount]
+  );
+
+  /**
+   * convert rating value to percentage value
+   * @returns `hover value` | `rating value` | `local rating`
+   */
   const valuePercentage = useMemo(
-    () => (allowHover && hoverValue) || (defaultValue),
-    [allowHover, hoverValue, defaultValue]
-  )
+    () =>
+      (allowHover && hoverValue && hoverValue) ||
+      (defaultValue && defaultValue) ||
+      localRating,
+    [allowHover, hoverValue, defaultValue, localRating]
+  );
 
   // handle total icons
-  const totalIcons = useMemo(() => (allowHalfIcon ? iconsCount * 2 : iconsCount), [allowHalfIcon, iconsCount])
+  const totalIcons = useMemo(
+    () => (allowHalfIcon ? iconsCount * 2 : iconsCount),
+    [allowHalfIcon, iconsCount]
+  );
 
   // convert value to index
   const valueIndex = useCallback(
     (value: number) => {
-      let index = 1
+      let index = 1;
       if (value) {
-        index = Math.round(value / 100 * totalIcons) + 1
+        index = Math.round((value / 100) * totalIcons) + 1;
       }
-      return Math.round(index - 1)
+
+      return Math.round(index - 1);
     },
     [totalIcons]
-  )
+  );
 
   // convert value to render value
   const renderValue = useCallback(
     (value: number) => {
-      const rvalue = valueIndex(value)
+      const rvalue = valueIndex(value);
 
-      return allowHalfIcon ? rvalue / 2 : rvalue
+      return allowHalfIcon ? rvalue / 2 : rvalue;
     },
     [allowHalfIcon, valueIndex]
-  )
+  );
 
   // handle tooltip values
   const handleTooltip = (value: number) =>
-    tooltipArray.length > 0 ? tooltipArray[valueIndex(value)] : renderValue(value) || 0
+    tooltipArray.length > 0
+      ? tooltipArray[valueIndex(value)]
+      : renderValue(value) || 0;
 
   return (
-    <div style={{touchAction: 'none'}}>
-      {showTooltip && (
-        <div
-          style={{
-            padding: '5px 15px',
-            color: '#333',
-            textAlign: "center",
-            verticalAlign: 'middle',
-            borderRadius: 5,
-          }}>
-          {(hoverValue && handleTooltip(hoverValue)) ||
-            (defaultValue && handleTooltip(defaultValue)) ||
-            tooltipDefaultText}
-        </div>
-      )}
-      <span
-        style={{
-          position: 'relative',
-          display: 'inline-block',
-          overflow: 'hidden',
-          verticalAlign: 'middle',
-          userSelect: 'none',
-          ...style
-        }}
-        onPointerMove={readonly ? undefined : onPointerMove}
-        onPointerEnter={readonly ? undefined : onPointerEnter}
-        onPointerLeave={readonly ? undefined : onPointerLeave}
-        onClick={readonly ? undefined : onHandleRating}
-        aria-hidden='true'
-      >
-
+    <span
+      style={{
+        display: "inline-block",
+        direction: `${rtl ? "rtl" : "ltr"}`,
+        touchAction: "none",
+      }}
+    >
+      <div style={{ display: "flex", flexDirection: "column" }}>
+        {showTooltip && (
+          <span
+            className={tooltipClassName}
+            style={{
+              display: "inline-block",
+              padding: "5px 15px",
+              backgroundColor: "transparent",
+              color: "black",
+              textAlign: "center",
+              verticalAlign: "middle",
+              borderRadius: 5,
+              ...tooltipStyle,
+            }}
+          >
+            {(hoverValue && handleTooltip(hoverValue)) ||
+              (defaultValue && handleTooltip(defaultValue)) ||
+              (localRating && handleTooltip(localRating)) ||
+              tooltipDefaultText}
+          </span>
+        )}
         <span
+          className={className}
           style={{
-            display: 'inline-block',
-            color: emptyColor,
+            position: "relative",
+            display: "inline-block",
+            overflow: "hidden",
+            whiteSpace: "nowrap",
+            cursor: readonly ? "" : "pointer",
+            verticalAlign: "middle",
+            userSelect: "none",
+            ...style,
           }}
+          onPointerMove={readonly ? undefined : onPointerMove}
+          onPointerEnter={readonly ? undefined : onPointerEnter}
+          onPointerLeave={readonly ? undefined : onPointerLeave}
+          onClick={readonly ? undefined : onRate}
+          aria-hidden="true"
         >
-          {[...Array(iconsCount)].map((_, index) => (
-            <StarIcon key={index} size={size}/>
-          ))}
+          <span
+            className={emptyClassName}
+            style={{
+              display: "inline-block",
+              color: emptyColor,
+              ...emptyStyle,
+            }}
+          >
+            {[...Array(iconsCount)].map((_, index) => (
+              <Fragment key={index}>
+                {customIcons[index]?.icon || emptyIcon || (
+                  <StarIcon key={index} size={size} />
+                )}
+              </Fragment>
+            ))}
+          </span>
+
+          <span
+            className={fullClassName}
+            style={{
+              position: "absolute",
+              top: 0,
+              [rtl ? "right" : "left"]: 0,
+              color:
+                (allowHover &&
+                  hoverValue &&
+                  fillColorArray[valueIndex(hoverValue)]) ||
+                (defaultValue && fillColorArray[valueIndex(defaultValue)]) ||
+                fillColor,
+              overflow: "hidden",
+              whiteSpace: "nowrap",
+              display: "inline-block",
+              transition: transition ? "width .2s ease, color .2s ease" : "",
+              width: `${valuePercentage}%`,
+              ...fullStyle,
+            }}
+            title={`${
+              (hoverValue && renderValue(hoverValue)) ||
+              renderValue(localRating)
+            } out of ${iconsCount}`}
+          >
+            {[...Array(iconsCount)].map((_, index) => (
+              <Fragment key={index}>
+                {customIcons[index]?.icon || fullIcon || (
+                  <StarIcon size={size} />
+                )}
+              </Fragment>
+            ))}
+          </span>
         </span>
-        <div
-          style={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            color: fillColor,
-            overflow: 'hidden',
-            whiteSpace: 'nowrap',
-            transition: transition ? 'width .2s ease, color .2s ease' : '',
-            width: `${valuePercentage}%`,
-          }}
-        >
-          {[...Array(iconsCount)].map((_, index) => (
-            <StarIcon key={index} size={size}/>
-          ))}
-        </div>
-      </span>
-    </div>
+      </div>
+    </span>
   );
 }
