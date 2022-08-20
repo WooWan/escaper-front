@@ -1,18 +1,18 @@
-import React, {Fragment} from 'react';
+import React, { Fragment } from "react";
 import CommentRegister from "./comment-register";
-import {ICommentResponse} from "../../types";
+import { ICommentResponse } from "../../interfaces";
 import Comments from "./comments";
 
 interface IProps {
-  comments?: ICommentResponse[]
-  postId: number
+  comments?: ICommentResponse[];
+  postId: number;
 }
 
-function CommentBox({postId, comments}:IProps) {
+function CommentBox({ postId, comments }: IProps) {
   return (
     <Fragment>
-      <CommentRegister postId={postId}/>
-      <Comments comments={comments}/>
+      <CommentRegister postId={postId} />
+      <Comments comments={comments} />
     </Fragment>
   );
 }

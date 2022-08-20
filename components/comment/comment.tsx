@@ -1,4 +1,4 @@
-import { ICommentResponse } from "../../types";
+import { ICommentResponse } from "../../interfaces";
 import styled from "styled-components";
 
 const CommentBox = styled.div`
