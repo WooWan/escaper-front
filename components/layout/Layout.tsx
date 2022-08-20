@@ -1,9 +1,9 @@
-import NavBar from "./NavBar";
-import {createGlobalStyle} from "styled-components";
-import {ReactNode} from "react";
+import { createGlobalStyle } from "styled-components";
+import { ReactNode } from "react";
+import NavigationHeader from "../containers/navigation-header/NavigationHeader";
+import { useAxiosInterceptor } from "../../utils/hooks/useAxiosInterceptor";
 
-
-export interface LayoutProps  {
+export interface LayoutProps {
   children: ReactNode;
 }
 
@@ -61,13 +61,14 @@ const GlobalStyle = createGlobalStyle`
     border-collapse: collapse;
     border-spacing: 0;
   }
-`
+`;
 
-function Layout({children}: LayoutProps ) {
+function Layout({ children }: LayoutProps) {
+  useAxiosInterceptor();
   return (
     <>
-      <GlobalStyle/>
-      <NavBar/>
+      <GlobalStyle />
+      <NavigationHeader />
       <div>{children}</div>
     </>
   );
