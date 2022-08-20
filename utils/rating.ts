@@ -1,4 +1,4 @@
-import { IRate } from "../types";
+import { IRate } from "../interfaces";
 import { httpClient } from "./httpClient";
 
 export const rateTheme = async ({ themeId, rate }: IRate) => {

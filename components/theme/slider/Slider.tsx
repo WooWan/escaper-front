@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import styled from "styled-components";
-import { ITheme, IThemesType } from "../../../types";
+import { ITheme, IThemesType } from "../../../interfaces";
 import Link from "next/link";
 import useWindowSize from "../../../utils/hooks/useWindowSize";
 import AngleRight from "../../icons/angle-right";
