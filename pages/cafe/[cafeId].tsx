@@ -1,8 +1,8 @@
-import { GetStaticPropsContext } from "next";
+import { GetStaticPathsContext, GetStaticPropsContext } from "next";
 import { useRouter } from "next/router";
 import styled from "styled-components";
 import Sidebar from "../../components/cafe/sidebar/sidebar";
-import { ICafe } from "../../types";
+import { ICafe } from "../../interfaces";
 import { httpClient } from "../../utils/httpClient";
 import Cafe from "../../components/cafe/Cafe";
 
@@ -32,7 +32,9 @@ async function fetchCafeById(id: string | string[] | undefined) {
   const response = await httpClient.get(`/api/cafe/${id}`);
   return await response.data;
 }
+
 export async function getStaticProps(context: GetStaticPropsContext) {
+  console.log(context.params);
   const id = context.params?.cafeId;
   const cafe = await fetchCafeById(id);
 
@@ -42,10 +44,10 @@ export async function getStaticProps(context: GetStaticPropsContext) {
   };
 }
 
-export async function getStaticPaths() {
+export async function getStaticPaths(context: GetStaticPathsContext) {
   const response = await httpClient.get<ICafe[]>("/api/cafes");
   const data = await response.data;
-  // console.log(data);
+
   const paths = data?.map((cafe) => ({
     params: { cafeId: cafe.id.toString() },
   }));
