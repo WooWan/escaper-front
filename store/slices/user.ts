@@ -1,14 +1,9 @@
+import { RootState } from "./../config";
+import { IMember } from "./../../interfaces/member.d";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-/**
- * initial 타입 추가 필요
- */
-interface UserType {
-  id: number;
-  name: string;
-}
 interface UserState {
-  user: UserType | null;
+  user: IMember | null;
   isLogin: boolean;
 }
 const initialState: UserState = {
@@ -20,7 +15,7 @@ export const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
-    loginUser: (state: UserState, action: PayloadAction<UserType>) => {
+    loginUser: (state: UserState, action: PayloadAction<IMember>) => {
       state.user = action.payload;
       state.isLogin = true;
     },
@@ -28,11 +23,12 @@ export const userSlice = createSlice({
       state.user = null;
       state.isLogin = false;
     },
-    updateUser: (state: UserState, action: PayloadAction<UserType>) => {
+    updateUser: (state: UserState, action: PayloadAction<IMember>) => {
       state.user = action.payload;
     },
   },
 });
 
+export const selectUser = (state: RootState) => state.user;
 export const { loginUser, logoutUser, updateUser } = userSlice.actions;
 export default userSlice.reducer;
