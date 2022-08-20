@@ -2,7 +2,7 @@ import styled from "styled-components";
 import React, { useState } from "react";
 import { useAddReview } from "../../utils/theme";
 import { useRouter } from "next/router";
-import Button from "../core/button/Button";
+import Button from "../core/button/text-button/TextButton";
 
 const CommentTextArea = styled.textarea`
   padding: 1rem 1rem 1.5rem;
