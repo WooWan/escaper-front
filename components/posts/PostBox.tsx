@@ -1,7 +1,7 @@
 import Image from "next/image";
 import styled from "styled-components";
 import Link from "next/link";
-import {IPost} from "../../types";
+import { IPost } from "../../interfaces";
 
 const Post = styled.li`
   display: flex;
@@ -9,18 +9,18 @@ const Post = styled.li`
   &:hover {
     cursor: pointer;
   }
-`
+`;
 const AppointmentDate = styled.section`
   display: flex;
-`
+`;
 const Title = styled.span`
   font-size: 18px;
   font-weight: bold;
-`
+`;
 
 function PostBox(props: IPost) {
-  const {postId, title, appointmentDate} = props;
-  const storeScrollY = (scrollY:number) => {
+  const { postId, title, appointmentDate } = props;
+  const storeScrollY = (scrollY: number) => {
     localStorage.setItem("post_scrollY", scrollY.toString());
   };
   return (
@@ -40,7 +40,6 @@ function PostBox(props: IPost) {
         </AppointmentDate>
       </Post>
     </Link>
-
   );
 }
 

@@ -1,18 +1,18 @@
 import styled from "styled-components";
 import Review from "./Review";
 import SwitchVertical from "../icons/switch-vertical";
-import {IReview} from "../../types";
+import { IReview } from "../../interfaces";
 
 const Container = styled.ul`
   display: flex;
   flex-direction: column;
   padding-left: 0.5rem;
-`
-const Header= styled.header`
+`;
+const Header = styled.header`
   display: flex;
   justify-content: space-between;
   margin-bottom: 1.25rem;
-`
+`;
 const AlignButton = styled.button`
   display: flex;
   justify-content: center;
@@ -22,29 +22,25 @@ const AlignButton = styled.button`
     display: block;
     font-size: 0.5rem;
   }
-`
+`;
 
 interface IProps {
   reviews?: IReview[];
 }
 
-function Reviews({reviews}: IProps) {
-
+function Reviews({ reviews }: IProps) {
   return (
     <Container>
       <Header>
         <span>리뷰 ({reviews?.length})</span>
         <AlignButton>
           <span>좋아요순</span>
-          <SwitchVertical/>
+          <SwitchVertical />
         </AlignButton>
       </Header>
-      {
-        reviews?.map(review => (
-            <Review key={review.reviewId} {...review} />
-          )
-        )
-      }
+      {reviews?.map((review) => (
+        <Review key={review.reviewId} {...review} />
+      ))}
     </Container>
   );
 }
