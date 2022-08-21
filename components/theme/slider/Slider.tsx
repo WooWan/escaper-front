@@ -42,6 +42,7 @@ const Slide = styled.li`
     opacity: 0.6;
     visibility: visible;
   }
+  cursor: pointer;
 `;
 
 const OFFSET = 6;
@@ -108,9 +109,7 @@ function Slider({ genre }: IThemesType) {
             {data
               ?.slice(OFFSET * index, OFFSET * index + OFFSET)
               .map((theme) => (
-                <Link key={theme.id} href={`/theme/${theme.id}`} passHref>
-                  <ThemeBox href={`/theme/${theme.id}`} />
-                </Link>
+                <ThemeBox key={theme.id} {...theme} />
               ))}
           </Row>
         </AnimatePresence>
