@@ -1,7 +1,9 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/router";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
+import { selectUser } from "../../store/slices/user";
 import {
   GeneralRating,
   RatingInfo,
@@ -17,12 +19,21 @@ function UserRating() {
   const router = useRouter();
   const [rating, setRating] = useState(0);
   const themeId = router.query.id;
+  const { isLogin, user } = useSelector(selectUser);
+  const userId = user?.id;
 
   const { mutate: handleRate } = useMutation(rateTheme);
 
-  const onHandleRating = (rate: number) => {
-    setRating(rate);
-    handleRate({ themeId, rate });
+  const onHandleRating = (rating: number) => {
+    console.log(rating);
+    if (userId) {
+      setRating(rating);
+      handleRate({ themeId, memberId: userId, rating });
+    } else {
+      /**
+       * 회원가입 또는 로그인 로직 요청
+       */
+    }
   };
   const toolTipArray = [
     "별점을 남겨주세요",
