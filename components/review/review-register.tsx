@@ -3,6 +3,8 @@ import React, { useState } from "react";
 import { useAddReview } from "../../utils/theme";
 import { useRouter } from "next/router";
 import Button from "../core/button/text-button/TextButton";
+import { useSelector } from "react-redux";
+import { selectUser } from "../../store/slices/user";
 
 const CommentTextArea = styled.textarea`
   padding: 1rem 1rem 1.5rem;
@@ -17,10 +19,17 @@ function ReviewRegister() {
   const router = useRouter();
   const themeId = router.query.id;
 
+  const { user } = useSelector(selectUser);
+  const memberId = user?.id;
+
   const [review, setReview] = useState("");
   const { mutate: addReview } = useAddReview(themeId);
 
-  const onReviewHandle = () => addReview({ themeId, review });
+  const onReviewHandle = () => {
+    if (memberId) {
+      addReview({ themeId, memberId, review });
+    }
+  };
 
   const handleReviewChange = (
     event: React.ChangeEvent<HTMLTextAreaElement>
