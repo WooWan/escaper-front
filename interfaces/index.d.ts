@@ -49,9 +49,10 @@ export interface IReview {
   likes: number;
 }
 
-export interface IRate {
+export interface IRatingRequest {
   themeId: string | string[] | undefined;
-  rate: number;
+  memberId: number;
+  rating: number;
 }
 
 export interface ICafe {

@@ -2,6 +2,6 @@ export interface IMember {
   profileImageUrl: string;
   providerType: string;
   roleType: string;
-  userId: string;
+  id: number;
   username: string;
 }
