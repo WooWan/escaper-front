@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Header, LoginBox, Navigator } from "./NavigationHeader.style";
 import Image from "next/image";
 import Link from "next/link";
@@ -20,6 +20,7 @@ function NavigationHeader() {
   const { user, isLogin } = useSelector(selectUser);
   const [isModalOpen, setIsModalOpen] = useState(false);
   useAxiosInterceptor();
+
   const handleModalOpen = () => {
     setIsModalOpen(true);
   };
