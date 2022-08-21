@@ -164,8 +164,7 @@ export function Rating({
   const onRate = () => {
     if (hoverValue) {
       dispatch({ type: "MouseClick", payload: hoverValue });
-      // update value on click
-      if (onClick) onClick(hoverValue);
+      if (onClick) onClick(renderValue(hoverValue));
     }
   };
 
