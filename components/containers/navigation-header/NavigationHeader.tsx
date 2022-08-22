@@ -56,12 +56,12 @@ function NavigationHeader() {
           <LoginBox onClick={handleModalOpen}>로그인/회원가입</LoginBox>
         )}
 
-        {/* {isModalOpen ? (
+        {isModalOpen ? (
           <LoginModal
             google_auth={google_auth}
             handleModalClose={handleModalClose}
           />
-        ) : null} */}
+        ) : null}
         {/* <KakaoLoginButton /> */}
       </Navigator>
     </Header>
