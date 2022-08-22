@@ -10,25 +10,27 @@ import {
   RatingTitle,
   Score,
 } from "../../styles/components";
-import { rateTheme } from "../../utils/rating";
+import { rateTheme, useRateTheme } from "../../utils/rating";
 import { Rating } from "../core/rating-bar/rating";
 
 const UserRatingBox = styled(GeneralRating)``;
 
-function UserRating() {
+interface IProps {
+  rating: number | number;
+}
+function UserRating({ rating }: IProps) {
   const router = useRouter();
-  const [rating, setRating] = useState(0);
+  const [score, setScore] = useState(rating ? rating : 0);
   const themeId = router.query.id;
   const { isLogin, user } = useSelector(selectUser);
-  const userId = user?.id;
+  const memberId = user?.id;
 
-  const { mutate: handleRate } = useMutation(rateTheme);
+  const { mutate: handleRate } = useRateTheme(memberId, themeId);
 
   const onHandleRating = (rating: number) => {
-    console.log(rating);
-    if (userId) {
-      setRating(rating);
-      handleRate({ themeId, memberId: userId, rating });
+    if (memberId) {
+      setScore(rating);
+      handleRate({ themeId, memberId, rating });
     } else {
       /**
        * 회원가입 또는 로그인 로직 요청
