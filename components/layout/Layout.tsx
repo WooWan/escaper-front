@@ -3,7 +3,7 @@ import { ReactNode } from "react";
 import NavigationHeader from "../containers/navigation-header/NavigationHeader";
 import { useAxiosInterceptor } from "../../utils/hooks/useAxiosInterceptor";
 
-export interface LayoutProps {
+interface LayoutProps {
   children: ReactNode;
 }
 
