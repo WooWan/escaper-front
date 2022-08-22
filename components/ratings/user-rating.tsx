@@ -16,7 +16,7 @@ import { Rating } from "../core/rating-bar/rating";
 const UserRatingBox = styled(GeneralRating)``;
 
 interface IProps {
-  rating: number | number;
+  rating: number | undefined;
 }
 function UserRating({ rating }: IProps) {
   const router = useRouter();
@@ -57,7 +57,7 @@ function UserRating({ rating }: IProps) {
       <RatingInfo>
         <Score>{rating}</Score>
         <Rating
-          ratingValue={rating}
+          ratingValue={rating ? rating : 0}
           allowHalfIcon
           transition={true}
           tooltipArray={toolTipArray}
