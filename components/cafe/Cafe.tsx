@@ -5,7 +5,6 @@ import styled from "styled-components";
 import { ICafe, ITheme } from "../../interfaces";
 import { Rating } from "../core/rating-bar/rating";
 import ThemeBox from "../core/theme-box";
-import AverageRating from "../ratings/average-rating";
 
 const Header = styled.header`
   display: flex;
@@ -90,7 +89,7 @@ function Cafe({ cafe }: IProps) {
           {themes.map((theme) => (
             <Link key={theme.id} href={`/theme/${theme.id}`}>
               <div>
-                <ThemeBox href={`/theme/${theme.id}`} />
+                <ThemeBox {...theme} />
                 <h1>{theme.name}</h1>
                 <h2>{name}</h2>
                 <div>

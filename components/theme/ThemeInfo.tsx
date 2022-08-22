@@ -4,6 +4,7 @@ import styled, { css } from "styled-components";
 import { useState } from "react";
 import { ITheme } from "../../interfaces";
 import Link from "next/link";
+import { IThemeDetail } from "../../interfaces/theme";
 
 const Description = styled.summary<{ isActive: boolean }>`
   text-overflow: ellipsis;
@@ -32,7 +33,7 @@ const ToggleButton = styled.button`
 const Theme = styled.h2`
   font-size: 1.5rem;
 `;
-const Cafe = styled.h3`
+const Cafe = styled.h2`
   font-size: 1.5rem;
   cursor: pointer;
 `;
@@ -81,11 +82,26 @@ const ThemeAbout = styled.ul`
 `;
 
 interface IProps {
-  theme: ITheme;
+  theme: IThemeDetail;
+  memberRating: number | undefined;
 }
 
-function ThemeInfo(props: IProps) {
-  const [theme] = useState(props.theme);
+function ThemeInfo({ theme, memberRating }: IProps) {
+  const {
+    themeId,
+    name,
+    genre,
+    description,
+    timeLimitation,
+    appropriatedPeople,
+    themeRating,
+    cost,
+    imageURL,
+    cafeId,
+    phoneNumber,
+    cafeName,
+  } = theme;
+  // const [theme] = useState(props.theme);
   const [isMore, setIsMore] = useState(false);
 
   const handleMoreBtn = () => {
@@ -109,36 +125,40 @@ function ThemeInfo(props: IProps) {
           </InfoBox>
         </ImageContainer>
         <ThemeAbout>
-          <Link href="/">
-            <Cafe>키이스케이프</Cafe>
+          <Link href={`/cafe/${cafeId}`}>
+            <a>
+              <Cafe>{cafeName}</Cafe>
+            </a>
           </Link>
-          <Theme>{theme.name}</Theme>
-          <RatingSection />
+          <Theme>{name}</Theme>
+          <RatingSection
+            themeRating={themeRating}
+            memberRating={memberRating}
+          />
           <Row>
             <Item>위치</Item>
             <Info>서울 성동구 마장동</Info>
           </Row>
           <Row>
             <Item>전화 번호</Item>
-            <Info>010-1234-5678</Info>
+            <Info>{phoneNumber}</Info>
           </Row>
           <Row>
             <Item>제한 시간:</Item>
-            <Info>1시간</Info>
+            <Info>{timeLimitation}</Info>
+          </Row>
+          <Row>
+            <span>가격:</span>
+            <span>{cost}</span>
+          </Row>
+          <Row>
+            <span>추천 인원:</span>
+            <span>{appropriatedPeople}</span>
           </Row>
         </ThemeAbout>
       </MainInfo>
       <section>
-        <Description isActive={isMore}>
-          Production grade React applications that scale. The world's leading
-          companies use Next.js by Vercel to build static and dynamic websites
-          and web applications Welcome to the Next.js documentation! If you're
-          new to Next.js, we recommend starting with the learn course. The
-          interactive course with quizzes will guide you through everything you
-          need to know to use Next.js. If you have questions about anything
-          related to Next.js, you're always welcome to ask our community on
-          GitHub Discussions.
-        </Description>
+        <Description isActive={isMore}>{description}</Description>
         <ToggleButton onClick={handleMoreBtn}>
           {isMore ? "더 보기" : "접기"}
         </ToggleButton>
