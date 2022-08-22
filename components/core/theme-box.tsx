@@ -6,8 +6,6 @@ import Link from "next/link";
 const Box = styled(motion.div)`
   display: flex;
   flex-direction: column;
-  /* background-image: url(https://yologuys.com/Escape_img/theme/3489.jpg);
-  background-size: cover; */
   background-position: center center;
   height: 400px;
   cursor: pointer;
@@ -36,33 +34,31 @@ interface IProps {
 }
 function ThemeBox({ id, name, rate, imageURL }: IProps) {
   return (
-    <li>
-      <Link href={`/theme/${id}`}>
-        <a>
-          <Box
-            variants={boxVariants}
-            initial="normal"
-            whileHover="hover"
-            transition={{ type: "tween" }}
-          >
-            <Image
-              src="/images/theme.jpeg"
-              width={"250"}
-              height={"310"}
-              alt="theme-image"
-            />
-            <div>
-              <header>
-                <span> {name}</span>
-              </header>
-              <article>
-                <span>{rate}</span>
-              </article>
-            </div>
-          </Box>
-        </a>
-      </Link>
-    </li>
+    <Link href={`/theme/${id}`}>
+      <a>
+        <Box
+          variants={boxVariants}
+          initial="normal"
+          whileHover="hover"
+          transition={{ type: "tween" }}
+        >
+          <Image
+            src="/images/theme.jpeg"
+            width={"250"}
+            height={"310"}
+            alt="theme-image"
+          />
+          <div>
+            <header>
+              <span> {name}</span>
+            </header>
+            <article>
+              <span>{rate}</span>
+            </article>
+          </div>
+        </Box>
+      </a>
+    </Link>
   );
 }
 
