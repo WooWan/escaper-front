@@ -2,7 +2,7 @@ import styled from "styled-components";
 import React, { useState } from "react";
 import { useAddReview } from "../../utils/theme";
 import { useRouter } from "next/router";
-import Button from "../core/button/text-button/TextButton";
+import TextButton from "../core/button/text-button/TextButton";
 import { useSelector } from "react-redux";
 import { selectUser } from "../../store/slices/user";
 
@@ -45,7 +45,7 @@ function ReviewRegister() {
         onChange={handleReviewChange}
       />
       <ButtonWrapper>
-        <Button onClick={onReviewHandle}>리뷰 작성</Button>
+        <TextButton onClick={onReviewHandle}>리뷰 작성</TextButton>
       </ButtonWrapper>
     </>
   );
