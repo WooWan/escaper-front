@@ -1,6 +1,6 @@
 import React, { useMemo, useReducer, useCallback, Fragment } from "react";
+import styled from "styled-components";
 import { StarIcon } from "./star-icon";
-
 const isTouchDevice = () =>
   "ontouchstart" in window || navigator.maxTouchPoints > 0;
 
@@ -132,6 +132,13 @@ export function Rating({
     [ratingValue]
   );
 
+  /**
+   * use pointer event rather than mouse event
+   *
+   * @param event
+   * @see https://developer.mozilla.org/en-US/docs/Web/API/PointerEvent
+   * @returns `void`
+   */
   const onPointerMove = (event: React.PointerEvent<HTMLSpanElement>) => {
     const { clientX, currentTarget } = event;
     // get main span element position and width
@@ -153,6 +160,11 @@ export function Rating({
     }
   };
 
+  /**
+   * handle onEnter
+   * @param event
+   * @returns `void`
+   */
   const onPointerEnter = (event: React.PointerEvent<HTMLSpanElement>) => {
     // enable only on touch devices
     if (!isTouchDevice()) return;
@@ -161,13 +173,22 @@ export function Rating({
     onPointerMove(event);
   };
 
+  /**
+   * handle onClick
+   * @returns `void`
+   */
   const onRate = () => {
     if (hoverValue) {
       dispatch({ type: "MouseClick", payload: hoverValue });
+      // update value on click
       if (onClick) onClick(renderValue(hoverValue));
     }
   };
 
+  /**
+   * handle onLeave
+   * @returns `void`
+   */
   const onPointerLeave = () => {
     if (isTouchDevice()) onRate();
 
@@ -263,7 +284,7 @@ export function Rating({
             display: "inline-block",
             overflow: "hidden",
             whiteSpace: "nowrap",
-            cursor: readonly ? "" : "pointer",
+            cursor: readonly ? "none" : "pointer",
             verticalAlign: "middle",
             userSelect: "none",
             ...style,
