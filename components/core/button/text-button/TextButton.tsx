@@ -1,13 +1,13 @@
 import { ReactNode } from "react";
-import { ButtonWrapper } from "./TextButton.style";
+import { Button } from "./TextButton.style";
 
 interface Props {
-  onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
+  onClick: () => void;
   children?: string | ReactNode;
 }
 
-function Button({ onClick, children }: Props) {
-  return <ButtonWrapper onClick={onClick}>{children}</ButtonWrapper>;
+function TextButton({ onClick, children }: Props) {
+  return <Button onClick={onClick}>{children}</Button>;
 }
 
-export default Button;
+export default TextButton;
