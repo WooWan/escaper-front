@@ -30,7 +30,9 @@ function NavigationHeader() {
   return (
     <Header>
       <Link href="/">
-        <Image src="/vercel.svg" alt="" width={150} height={150} />
+        <a>
+          <Image src="/vercel.svg" alt="" width={150} height={150} />
+        </a>
       </Link>
       <Navigator>
         <LoginBox>
@@ -54,12 +56,12 @@ function NavigationHeader() {
           <LoginBox onClick={handleModalOpen}>로그인/회원가입</LoginBox>
         )}
 
-        {isModalOpen ? (
+        {/* {isModalOpen ? (
           <LoginModal
             google_auth={google_auth}
             handleModalClose={handleModalClose}
           />
-        ) : null}
+        ) : null} */}
         {/* <KakaoLoginButton /> */}
       </Navigator>
     </Header>
