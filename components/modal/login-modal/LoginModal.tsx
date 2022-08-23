@@ -1,36 +1,32 @@
 import Link from "next/link";
-import styled from "styled-components";
+import { useDispatch } from "react-redux";
+import { googleUrl } from "../../../constants/oauth";
+import { closeModal } from "../../../store/slices/Modal";
 import Cancel from "../../icons/cancel";
 import GoogleIcon from "../../icons/GoogleIcon";
+import Modal from "../basic/Modal";
 import {
   ButtonTextWrapper,
   CancelButtonWrapper,
   LoginButton,
   LoginWrapper,
-  LongButtonList as LoginButtonList,
-  ModalBackground,
-  ModalContainer,
+  LoginButtonList,
   ModalWrapper,
   SignInUpText,
 } from "./LoginModal.style";
 
-interface IProps {
-  google_auth: string;
-  handleModalClose: () => void;
-}
-
-function LoginModal({ google_auth, handleModalClose }: IProps) {
+function LoginModal() {
+  const dispatch = useDispatch();
   return (
-    <ModalContainer>
-      <ModalBackground onClick={handleModalClose} />
+    <Modal format="vertical">
       <ModalWrapper>
-        <CancelButtonWrapper onClick={handleModalClose}>
+        <CancelButtonWrapper onClick={() => dispatch(closeModal())}>
           <Cancel />
         </CancelButtonWrapper>
         <LoginWrapper>
           <SignInUpText>로그인/회원가입</SignInUpText>
           <LoginButtonList>
-            <Link href={google_auth}>
+            <Link href={googleUrl}>
               <LoginButton>
                 <GoogleIcon />
                 <ButtonTextWrapper>
@@ -41,7 +37,7 @@ function LoginModal({ google_auth, handleModalClose }: IProps) {
           </LoginButtonList>
         </LoginWrapper>
       </ModalWrapper>
-    </ModalContainer>
+    </Modal>
   );
 }
 
