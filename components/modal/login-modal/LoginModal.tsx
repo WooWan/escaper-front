@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { useDispatch } from "react-redux";
-import { googleUrl } from "../../../constants/oauth";
+import { googleUrl, kakaoUrl } from "../../../constants/oauth";
 import { closeModal } from "../../../store/slices/Modal";
 import Cancel from "../../icons/cancel";
 import GoogleIcon from "../../icons/GoogleIcon";
@@ -36,9 +36,8 @@ function LoginModal() {
                 </ButtonTextWrapper>
               </LoginButton>
             </Link>
-            <Link href={googleUrl}>
+            <Link href={kakaoUrl}>
               <LoginButton>
-                {/* <KakaoIcon /> */}
                 <KakaoWrapper>
                   <KakaoIcon />
                 </KakaoWrapper>
