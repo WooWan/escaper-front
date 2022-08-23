@@ -12,7 +12,6 @@ interface IProps {
   memberRating: number | undefined;
 }
 function RatingSection({ themeRating, memberRating }: IProps) {
-  console.log(themeRating);
   return (
     <RatingWrapper>
       <UserRating rating={memberRating} />

@@ -2,7 +2,6 @@ import Image from "next/image";
 import RatingSection from "../ratings/rating-section";
 import styled, { css } from "styled-components";
 import { useState } from "react";
-import { ITheme } from "../../interfaces";
 import Link from "next/link";
 import { IThemeDetail } from "../../interfaces/theme";
 
@@ -25,7 +24,7 @@ const Description = styled.summary<{ isActive: boolean }>`
       `;
     }
   }}
-}`;
+`;
 const ToggleButton = styled.button`
   align-self: flex-end;
   background: transparent;
@@ -101,7 +100,7 @@ function ThemeInfo({ theme, memberRating }: IProps) {
     phoneNumber,
     cafeName,
   } = theme;
-  // const [theme] = useState(props.theme);
+
   const [isMore, setIsMore] = useState(false);
 
   const handleMoreBtn = () => {
@@ -113,7 +112,6 @@ function ThemeInfo({ theme, memberRating }: IProps) {
         <ImageContainer>
           <Image
             src="/images/escape.jpeg"
-            // objectFit={"cover"}
             alt="theme"
             width={200}
             height={350}

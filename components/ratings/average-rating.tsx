@@ -1,21 +1,28 @@
-import React, {useState} from 'react';
-import {RatingTitle, RatingInfo, Score, ScoreInfo, GeneralRating} from "../../styles/components";
+import React, { useState } from "react";
+import {
+  RatingTitle,
+  RatingInfo,
+  Score,
+  ScoreInfo,
+  GeneralRating,
+} from "../../styles/components";
 import styled from "styled-components";
-import {Rating} from "../core/rating-bar/rating";
+import { Rating } from "../core/rating-bar/rating";
 
-const UserRatingBox= styled(GeneralRating)`
+const UserRatingBox = styled(GeneralRating)``;
+interface IProps {
+  rating: number;
+}
 
-`
-
-function AverageRating() {
-  const [rating] = useState(0);
+function AverageRating({ rating }: IProps) {
+  const [score, setScore] = useState(rating);
   return (
     <UserRatingBox>
       <RatingTitle>평균 별점</RatingTitle>
       <RatingInfo>
-        <Score>3.0</Score>
+        <Score>{score}</Score>
         <ScoreInfo>778개의 별점</ScoreInfo>
-        <Rating ratingValue={rating} readonly transition={true}/>
+        <Rating ratingValue={score} readonly transition={true} />
       </RatingInfo>
     </UserRatingBox>
   );
