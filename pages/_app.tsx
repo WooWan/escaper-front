@@ -3,7 +3,7 @@ import type { AppProps } from "next/app";
 import { useState } from "react";
 import { QueryClient } from "@tanstack/query-core";
 import { QueryClientProvider } from "@tanstack/react-query";
-import Layout from "../components/layout/Layout";
+import Layout from "../components/core/layout/Layout";
 import { ThemeProvider } from "styled-components";
 import { lightTheme } from "../styles/theme";
 import { store } from "../store/config";
