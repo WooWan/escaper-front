@@ -1,7 +1,10 @@
 import { createGlobalStyle } from "styled-components";
 import { ReactNode } from "react";
-import NavigationHeader from "../containers/navigation-header/NavigationHeader";
-import { useAxiosInterceptor } from "../../utils/hooks/useAxiosInterceptor";
+import NavigationHeader from "../../containers/navigation-header/NavigationHeader";
+import { useAxiosInterceptor } from "../../../utils/hooks/useAxiosInterceptor";
+import { useSelector } from "react-redux";
+import { selectModal } from "../../../store/slices/Modal";
+import Modal from "../../containers/modal/Modal";
 
 interface LayoutProps {
   children: ReactNode;
@@ -64,9 +67,12 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 function Layout({ children }: LayoutProps) {
+  const { isOpen } = useSelector(selectModal);
   useAxiosInterceptor();
+
   return (
     <>
+      {isOpen && <Modal />}
       <GlobalStyle />
       <NavigationHeader />
       <div>{children}</div>
