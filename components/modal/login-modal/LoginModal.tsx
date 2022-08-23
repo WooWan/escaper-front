@@ -4,6 +4,7 @@ import { googleUrl } from "../../../constants/oauth";
 import { closeModal } from "../../../store/slices/Modal";
 import Cancel from "../../icons/cancel";
 import GoogleIcon from "../../icons/GoogleIcon";
+import KakaoIcon from "../../icons/KakaoIcon";
 import Modal from "../basic/Modal";
 import {
   ButtonTextWrapper,
@@ -13,6 +14,7 @@ import {
   LoginButtonList,
   ModalWrapper,
   SignInUpText,
+  KakaoWrapper,
 } from "./LoginModal.style";
 
 function LoginModal() {
@@ -31,6 +33,17 @@ function LoginModal() {
                 <GoogleIcon />
                 <ButtonTextWrapper>
                   <p>구글 계정으로 계속하기</p>
+                </ButtonTextWrapper>
+              </LoginButton>
+            </Link>
+            <Link href={googleUrl}>
+              <LoginButton>
+                {/* <KakaoIcon /> */}
+                <KakaoWrapper>
+                  <KakaoIcon />
+                </KakaoWrapper>
+                <ButtonTextWrapper>
+                  <p>카카오 계정으로 계속하기</p>
                 </ButtonTextWrapper>
               </LoginButton>
             </Link>

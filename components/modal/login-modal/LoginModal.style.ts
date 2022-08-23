@@ -48,3 +48,12 @@ export const LoginButton = styled.button`
   padding: 0.5rem 0.75rem;
   cursor: pointer;
 `;
+
+export const KakaoWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f7e600;
+  width: 32px;
+  height: 32px;
+`;
