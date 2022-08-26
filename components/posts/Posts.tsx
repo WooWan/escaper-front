@@ -40,21 +40,27 @@ function Posts() {
   );
   console.log(data);
 
-  const handleObserver = ([entry]: IntersectionObserverEntry[]) => {
-    entry.isIntersecting && fetchNextPage();
-  };
   useEffect(() => {
     const option = {
       root: null,
       rootMargin: "0px",
       threshold: 1.0,
     };
-    const observer = new IntersectionObserver(handleObserver, option);
-    if (loadMoreRef?.current) observer.observe(loadMoreRef?.current);
-    return () => {
-      if (loadMoreRef?.current) observer.unobserve(loadMoreRef?.current);
+
+    const handleObserver = ([entry]: IntersectionObserverEntry[]) => {
+      entry.isIntersecting && fetchNextPage();
     };
-  });
+
+    const observer = new IntersectionObserver(handleObserver, option);
+    let observerRefValue: HTMLDivElement | null = null;
+    if (loadMoreRef?.current) {
+      observerRefValue = loadMoreRef?.current;
+      observer.observe(observerRefValue);
+    }
+    return () => {
+      if (observerRefValue) observer.unobserve(observerRefValue);
+    };
+  }, [loadMoreRef, fetchNextPage]);
   useEffect(() => {
     const scrollY = localStorage.getItem("post_scrollY");
     if (scrollY && scrollY !== "0") {
