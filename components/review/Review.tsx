@@ -1,7 +1,7 @@
-import { Rating } from "react-simple-star-rating";
 import styled from "styled-components";
 import { IReview } from "../../interfaces";
 import IconButton from "../core/button/icon-button/IconButton";
+import { Rating } from "../core/rating-bar/rating";
 import ThumbUp from "../icons/thumb-up";
 
 const ReviewList = styled.li`
