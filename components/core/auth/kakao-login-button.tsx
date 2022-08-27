@@ -11,21 +11,21 @@ const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST
 function KakaoLoginButton() {
   const router = useRouter();
 
-  useEffect(() => {
-    const code = new URL(window.location.href).searchParams.get("code");
+  // useEffect(() => {
+  //   const code = new URL(window.location.href).searchParams.get("code");
 
-    (async () => {
-      try {
-        const res = await axios.get(`api/code=${code}`);
-        const token = res.headers.authorization;
-        window.localStorage.setItem("token", token);
-        router.push("/main");
-      } catch (e) {
-        console.error(e);
-        router.push("/main");
-      }
-    })();
-  }, []);
+  //   (async () => {
+  //     try {
+  //       const res = await axios.get(`api/code=${code}`);
+  //       const token = res.headers.authorization;
+  //       window.localStorage.setItem("token", token);
+  //       router.push("/main");
+  //     } catch (e) {
+  //       console.error(e);
+  //       router.push("/main");
+  //     }
+  //   })();
+  // }, []);
   return (
     <button>
       <a href={KAKAO_AUTH_URL} rel="noopener noreferrer">
