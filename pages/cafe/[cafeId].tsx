@@ -1,9 +1,8 @@
-import { GetStaticPathsContext, GetStaticPropsContext } from "next";
-import { useRouter } from "next/router";
+import {GetStaticPropsContext} from "next";
 import styled from "styled-components";
 import Sidebar from "../../components/cafe/sidebar/sidebar";
 import { ICafe } from "../../interfaces";
-import { httpClient } from "../../utils/httpClient";
+import {fetchCafeById, fetchCafeList} from "../../api/cafe";
 import Cafe from "../../components/cafe/Cafe";
 
 const Container = styled.div`
@@ -12,13 +11,12 @@ const Container = styled.div`
   max-width: 1060px;
   margin: 0 auto;
 `;
+
 interface IProps {
-  cafe: ICafe;
+  cafe: ICafe
 }
 
-function CafePage({ cafe }: IProps) {
-  const router = useRouter();
-  const cafeId = router.query.cafeId;
+function CafePage({cafe}:IProps) {
 
   return (
     <Container>
@@ -28,10 +26,7 @@ function CafePage({ cafe }: IProps) {
   );
 }
 
-async function fetchCafeById(id: string | string[] | undefined) {
-  const response = await httpClient.get(`/api/cafe/${id}`);
-  return response.data;
-}
+
 
 export async function getStaticProps(context: GetStaticPropsContext) {
   const id = context.params?.cafeId;
@@ -43,11 +38,10 @@ export async function getStaticProps(context: GetStaticPropsContext) {
   };
 }
 
-export async function getStaticPaths(context: GetStaticPathsContext) {
-  const response = await httpClient.get<ICafe[]>("/api/cafes");
-  const data = response.data;
+export async function getStaticPaths() {
+  const cafeList = await fetchCafeList();
 
-  const paths = data?.map((cafe) => ({
+  const paths = cafeList?.map((cafe) => ({
     params: { cafeId: cafe.id.toString() },
   }));
   return { paths, fallback: "blocking" };

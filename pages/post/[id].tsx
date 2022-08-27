@@ -1,7 +1,6 @@
 import { Fragment, useState } from "react";
-import { httpClient } from "../../utils/httpClient";
-import { IPost, IPostsPagination } from "../../interfaces";
-import { fetchPost } from "../../utils/post";
+import { IPost } from "../../interfaces";
+import {fetchPost, fetchPosts} from "../../api/post";
 import { GetStaticPropsContext } from "next";
 import Post from "../../components/post/Post";
 import { useRouter } from "next/router";
@@ -37,14 +36,13 @@ function PostDetail(props: IProps) {
 }
 
 export async function getStaticProps(context: GetStaticPropsContext) {
-  const postId = context.params?.id ?? "";
-  const post = await fetchPost(postId.toString());
+  const postId = context.params?.id;
+  const post = await fetchPost(postId);
   return { props: { post }, revalidate: 60 };
 }
 
 export async function getStaticPaths() {
-  const response = await httpClient.get<IPostsPagination>("/api/posts");
-  const data = response.data;
+  const data = await fetchPosts();
   const paths = data?.content?.map((post) => ({
     params: { id: post.postId.toString() },
   }));

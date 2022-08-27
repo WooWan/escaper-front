@@ -1,11 +1,10 @@
 import { GetStaticPropsContext } from "next";
-import { IReview, ITheme } from "../../interfaces";
-import { httpClient } from "../../utils/httpClient";
+import { IReview } from "../../interfaces";
 import {
   fetchReview,
-  fetchThemeById,
+  fetchThemeById, fetchThemeList,
   fetchThemeRatingOfUser,
-} from "../../utils/theme";
+} from "../../api/theme";
 import styled from "styled-components";
 import ThemeInfo from "../../components/theme/ThemeInfo";
 import { useQuery } from "@tanstack/react-query";
@@ -34,7 +33,7 @@ interface IProps {
   theme: IThemeDetail;
 }
 
-function ThemePage({ theme }: IProps) {
+function ThemePage({theme}:IProps) {
   const router = useRouter();
   const themeId = router.query.id;
   const { user } = useSelector(selectUser);
@@ -64,15 +63,12 @@ function ThemePage({ theme }: IProps) {
 export async function getStaticProps(context: GetStaticPropsContext) {
   const id = context.params?.id;
   const theme = await fetchThemeById(id);
-
   return { props: { theme }, revalidate: 3600 };
 }
 
 export async function getStaticPaths() {
-  const response = await httpClient.get<ITheme[]>("/api/themes");
-  const data = response.data;
-  const paths = data?.map((theme) => ({ params: { id: theme.id.toString() } }));
-
+  const themeList = await fetchThemeList();
+  const paths = themeList?.map((theme) => ({ params: { id: theme.id.toString() } }));
   return { paths, fallback: "blocking" };
 }
 
