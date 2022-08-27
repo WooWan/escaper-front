@@ -38,7 +38,6 @@ function Posts() {
       },
     }
   );
-  console.log(data);
 
   useEffect(() => {
     const option = {

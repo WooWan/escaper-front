@@ -4,10 +4,8 @@ import { ButtonType } from "./TextButton";
 const handleButtonColor = (theme: DefaultTheme, buttonType?: ButtonType) => {
   switch (buttonType) {
     case "primary":
-      console.log(theme.primaryColor);
       return theme.primaryColor;
     case "destructive":
-      console.log(theme.destructiveColor);
       return theme.destructiveColor;
     default:
       return theme.secondaryColor;
