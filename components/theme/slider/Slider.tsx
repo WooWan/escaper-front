@@ -2,12 +2,11 @@ import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import styled from "styled-components";
 import { ITheme, IThemesType } from "../../../interfaces";
-import Link from "next/link";
 import useWindowSize from "../../../utils/hooks/useWindowSize";
 import AngleRight from "../../icons/angle-right";
 import AngleLeft from "../../icons/angle-left";
 import { useQuery } from "@tanstack/react-query";
-import { fetchPopularTheme, fetchThemeByGenre } from "../../../utils/theme";
+import { fetchPopularTheme, fetchThemeByGenre } from "../../../api/theme";
 import ThemeBox from "../../core/theme-box";
 
 const Row = styled(motion.div)`

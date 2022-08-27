@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import React, { useState } from "react";
-import { useAddReview } from "../../utils/theme";
+import { useAddReview } from "../../api/theme";
 import { useRouter } from "next/router";
 import TextButton from "../core/button/text-button/TextButton";
 import { useSelector } from "react-redux";

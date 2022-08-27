@@ -1,4 +1,4 @@
-import { IMember } from "./../interfaces/member.d";
+import { IMember } from "../interfaces/member";
 import { httpClient } from "../utils/httpClient";
 import { ApiResponse } from "../interfaces/apiResponse";
 
