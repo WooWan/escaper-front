@@ -17,22 +17,22 @@ export async function fetchThemeRatingOfUser(
 
 export async function fetchThemeById(id: string | string[] | undefined) {
   const response = await httpClient.get<IThemeDetail>(`/api/theme/${id}`);
-  return await response.data;
+  return response.data;
 }
 
 export async function fetchPopularTheme() {
   const response = await httpClient.get("/api/themes/popular");
-  return await response.data;
+  return response.data;
 }
 
 export async function fetchThemeByGenre(genre: string) {
   const response = await httpClient.get(`/api/themes/${genre}`);
-  return await response.data;
+  return response.data;
 }
 
 export async function fetchThemeTypes() {
   const response = await httpClient.get(`/api/themes/type`);
-  return await response.data;
+  return response.data;
 }
 interface IReviewRequest {
   themeId: string | string[] | undefined;
@@ -45,8 +45,8 @@ export const fetchReview = async (themeId: string | string[] | undefined) => {
   return response.data;
 };
 
-export function addReview({ themeId, memberId, review }: IReviewRequest) {
-  return httpClient.post(`/api/review/${themeId}/member/${memberId}`, {
+export async function addReview({ themeId, memberId, review }: IReviewRequest) {
+  return await httpClient.post(`/api/review/${themeId}/member/${memberId}`, {
     content: review,
   });
 }

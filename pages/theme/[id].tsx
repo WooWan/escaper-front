@@ -70,7 +70,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
 
 export async function getStaticPaths() {
   const response = await httpClient.get<ITheme[]>("/api/themes");
-  const data = await response.data;
+  const data = response.data;
   const paths = data?.map((theme) => ({ params: { id: theme.id.toString() } }));
 
   return { paths, fallback: "blocking" };

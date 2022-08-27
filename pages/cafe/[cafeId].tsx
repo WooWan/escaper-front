@@ -30,11 +30,10 @@ function CafePage({ cafe }: IProps) {
 
 async function fetchCafeById(id: string | string[] | undefined) {
   const response = await httpClient.get(`/api/cafe/${id}`);
-  return await response.data;
+  return response.data;
 }
 
 export async function getStaticProps(context: GetStaticPropsContext) {
-  console.log(context.params);
   const id = context.params?.cafeId;
   const cafe = await fetchCafeById(id);
 
@@ -46,7 +45,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
 
 export async function getStaticPaths(context: GetStaticPathsContext) {
   const response = await httpClient.get<ICafe[]>("/api/cafes");
-  const data = await response.data;
+  const data = response.data;
 
   const paths = data?.map((cafe) => ({
     params: { cafeId: cafe.id.toString() },

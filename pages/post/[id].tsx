@@ -44,7 +44,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
 
 export async function getStaticPaths() {
   const response = await httpClient.get<IPostsPagination>("/api/posts");
-  const data = await response.data;
+  const data = response.data;
   const paths = data?.content?.map((post) => ({
     params: { id: post.postId.toString() },
   }));

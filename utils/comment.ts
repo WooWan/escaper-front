@@ -2,16 +2,16 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { httpClient } from "./httpClient";
 import { IComment, ICommentResponse } from "../interfaces";
 
-function addComment(comment: IComment) {
+async function addComment(comment: IComment) {
   const content = comment.content;
-  return httpClient.post("/api/comment", content, {
+  return await httpClient.post("/api/comment", content, {
     params: { postId: comment.postId },
   });
 }
 
 async function fetchComments(postId: number) {
   const response = await httpClient.get("/api/comment", { params: { postId } });
-  return await response.data;
+  return response.data;
 }
 
 export const useCommentData = (postId: number) => {
