@@ -1,4 +1,4 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { closeModal, openModal } from "../../../store/slices/Modal";
 import TextButton from "../../core/button/text-button/TextButton";
 import Modal from "../basic/Modal";
@@ -16,7 +16,6 @@ function LoginErrorModal() {
     dispatch(
       openModal({
         modalType: "LoginModal",
-        content: "login",
         isOpen: true,
       })
     );
@@ -25,7 +24,7 @@ function LoginErrorModal() {
     <Modal format={"horizontal"}>
       <Wrapper>
         <main>
-          <Content>로그인 후 이용해주세요</Content>
+          <Content>로그인 후 이용해주세요.</Content>
         </main>
         <Footer>
           <ButtonWrapper>
