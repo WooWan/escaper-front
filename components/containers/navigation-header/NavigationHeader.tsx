@@ -17,7 +17,6 @@ function NavigationHeader() {
     dispatch(
       openModal({
         modalType: "LoginModal",
-        content: "login",
         isOpen: true,
       })
     );

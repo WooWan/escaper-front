@@ -2,10 +2,17 @@ import { RootState } from "./../config";
 import { IMember } from "./../../interfaces/member.d";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-interface UserState {
-  user: IMember | null;
-  isLogin: boolean;
-}
+type LoginState = {
+  user: IMember;
+  isLogin: true;
+};
+type LogoutState = {
+  user: null;
+  isLogin: false;
+};
+
+type UserState = LoginState | LogoutState;
+
 const initialState: UserState = {
   user: null,
   isLogin: false,
@@ -19,7 +26,7 @@ export const userSlice = createSlice({
       state.user = action.payload;
       state.isLogin = true;
     },
-    logoutUser: (state) => {
+    logoutUser: (state: UserState) => {
       state.user = null;
       state.isLogin = false;
     },
@@ -29,6 +36,6 @@ export const userSlice = createSlice({
   },
 });
 
-export const selectUser = (state: RootState) => state.user;
+export const selectUser = (state: RootState) => state.user as UserState;
 export const { loginUser, logoutUser, updateUser } = userSlice.actions;
 export default userSlice.reducer;
