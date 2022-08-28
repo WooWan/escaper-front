@@ -4,10 +4,10 @@ import {
 } from "../interfaces/theme";
 import { httpClient } from "../utils/httpClient";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import {ITheme} from "../interfaces";
+import { ITheme } from "../interfaces";
 
-export async function fetchThemeList(){
-  const response = await httpClient.get<ITheme[]>("api/themes")
+export async function fetchThemeList() {
+  const response = await httpClient.get<ITheme[]>("api/themes");
   return response.data;
 }
 
@@ -42,7 +42,7 @@ export async function fetchThemeTypes() {
 }
 interface IReviewRequest {
   themeId: string | string[] | undefined;
-  memberId: number;
+  memberId: number | undefined;
   review: string;
 }
 
