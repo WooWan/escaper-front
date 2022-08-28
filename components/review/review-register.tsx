@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import TextButton from "../core/button/text-button/TextButton";
 import { useSelector } from "react-redux";
 import { selectUser } from "../../store/slices/user";
+import useValidateUser from "../../utils/useValidateUser";
 
 const CommentTextArea = styled.textarea`
   padding: 1rem 1rem 1.5rem;
@@ -18,17 +19,16 @@ const ButtonWrapper = styled.div`
 function ReviewRegister() {
   const router = useRouter();
   const themeId = router.query.id;
-
   const { user } = useSelector(selectUser);
+  const { validateUser } = useValidateUser();
   const memberId = user?.id;
 
   const [review, setReview] = useState("");
   const { mutate: addReview } = useAddReview(themeId);
 
   const onReviewHandle = () => {
-    if (memberId) {
-      addReview({ themeId, memberId, review });
-    }
+    validateUser();
+    addReview({ themeId, memberId, review });
   };
 
   const handleReviewChange = (
@@ -43,6 +43,7 @@ function ReviewRegister() {
         id=""
         placeholder="방탈출에 대한 내 평가를 남겨보세요!"
         onChange={handleReviewChange}
+        onClick={validateUser}
       />
       <ButtonWrapper>
         <TextButton onClick={onReviewHandle}>리뷰 작성</TextButton>

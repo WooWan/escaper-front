@@ -1,8 +1,8 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
+import { openModal } from "../../store/slices/Modal";
 import { selectUser } from "../../store/slices/user";
 import {
   GeneralRating,
@@ -22,8 +22,9 @@ function UserRating({ rating }: IProps) {
   const router = useRouter();
   const [score, setScore] = useState(rating ? rating : 0);
   const themeId = router.query.id;
-  const { isLogin, user } = useSelector(selectUser);
+  const { user } = useSelector(selectUser);
   const memberId = user?.id;
+  const dispatch = useDispatch();
 
   const { mutate: handleRate } = useRateTheme(memberId, themeId);
 
@@ -32,9 +33,12 @@ function UserRating({ rating }: IProps) {
       setScore(rating);
       handleRate({ themeId, memberId, rating });
     } else {
-      /**
-       * 회원가입 또는 로그인 로직 요청
-       */
+      dispatch(
+        openModal({
+          modalType: "basic",
+          isOpen: true,
+        })
+      );
     }
   };
   const toolTipArray = [
