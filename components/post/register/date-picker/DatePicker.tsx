@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Control, Controller } from "react-hook-form";
 import { IForm } from "../../../../interfaces/post";
-import styles from "./DatePicker.module.css";
 import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 interface IDateSelect {
   control: Control<IForm>;
@@ -24,7 +24,6 @@ function DateSelector({ control }: IDateSelect) {
             showDisabledMonthNavigation
             dateFormat="yyyy/MM/dd"
             onChange={onChange}
-            popperClassName={styles.reactDatepickerPopper}
           />
         )}
       />
