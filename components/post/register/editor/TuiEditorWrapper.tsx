@@ -6,6 +6,6 @@ export interface TuiEditorWithForwardedProps extends EditorProps {
 }
 
 const ToastEditor = (props: TuiEditorWithForwardedProps) => (
-  <Editor {...props} ref={props.forwardedRef} />
+  <Editor {...props} ref={props.forwardedRef} hideModeSwitch={true} />
 );
 export default ToastEditor;
