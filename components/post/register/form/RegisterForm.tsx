@@ -8,7 +8,7 @@ import Counter from "../counter/Counter";
 import DatePicker from "../date-picker/DatePicker";
 import WysiwygEditor from "../editor/WysiwygEditor";
 import SelectInput from "../input/SelectInput";
-import { Form, SubmitButton } from "./RegisterForm.style";
+import { Form, Input, SubmitButton } from "./RegisterForm.style";
 
 function PostRegister() {
   const { register, handleSubmit, control } = useForm<IForm>();
@@ -38,7 +38,7 @@ function PostRegister() {
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
       <main>
-        <input
+        <Input
           {...register("title")}
           type="text"
           placeholder="제목을 입력해주세요"
