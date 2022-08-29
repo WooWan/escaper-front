@@ -1,5 +1,5 @@
-import { httpClient } from "../utils/httpClient";
-import {IPostsPagination} from "../interfaces";
+import { httpClient } from "../../utils/httpClient";
+import { IPostsPagination } from "../../interfaces";
 
 export const fetchPosts = async () => {
   const response = await httpClient.get<IPostsPagination>("/api/posts");
