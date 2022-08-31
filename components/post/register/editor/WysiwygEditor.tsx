@@ -3,6 +3,7 @@ import * as React from "react";
 import { Editor as EditorType, EditorProps } from "@toast-ui/react-editor";
 import "@toast-ui/editor/dist/toastui-editor.css";
 import { TuiEditorWithForwardedProps } from "./TuiEditorWrapper";
+import { useCallback, useRef } from "react";
 
 interface EditorPropsWithHandlers extends EditorProps {
   onChange?(value: string): void;
@@ -27,15 +28,15 @@ interface IWysiwygEditor extends EditorProps {
 
 function WysiwygEditor(props: IWysiwygEditor) {
   const { height, initialEditType, useCommandShortcut, onChange } = props;
-  const editorRef = React.useRef<EditorType>();
+  const editorRef = useRef<EditorType>();
   const placeHolder = "내용을 입력해주세요.";
-  const handleChange = React.useCallback(() => {
+  const handleChange = useCallback(() => {
     if (!editorRef.current) {
       return;
     }
     const instance = editorRef.current.getInstance();
     onChange(instance.getMarkdown());
-  }, [props, editorRef, onChange]);
+  }, [editorRef, onChange]);
 
   return (
     <EditorWithForwardedRef
