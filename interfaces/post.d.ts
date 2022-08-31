@@ -1,10 +1,10 @@
 export interface IForm {
   title: string;
   content: string;
-  region: string;
-  city: string;
-  area: string;
   date: Date;
+  city: string;
+  region: string;
+  area: string;
   cafe: string;
   theme: string;
 }
