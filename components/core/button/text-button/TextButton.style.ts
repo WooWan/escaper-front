@@ -8,12 +8,19 @@ const handleButtonColor = (theme: DefaultTheme, buttonType?: ButtonType) => {
     case "destructive":
       return theme.destructiveColor;
     default:
-      return theme.secondaryColor;
+      return theme.gray_lighter;
+  }
+};
+
+const handleTextColor = (theme: DefaultTheme, buttonType?: ButtonType) => {
+  if (buttonType === "basic") {
+    return theme.text_dark1;
+  } else {
+    return theme.text_light1;
   }
 };
 
 export const Button = styled.button<{ buttonType?: ButtonType }>`
-  color: ${(props) => props.theme.buttonText};
   border-radius: 0.5rem;
   width: 4rem;
   height: 2rem;
@@ -21,6 +28,7 @@ export const Button = styled.button<{ buttonType?: ButtonType }>`
   font-weight: 500;
   text-align: center;
   cursor: pointer;
+  color: ${({ buttonType, theme }) => handleTextColor(theme, buttonType)};
   background-color: ${({ buttonType, theme }) =>
     handleButtonColor(theme, buttonType)};
 `;
