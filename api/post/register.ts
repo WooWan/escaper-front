@@ -9,7 +9,8 @@ const makeURL = (resource: string, param: string, condition?: string) => {
 };
 
 export const addPost = async ({ ...post }) => {
-  return await httpClient.post("/api/post", post);
+  const id = await httpClient.post("/api/post", post);
+  return id;
 };
 
 export const fetchCityList = async () => {
@@ -38,7 +39,7 @@ export const fetchThemeList = async (cafe?: string) => {
 export function useAddPost() {
   const queryClient = useQueryClient();
   return useMutation(addPost, {
-    onSuccess: async () => {
+    onSuccess: async ({ data }) => {
       await queryClient.invalidateQueries(["posts"]);
     },
     onError: (error) => {
