@@ -28,7 +28,7 @@ interface IPostsPageImpl {
 function Posts() {
   const loadMoreRef = useRef<HTMLDivElement | null>(null);
   const { data, fetchNextPage } = useInfiniteQuery<IPostsPageImpl>(
-    ["postList"],
+    ["posts"],
     fetchPostsInfinite,
     {
       getNextPageParam: (lastPage) => {
@@ -60,6 +60,7 @@ function Posts() {
       if (observerRefValue) observer.unobserve(observerRefValue);
     };
   }, [loadMoreRef, fetchNextPage]);
+
   useEffect(() => {
     const scrollY = localStorage.getItem("post_scrollY");
     if (scrollY && scrollY !== "0") {

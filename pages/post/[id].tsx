@@ -1,6 +1,6 @@
 import { Fragment, useState } from "react";
 import { IPost } from "../../interfaces";
-import {fetchPost, fetchPosts} from "../../api/post";
+import { fetchPost, fetchPosts } from "../../api/post/post";
 import { GetStaticPropsContext } from "next";
 import Post from "../../components/post/Post";
 import { useRouter } from "next/router";
