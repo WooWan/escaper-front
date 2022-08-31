@@ -8,7 +8,13 @@ import Counter from "../counter/Counter";
 import DatePicker from "../date-picker/DatePicker";
 import WysiwygEditor from "../editor/WysiwygEditor";
 import SelectInput from "../input/SelectInput";
-import { Form, Input, SubmitButton } from "./RegisterForm.style";
+import {
+  ButtonWrapper,
+  Container,
+  Form,
+  Input,
+  SubmitButton,
+} from "./RegisterForm.style";
 
 function PostRegister() {
   const { register, handleSubmit, control } = useForm<IForm>();
@@ -16,11 +22,13 @@ function PostRegister() {
   const [content, setContent] = useState<string | undefined>("");
   const { mutate: addPost } = useAddPost();
   const [participation, setParticipation] = useState(1);
-  const onSubmit = async (data: any) => {
-    const { date: appointmentDate } = data;
-    const post = { ...data, content, participation, appointmentDate };
-    addPost(post);
-    router.push("/");
+  const onSubmit = async (data: IForm) => {
+    const post = { ...data, content, participation };
+    addPost(post, {
+      onSuccess: ({ data }) => {
+        router.push(`/post/${data}`);
+      },
+    });
   };
   const handleInputChange = (content?: string) => {
     setContent(content);
@@ -36,27 +44,31 @@ function PostRegister() {
     router.push("/");
   };
   return (
-    <Form onSubmit={handleSubmit(onSubmit)}>
-      <main>
-        <Input
-          {...register("title")}
-          type="text"
-          placeholder="제목을 입력해주세요"
+    <Container>
+      <Form onSubmit={handleSubmit(onSubmit)}>
+        <main>
+          <Input
+            {...register("title")}
+            type="text"
+            placeholder="제목을 입력해주세요"
+          />
+        </main>
+        <SelectInput control={control} />
+        <DatePicker control={control} />
+        <Counter
+          participation={participation}
+          incrementCount={incrementCount}
+          decrementCount={decrementCount}
         />
-      </main>
-      <SelectInput control={control} />
-      <DatePicker control={control} />
-      <Counter
-        participation={participation}
-        incrementCount={incrementCount}
-        decrementCount={decrementCount}
-      />
-      <WysiwygEditor onChange={handleInputChange} />
-      <div>
-        <TextButton onClick={onCancel}>취소하기</TextButton>
-        <SubmitButton>취소하기</SubmitButton>
-      </div>
-    </Form>
+        <WysiwygEditor onChange={handleInputChange} />
+        <ButtonWrapper>
+          <TextButton onClick={onCancel} buttonType={"basic"}>
+            취소하기
+          </TextButton>
+          <SubmitButton buttonType={"primary"}>글 등록</SubmitButton>
+        </ButtonWrapper>
+      </Form>
+    </Container>
   );
 }
 
