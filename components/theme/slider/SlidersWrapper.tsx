@@ -1,4 +1,4 @@
-import Slider from "./Slider";
+import Slider from "./slider/Slider";
 import styled from "styled-components";
 import { IThemesType } from "../../../interfaces";
 

@@ -1,48 +1,15 @@
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import styled from "styled-components";
-import { IThemeInfo, IThemesType } from "../../../interfaces";
-import useWindowSize from "../../../utils/hooks/useWindowSize";
-import AngleRight from "../../icons/angle-right";
-import AngleLeft from "../../icons/angle-left";
+import { IThemeInfo, IThemesType } from "../../../../interfaces";
+import useWindowSize from "../../../../utils/hooks/useWindowSize";
+import AngleRight from "../../../icons/angle-right";
+import AngleLeft from "../../../icons/angle-left";
 import { useQuery } from "@tanstack/react-query";
-import { fetchPopularTheme, fetchThemeByGenre } from "../../../api/theme";
-import ThemeBox from "../../core/theme-box";
-
-const Row = styled(motion.div)`
-  display: grid;
-  gap: 5px;
-  grid-template-columns: repeat(6, 1fr);
-  position: absolute;
-  width: 100%;
-`;
-
-const Button = styled.div<{ visible: boolean }>`
-  display: flex;
-  flex-direction: column;
-  visibility: hidden;
-  justify-content: center;
-  transition: 1s linear;
-  z-index: 20;
-  width: 30px;
-  height: 400px;
-`;
-
-const Slide = styled.li`
-  position: relative;
-  display: flex;
-  justify-content: space-between;
-  align-content: center;
-  height: 450px;
-  &:hover ${Button} {
-    cursor: pointer;
-    background-color: black;
-    color: white;
-    opacity: 0.6;
-    visibility: visible;
-  }
-  cursor: pointer;
-`;
+import { fetchPopularTheme, fetchThemeByGenre } from "../../../../api/theme";
+import ThemeBox from "../../../core/theme-box/ThemeBox";
+import { TitleFont } from "../../../core/font/TitleFonts";
+import { Button, Row, Slide, TitleWrapper } from "./Slider.style";
 
 const OFFSET = 6;
 
@@ -51,12 +18,26 @@ function Slider({ genre }: IThemesType) {
     ["theme", genre],
     genre === "popular" ? fetchPopularTheme : () => fetchThemeByGenre(genre)
   );
-  // console.log(data);
+
   const [visible, setVisible] = useState(false);
   const [index, setIndex] = useState(0);
   const [leaving, setLeaving] = useState(false);
   const [back, setBack] = useState(false);
   const size = useWindowSize();
+
+  interface GenreType {
+    [key: string]: string;
+  }
+  const genreTitle: GenreType = {
+    popular: "현재 인기 있는 테마를 즐겨보세요!",
+    공포: "일상의 지루함에는 오싹한 탈출!",
+    로맨스: "두근두근한 방탈출의 경험",
+    미스터리: "미스터리한 방에 어떤 것이 숨겨져 있을까요?",
+  };
+
+  const handleTitle = (genre: string): string => {
+    return genreTitle[genre];
+  };
   const rowVariants = {
     entry: (isBack: boolean) => ({
       x: isBack ? -(size.width + 5) : size.width + 5,
@@ -91,7 +72,9 @@ function Slider({ genre }: IThemesType) {
 
   return (
     <div>
-      <span>{genre}</span>
+      <TitleWrapper>
+        <TitleFont fontSize="1.4rem">{handleTitle(genre)}</TitleFont>
+      </TitleWrapper>
       <Slide onMouseOver={setVisibleOn} onMouseOut={setVisibleOff}>
         <Button onClick={prevSlide} visible={visible}>
           <AngleLeft />
