@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { useState } from "react";
 import styled from "styled-components";
-import { ICafe, ITheme } from "../../interfaces";
+import { ICafe, IThemeInfo } from "../../interfaces";
 import { Rating } from "../core/rating-bar/rating";
 import ThemeBox from "../core/theme-box";
 
@@ -53,10 +53,10 @@ function Cafe({ cafe }: IProps) {
   const { name, themes } = cafe;
   const [rate, setRate] = useState(0);
 
-  const findAverageAge = (arr: ITheme[]) => {
+  const findAverageAge = (arr: IThemeInfo[]) => {
     const { length } = arr;
     return arr.reduce((acc, val) => {
-      return acc + val.rate / length;
+      return acc + val.rating / length;
     }, 0);
   };
   const averageRate = findAverageAge(themes);
@@ -96,7 +96,7 @@ function Cafe({ cafe }: IProps) {
                   <Rating
                     size={20}
                     ratingValue={rate}
-                    initialValue={theme.rate}
+                    initialValue={theme.rating}
                     readonly
                     transition
                   />

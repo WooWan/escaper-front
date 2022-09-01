@@ -3,11 +3,12 @@ export interface IThemesType {
   genre: string;
 }
 
-export interface ITheme {
+export interface IThemeInfo {
   id: number;
+  cafeName: string;
   name: string;
   genre: string;
-  rate: number;
+  rating: number;
   imageURL: string;
 }
 
@@ -58,5 +59,5 @@ export interface IRatingRequest {
 export interface ICafe {
   id: number;
   name: string;
-  themes: ITheme[];
+  themes: IThemeInfo[];
 }

@@ -4,10 +4,10 @@ import {
 } from "../interfaces/theme";
 import { httpClient } from "../utils/httpClient";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { ITheme } from "../interfaces";
+import { IThemeInfo } from "../interfaces";
 
 export async function fetchThemeList() {
-  const response = await httpClient.get<ITheme[]>("api/themes");
+  const response = await httpClient.get<IThemeInfo[]>("api/themes");
   return response.data;
 }
 

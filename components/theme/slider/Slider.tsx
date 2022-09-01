@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import styled from "styled-components";
-import { ITheme, IThemesType } from "../../../interfaces";
+import { IThemeInfo, IThemesType } from "../../../interfaces";
 import useWindowSize from "../../../utils/hooks/useWindowSize";
 import AngleRight from "../../icons/angle-right";
 import AngleLeft from "../../icons/angle-left";
@@ -47,10 +47,11 @@ const Slide = styled.li`
 const OFFSET = 6;
 
 function Slider({ genre }: IThemesType) {
-  const { data } = useQuery<ITheme[]>(
+  const { data } = useQuery<IThemeInfo[]>(
     ["theme", genre],
     genre === "popular" ? fetchPopularTheme : () => fetchThemeByGenre(genre)
   );
+  // console.log(data);
   const [visible, setVisible] = useState(false);
   const [index, setIndex] = useState(0);
   const [leaving, setLeaving] = useState(false);

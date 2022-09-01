@@ -4,7 +4,6 @@ import { useCookies } from "react-cookie";
 import { useDispatch } from "react-redux";
 import { fetchMember } from "../../api/member";
 import { loginUser } from "../../store/slices/user";
-import { httpClient } from "../../utils/httpClient";
 import { setStorageItem } from "../../utils/storage";
 
 function Redirect() {
