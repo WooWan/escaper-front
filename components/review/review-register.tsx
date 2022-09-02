@@ -3,9 +3,10 @@ import React, { useState } from "react";
 import { useAddReview } from "../../api/theme";
 import { useRouter } from "next/router";
 import TextButton from "../core/button/text-button/TextButton";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { selectUser } from "../../store/slices/user";
 import useValidateUser from "../../utils/useValidateUser";
+import { openModal } from "../../store/slices/Modal";
 
 const CommentTextArea = styled.textarea`
   padding: 1rem 1rem 1.5rem;
@@ -18,17 +19,26 @@ const ButtonWrapper = styled.div`
 `;
 function ReviewRegister() {
   const router = useRouter();
-  const themeId = router.query.id;
-  const { user } = useSelector(selectUser);
+  const dispatch = useDispatch();
   const { validateUser } = useValidateUser();
+  const themeId = router.query.id;
+  const { user, isLogin } = useSelector(selectUser);
   const memberId = user?.id;
 
   const [review, setReview] = useState("");
   const { mutate: addReview } = useAddReview(themeId);
 
   const onReviewHandle = () => {
-    validateUser();
-    addReview({ themeId, memberId, review });
+    if (!isLogin) {
+      dispatch(
+        openModal({
+          modalType: "LoginModal",
+          isOpen: true,
+        })
+      );
+    } else {
+      addReview({ themeId, memberId, review });
+    }
   };
 
   const handleReviewChange = (
