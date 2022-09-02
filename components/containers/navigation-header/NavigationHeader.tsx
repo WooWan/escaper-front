@@ -6,9 +6,12 @@ import { useAxiosInterceptor } from "../../../utils/hooks/useAxiosInterceptor";
 import { useDispatch, useSelector } from "react-redux";
 import { selectUser } from "../../../store/slices/user";
 import { openModal } from "../../../store/slices/Modal";
+import { useRouter } from "next/router";
+import { TitleFont } from "../../core/font/TitleFonts";
 
 function NavigationHeader() {
   const dispatch = useDispatch();
+  const router = useRouter();
 
   const { isLogin } = useSelector(selectUser);
   useAxiosInterceptor();
@@ -22,23 +25,31 @@ function NavigationHeader() {
     );
   };
 
+  const handleRegisterPost = (href: string) => {
+    if (isLogin) {
+      dispatch(
+        openModal({
+          modalType: "basic",
+          isOpen: true,
+        })
+      );
+    } else {
+      router.push(href);
+    }
+  };
+
   return (
     <Header>
-      <Link href="/">
-        <a>
-          <Image src="/vercel.svg" alt="" width={150} height={150} />
-        </a>
-      </Link>
+      <div>
+        <Link href="/">
+          <TitleFont fontSize="2rem">Escapers</TitleFont>
+        </Link>
+      </div>
       <Navigator>
         <LoginBox>
-          <Link href="/post/register">
-            <a>방탈출 모집</a>
-          </Link>
-        </LoginBox>
-        <LoginBox>
-          <Link href="/cafe">
-            <a>카페</a>
-          </Link>
+          <button onClick={() => handleRegisterPost("/post/register")}>
+            방탈출 모집
+          </button>
         </LoginBox>
         <LoginBox>
           <Link href="/theme">
