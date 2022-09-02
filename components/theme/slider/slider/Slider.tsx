@@ -92,7 +92,7 @@ function Slider({ genre }: IThemesType) {
             {data
               ?.slice(OFFSET * index, OFFSET * index + OFFSET)
               .map((theme) => (
-                <ThemeBox key={theme.id} {...theme} />
+                <ThemeBox key={theme.themeId} {...theme} />
               ))}
           </Row>
         </AnimatePresence>
