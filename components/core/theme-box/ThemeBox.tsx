@@ -21,7 +21,6 @@ const boxVariants = {
 };
 
 function ThemeBox({ rating, name, cafeName, imageURL, themeId }: IThemeInfo) {
-  console.log(themeId);
   return (
     <Link href={`/theme/${themeId}`}>
       <a>

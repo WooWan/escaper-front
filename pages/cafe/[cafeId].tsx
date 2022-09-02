@@ -1,8 +1,8 @@
-import {GetStaticPropsContext} from "next";
+import { GetStaticPropsContext } from "next";
 import styled from "styled-components";
 import Sidebar from "../../components/cafe/sidebar/sidebar";
 import { ICafe } from "../../interfaces";
-import {fetchCafeById, fetchCafeList} from "../../api/cafe";
+import { fetchCafeById, fetchCafeList } from "../../api/cafe";
 import Cafe from "../../components/cafe/Cafe";
 
 const Container = styled.div`
@@ -13,11 +13,10 @@ const Container = styled.div`
 `;
 
 interface IProps {
-  cafe: ICafe
+  cafe: ICafe;
 }
 
-function CafePage({cafe}:IProps) {
-
+function CafePage({ cafe }: IProps) {
   return (
     <Container>
       <Sidebar />
@@ -25,8 +24,6 @@ function CafePage({cafe}:IProps) {
     </Container>
   );
 }
-
-
 
 export async function getStaticProps(context: GetStaticPropsContext) {
   const id = context.params?.cafeId;
