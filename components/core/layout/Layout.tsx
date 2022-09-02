@@ -31,9 +31,13 @@ const GlobalStyle = createGlobalStyle`
     vertical-align: baseline;
     font-family: 'Noto Sans KR', sans-serif;
   }
-  ul {
+  ul, li {
     list-style: none;
   }
+  button {
+    background-color: transparent;
+  }
+
 
   /* HTML5 display-role reset for older browsers */
   article, aside, details, figcaption, figure,
