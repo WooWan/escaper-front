@@ -9,9 +9,10 @@ export const Header = styled.nav`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  padding: 2rem 1.75rem;
 `;
 
-export const LoginBox = styled.button`
+export const LoginBox = styled.li`
   cursor: pointer;
   background-color: transparent;
   font-size: 18px;
