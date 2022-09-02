@@ -87,7 +87,7 @@ function Cafe({ cafe }: IProps) {
         <span>{name}의 테마에 대해서 둘러보세요!</span>
         <ThemeList>
           {themes.map((theme) => (
-            <Link key={theme.id} href={`/theme/${theme.id}`}>
+            <Link key={theme.themeId} href={`/theme/${theme.themeId}`}>
               <div>
                 <ThemeBox {...theme} />
                 <h1>{theme.name}</h1>
