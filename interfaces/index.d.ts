@@ -4,7 +4,7 @@ export interface IThemesType {
 }
 
 export interface IThemeInfo {
-  id: number;
+  themeId: number;
   cafeName: string;
   name: string;
   genre: string;

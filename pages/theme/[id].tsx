@@ -2,7 +2,8 @@ import { GetStaticPropsContext } from "next";
 import { IReview } from "../../interfaces";
 import {
   fetchReview,
-  fetchThemeById, fetchThemeList,
+  fetchThemeById,
+  fetchThemeList,
   fetchThemeRatingOfUser,
 } from "../../api/theme";
 import styled from "styled-components";
@@ -33,7 +34,7 @@ interface IProps {
   theme: IThemeDetail;
 }
 
-function ThemePage({theme}:IProps) {
+function ThemePage({ theme }: IProps) {
   const router = useRouter();
   const themeId = router.query.id;
   const { user } = useSelector(selectUser);
@@ -68,7 +69,9 @@ export async function getStaticProps(context: GetStaticPropsContext) {
 
 export async function getStaticPaths() {
   const themeList = await fetchThemeList();
-  const paths = themeList?.map((theme) => ({ params: { id: theme.id.toString() } }));
+  const paths = themeList?.map((theme) => ({
+    params: { id: theme.themeId.toString() },
+  }));
   return { paths, fallback: "blocking" };
 }
 

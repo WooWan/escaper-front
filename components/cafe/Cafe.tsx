@@ -4,7 +4,7 @@ import { useState } from "react";
 import styled from "styled-components";
 import { ICafe, IThemeInfo } from "../../interfaces";
 import { Rating } from "../core/rating-bar/rating";
-import ThemeBox from "../core/theme-box";
+import ThemeBox from "../core/theme-box/ThemeBox";
 
 const Header = styled.header`
   display: flex;
