@@ -11,7 +11,12 @@ import CommentRegister from "../../components/comment/comment-register";
 
 const CommentSection = styled.div`
   margin: 0 auto;
-  width: 768px;
+  /* width: 768px; */
+`;
+
+export const Container = styled.div`
+  max-width: 920px;
+  margin: 0 auto;
 `;
 
 interface IProps {
@@ -25,13 +30,13 @@ function PostDetail(props: IProps) {
   const [post] = useState(props.post);
 
   return (
-    <Fragment>
+    <Container>
       <Post data={post} />
       <CommentSection>
         <CommentRegister postId={+postId} commentLength={comments?.length} />
         <Comments comments={comments} />
       </CommentSection>
-    </Fragment>
+    </Container>
   );
 }
 
