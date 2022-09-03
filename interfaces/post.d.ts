@@ -6,7 +6,7 @@ export interface IForm {
   region: string;
   area: string;
   cafe: string;
-  theme: string;
+  themeName: string;
 }
 
 export interface IOption {

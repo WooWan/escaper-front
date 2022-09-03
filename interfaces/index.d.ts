@@ -21,10 +21,11 @@ export interface IPost {
   postId: number;
   title: string;
   content: string;
-  appointmentDate: Date;
+  appointmentDate: Array;
   views: number;
   participation: number;
-  themeList: IThemeList[];
+  imageURL: string;
+  themeResponse: IThemeInfo;
 }
 
 export interface IPostsPagination {

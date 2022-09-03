@@ -30,7 +30,10 @@ function SelectInput({ control }: ISelectInput) {
   const { field: cityController } = useController({ control, name: "city" });
   const { field: areaController } = useController({ control, name: "area" });
   const { field: cafeController } = useController({ control, name: "cafe" });
-  const { field: themeController } = useController({ control, name: "theme" });
+  const { field: themeController } = useController({
+    control,
+    name: "themeName",
+  });
 
   return (
     <SelectorContainer>
