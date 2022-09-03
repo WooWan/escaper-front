@@ -11,6 +11,7 @@ declare module "styled-components" {
     destructiveColor: string;
     border: string;
     gray: string;
+    gray_normal: string;
     gray_lighter: string;
     kakao: string;
     text_light1: string;

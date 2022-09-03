@@ -9,6 +9,7 @@ export const lightTheme: DefaultTheme = {
   secondaryColor: "rgb(3,218,197)",
   border: "#E9ECEF",
   gray: "rgba(107, 114, 128, 0.5)",
+  gray_normal: "#717171",
   gray_lighter: "#E5E7EB",
   kakao: "#FEE500",
   text_dark1: "#212529",
