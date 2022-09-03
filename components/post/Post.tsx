@@ -1,78 +1,75 @@
-import styled from "styled-components";
 import Image from "next/image";
 import { IPost } from "../../interfaces";
-
-const Container = styled.div`
-  max-width: 600px;
-  margin: 0 auto;
-`;
-const InfoWrapper = styled.li`
-  display: flex;
-  gap: 8px;
-  padding: 20px 0;
-`;
-const InfoTitle = styled.span`
-  font-size: 18px;
-  color: gray;
-  font-weight: bold;
-`;
-const InfoContent = styled.span`
-  font-size: 18px;
-  font-weight: bold;
-`;
-const InfoSection = styled.section`
-  display: flex;
-  justify-content: center;
-  padding: 20px 0;
-`;
-const PostInfo = styled.ul`
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 8px;
-`;
-const Title = styled.span`
-  text-align: left;
-  font-size: 32px;
-  font-weight: bold;
-`;
+import { SubtitleFont, TitleFont } from "../core/font/TitleFonts";
+import { StarIcon } from "../core/rating-bar/star-icon";
+import {
+  Container,
+  ContentWrapper,
+  InfoSection,
+  InfoWrapper,
+  PostWrapper,
+  StarWrapper,
+  ThemeRating,
+  ThemeWrapper,
+} from "./Post.style";
 
 interface IProps {
   data: IPost;
 }
-
 function Post({ data }: IProps) {
-  const { title } = data;
+  const { title, content, themeResponse, appointmentDate, participation } =
+    data;
 
   return (
     <Container>
-      <Title>{title}</Title>
+      <TitleFont fontSize="2rem">{title}</TitleFont>
       <InfoSection>
-        <PostInfo>
+        <ThemeWrapper>
+          <Image
+            src={themeResponse.imageURL}
+            objectFit="cover"
+            width={230}
+            height={300}
+            alt="escape cafe theme"
+          />
+          <SubtitleFont fontSize="1rem">{themeResponse.cafeName}</SubtitleFont>
+          <ThemeRating>
+            <TitleFont fontSize="1.25rem">{themeResponse.name}</TitleFont>
+            <StarWrapper>
+              <StarIcon style={{ color: "#ffbc0b" }} />
+              <span>({themeResponse.rating.toFixed(1)})</span>
+            </StarWrapper>
+          </ThemeRating>
+        </ThemeWrapper>
+        <PostWrapper>
           <InfoWrapper>
-            <InfoTitle>모집 인원</InfoTitle>
-            <InfoContent>3</InfoContent>
+            <TitleFont fontSize="1.25rem" color="gray">
+              모집 인원
+            </TitleFont>
+            <TitleFont fontSize="1rem">{participation}</TitleFont>
           </InfoWrapper>
           <InfoWrapper>
-            <InfoTitle>연락 방법</InfoTitle>
-            <InfoContent>3</InfoContent>
+            <TitleFont fontSize="1.25rem" color="gray">
+              방탈출 예정일
+            </TitleFont>
+            <TitleFont fontSize="1rem">{appointmentDate}</TitleFont>
+          </InfoWrapper>
+
+          <InfoWrapper>
+            <TitleFont fontSize="1.25rem" color="gray">
+              카페
+            </TitleFont>
+            <TitleFont fontSize="1rem">{themeResponse.cafeName}</TitleFont>
           </InfoWrapper>
           <InfoWrapper>
-            <InfoTitle>방탈출 예정일</InfoTitle>
-            <InfoContent>3월 21일</InfoContent>
+            <TitleFont fontSize="1.25rem" color="gray">
+              방탈출 테마
+            </TitleFont>
+            <TitleFont fontSize="1rem">{themeResponse.name}</TitleFont>
           </InfoWrapper>
-          <InfoWrapper>
-            <InfoTitle>방탈출 모집</InfoTitle>
-            <InfoContent>3월 21일</InfoContent>
-          </InfoWrapper>
-        </PostInfo>
-        <Image
-          src="/images/escape.jpeg"
-          objectFit="cover"
-          width={230}
-          height={300}
-          alt="escape cafe theme"
-        />
+        </PostWrapper>
       </InfoSection>
+      <ContentWrapper>{content}</ContentWrapper>
     </Container>
   );
 }
