@@ -4,8 +4,8 @@ import { httpClient } from "../../utils/httpClient";
 
 const makeURL = (resource: string, param: string, condition?: string) => {
   return condition === ""
-    ? `/api/${resource}`
-    : `/api/${resource}/?${param}=${condition}`;
+    ? `/api/${resource}/search`
+    : `/api/${resource}/search?${param}=${condition}`;
 };
 
 export const addPost = async ({ ...post }) => {
@@ -14,7 +14,7 @@ export const addPost = async ({ ...post }) => {
 };
 
 export const fetchCityList = async () => {
-  const response = await httpClient.get("/api/cities");
+  const response = await httpClient.get("/api/cities/search");
   return await response.data;
 };
 
