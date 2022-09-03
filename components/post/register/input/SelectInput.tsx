@@ -67,8 +67,12 @@ function SelectInput({ control }: ISelectInput) {
       <Select
         instanceId={useId()}
         placeholder="테마"
-        onChange={(options) => themeController.onChange(options?.value)}
+        onChange={(options) => {
+          themeController.onChange(options?.value);
+        }}
         options={themeList.data}
+        menuPortalTarget={document.body}
+        styles={{ menuPortal: (base) => ({ ...base, zIndex: 20 }) }}
       />
     </SelectorContainer>
   );
