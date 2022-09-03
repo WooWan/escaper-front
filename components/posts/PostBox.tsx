@@ -12,6 +12,7 @@ const Post = styled.li`
 `;
 const AppointmentDate = styled.section`
   display: flex;
+  column-gap: 0.3rem;
 `;
 const Title = styled.span`
   font-size: 18px;
@@ -19,7 +20,9 @@ const Title = styled.span`
 `;
 
 function PostBox(props: IPost) {
-  const { postId, title, appointmentDate } = props;
+  const { postId, title, appointmentDate, themeResponse } = props;
+  console.log(appointmentDate);
+
   const storeScrollY = (scrollY: number) => {
     localStorage.setItem("post_scrollY", scrollY.toString());
   };
@@ -27,16 +30,16 @@ function PostBox(props: IPost) {
     <Link href={`post/${postId}`} passHref>
       <Post onClick={() => storeScrollY(window.scrollY)}>
         <Image
-          src="/images/escape.jpeg"
+          src={themeResponse.imageURL}
           width={230}
           height={300}
-          alt="escape cafe theme"
+          alt={themeResponse.name}
         />
         <Title>{title}</Title>
-        {/*<span>{themeList[0].name}</span>*/}
         <AppointmentDate>
-          <span>방탈출 예정일 |</span>
-          <span>{appointmentDate.toString()}</span>
+          <span>방탈출 예정일</span>
+          <span>|</span>
+          <span>{appointmentDate.join(".")}</span>
         </AppointmentDate>
       </Post>
     </Link>
