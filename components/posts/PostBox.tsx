@@ -13,6 +13,7 @@ const Post = styled.li`
 const AppointmentDate = styled.section`
   display: flex;
   column-gap: 0.3rem;
+  padding-top: 0.25rem;
 `;
 const Title = styled.span`
   font-size: 18px;
@@ -21,11 +22,11 @@ const Title = styled.span`
 
 function PostBox(props: IPost) {
   const { postId, title, appointmentDate, themeResponse } = props;
-  console.log(appointmentDate);
 
   const storeScrollY = (scrollY: number) => {
     localStorage.setItem("post_scrollY", scrollY.toString());
   };
+
   return (
     <Link href={`post/${postId}`} passHref>
       <Post onClick={() => storeScrollY(window.scrollY)}>
@@ -39,7 +40,7 @@ function PostBox(props: IPost) {
         <AppointmentDate>
           <span>방탈출 예정일</span>
           <span>|</span>
-          <span>{appointmentDate.join(".")}</span>
+          <span>{appointmentDate}</span>
         </AppointmentDate>
       </Post>
     </Link>
