@@ -1,8 +1,11 @@
 import styled from "styled-components";
+import Theme from "../../../pages/theme";
 
-export const TitleFont = styled.h1<{ fontSize: string }>`
+export const TitleFont = styled.h1<{ fontSize: string; color?: string }>`
   font-size: ${(props) => props.fontSize};
-  font-weight: 650;
+  font-weight: 700;
+  color: ${({ theme, color }) =>
+    color === "gray" ? theme.gray_normal : theme.textColor};
 `;
 
 export const SubtitleFont = styled.h2<{ fontSize: string }>`
