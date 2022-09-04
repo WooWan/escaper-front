@@ -7,7 +7,7 @@ import { useRouter } from "next/router";
 import { useCommentData } from "../../utils/comment";
 import Comments from "../../components/comment/comments";
 import styled from "styled-components";
-import CommentRegister from "../../components/comment/comment-register";
+import CommentRegister from "../../components/comment/register/Register";
 
 const CommentSection = styled.div`
   margin: 0 auto;

@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import CommentRegister from "./comment-register";
+import CommentRegister from "./register/Register";
 import { ICommentResponse } from "../../interfaces";
 import Comments from "./comments";
 
