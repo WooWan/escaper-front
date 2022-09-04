@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import useValidateUser from "../../../utils/useValidateUser";
 import TextButton from "../../core/button/text-button/TextButton";
 import { TitleFont } from "../../core/font/TitleFonts";
-import { ButtonWrapper, CommentTextArea } from "./register.style";
+import { ButtonWrapper, CommentTextArea } from "./Register.style";
 
 interface IProps {
   postId: number;
