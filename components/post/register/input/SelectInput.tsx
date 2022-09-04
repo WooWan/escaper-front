@@ -1,6 +1,6 @@
 import React, { useId, useState } from "react";
 import Select from "react-select";
-import { Control, Controller, useController } from "react-hook-form";
+import { Control, useController } from "react-hook-form";
 import styled from "styled-components";
 import { IForm } from "../../../../interfaces/post";
 import {
@@ -71,8 +71,9 @@ function SelectInput({ control }: ISelectInput) {
           themeController.onChange(options?.value);
         }}
         options={themeList.data}
-        menuPortalTarget={document.body}
-        styles={{ menuPortal: (base) => ({ ...base, zIndex: 20 }) }}
+        styles={{
+          menu: (provided) => ({ ...provided, zIndex: 9999 }),
+        }}
       />
     </SelectorContainer>
   );
