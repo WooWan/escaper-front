@@ -1,32 +1,10 @@
 import React, { useRef } from "react";
-import styled from "styled-components";
-import { useAddComment } from "../../utils/comment";
+import { useAddComment } from "../../../utils/comment";
 import { useRouter } from "next/router";
-import useValidateUser from "../../utils/useValidateUser";
-
-const ButtonWrapper = styled.div`
-  display: flex;
-  justify-content: flex-end;
-`;
-const CommentTextArea = styled.textarea`
-  padding: 1rem 1rem 1.5rem;
-  width: 100%;
-  margin-bottom: 1.25rem;
-`;
-const NumberOfComment = styled.h2`
-  margin-bottom: 0.825rem;
-  font-size: 1.125rem;
-  font-weight: 600;
-  line-height: 1.5;
-`;
-const RegisterButton = styled.button`
-  font-weight: bold;
-  border: none;
-  height: 2rem;
-  padding: 0 1.25rem;
-  cursor: pointer;
-  border-radius: 5px;
-`;
+import useValidateUser from "../../../utils/useValidateUser";
+import TextButton from "../../core/button/text-button/TextButton";
+import { TitleFont } from "../../core/font/TitleFonts";
+import { ButtonWrapper, CommentTextArea } from "./register.style";
 
 interface IProps {
   postId: number;
@@ -50,7 +28,7 @@ function CommentRegister({ postId, commentLength }: IProps) {
 
   return (
     <div>
-      <NumberOfComment>{commentLength}개의 댓글</NumberOfComment>
+      <TitleFont fontSize="1.125rem">{commentLength}개의 댓글</TitleFont>
       <div>
         <CommentTextArea
           name=""
@@ -60,9 +38,9 @@ function CommentRegister({ postId, commentLength }: IProps) {
           onClick={validateUser}
         />
         <ButtonWrapper>
-          <RegisterButton onClick={handleAddCommentClick}>
+          <TextButton buttonType="primary" onClick={handleAddCommentClick}>
             댓글 작성
-          </RegisterButton>
+          </TextButton>
         </ButtonWrapper>
       </div>
     </div>
