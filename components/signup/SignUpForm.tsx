@@ -19,7 +19,7 @@ export const ButtonWrapper = styled.div`
   justify-content: end;
 `;
 interface IProps {
-  email: string;
+  email?: string | string[];
 }
 function SignUpForm({ email }: IProps) {
   const {
@@ -28,7 +28,7 @@ function SignUpForm({ email }: IProps) {
     formState: { errors },
   } = useForm<ISignUpForm>();
 
-  const { mutate: signUp, data: results } = useSignUp();
+  const { mutate: signUp } = useSignUp();
 
   const onSubmit = async (data: ISignUpForm) => {
     const user = { email, ...data };
