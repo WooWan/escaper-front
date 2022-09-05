@@ -6,11 +6,12 @@ interface Props {
   onClick?: () => void;
   children?: string | ReactNode;
   buttonType?: ButtonType;
+  size?: string;
 }
 
-function TextButton({ onClick, children, buttonType }: Props) {
+function TextButton({ onClick, children, buttonType, size }: Props) {
   return (
-    <Button onClick={onClick} buttonType={buttonType}>
+    <Button onClick={onClick} buttonType={buttonType} size={size}>
       {children}
     </Button>
   );

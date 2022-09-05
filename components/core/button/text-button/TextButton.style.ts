@@ -20,7 +20,7 @@ const handleTextColor = (theme: DefaultTheme, buttonType?: ButtonType) => {
   }
 };
 
-export const Button = styled.button<{ buttonType?: ButtonType }>`
+export const Button = styled.button<{ buttonType?: ButtonType; size?: string }>`
   border-radius: 0.5rem;
   width: 4rem;
   height: 2rem;
@@ -29,6 +29,7 @@ export const Button = styled.button<{ buttonType?: ButtonType }>`
   text-align: center;
   cursor: pointer;
   color: ${({ buttonType, theme }) => handleTextColor(theme, buttonType)};
+  width: ${({ size }) => size};
   background-color: ${({ buttonType, theme }) =>
     handleButtonColor(theme, buttonType)};
 `;
