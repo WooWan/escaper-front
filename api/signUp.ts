@@ -13,7 +13,8 @@ export const useSignUp = () => {
   return useMutation(signUp, {
     onSuccess: (data) => {
       const { redirectUrl } = data;
-      router.push(redirectUrl);
+      router.push("/");
+      //   router.push(redirectUrl);
     },
   });
 };
