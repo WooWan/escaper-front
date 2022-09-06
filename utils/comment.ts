@@ -4,9 +4,13 @@ import { IComment, ICommentResponse } from "../interfaces";
 
 async function addComment(comment: IComment) {
   const content = comment.content;
-  return await httpClient.post("/api/comment", content, {
-    params: { postId: comment.postId },
-  });
+  return await httpClient.post(
+    "/api/comment",
+    { content },
+    {
+      params: { postId: comment.postId },
+    }
+  );
 }
 
 async function fetchComments(postId: number) {

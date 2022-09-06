@@ -1,7 +1,6 @@
 import React from "react";
 import { ICommentResponse } from "../../interfaces";
-import Comment from "./comment";
-
+import Comment from "./comment/Comment";
 interface IProps {
   comments?: ICommentResponse[];
 }
