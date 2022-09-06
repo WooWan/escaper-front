@@ -1,10 +1,11 @@
 import Image from "next/image";
 import { IPost } from "../../interfaces";
-import { SubtitleFont, TitleFont } from "../core/font/TitleFonts";
+import { ContentFont, SubtitleFont, TitleFont } from "../core/font/TitleFonts";
 import { StarIcon } from "../core/rating-bar/star-icon";
 import {
   Container,
   ContentWrapper,
+  IHeaderWrapper,
   InfoSection,
   InfoWrapper,
   PostWrapper,
@@ -17,12 +18,26 @@ interface IProps {
   data: IPost;
 }
 function Post({ data }: IProps) {
-  const { title, content, themeResponse, appointmentDate, participation } =
-    data;
+  const { memberResponse } = data;
+  const { username } = memberResponse;
+  const {
+    title,
+    content,
+    themeResponse,
+    appointmentDate,
+    participation,
+    createdDate,
+  } = data;
 
   return (
     <Container>
       <TitleFont fontSize="2rem">{title}</TitleFont>
+      <IHeaderWrapper>
+        <ContentFont fontSize="1rem">
+          {username} | {new Date(createdDate).toLocaleDateString()}
+        </ContentFont>
+      </IHeaderWrapper>
+
       <InfoSection>
         <ThemeWrapper>
           <Image

@@ -3,6 +3,10 @@ import styled from "styled-components";
 export const Container = styled.div`
   margin-bottom: 3rem;
 `;
+
+export const IHeaderWrapper = styled.header`
+  margin-top: 0.5rem;
+`;
 export const ThemeWrapper = styled.div`
   display: flex;
   flex-direction: column;
