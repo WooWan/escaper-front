@@ -2,7 +2,7 @@ import styled, { css } from "styled-components";
 import { Format } from "./Modal";
 
 export const ModalBackground = styled.div`
-  position: absolute;
+  position: fixed;
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.4);
@@ -10,9 +10,10 @@ export const ModalBackground = styled.div`
 `;
 
 export const ModalContainer = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 100%;
   height: 100%;
 `;
@@ -20,9 +21,6 @@ export const ModalContainer = styled.div`
 export const ModalWrapper = styled.div<{ format: Format }>`
   position: relative;
   display: flex;
-  left: 50%;
-  top: 40%;
-  transform: translate(-50%, -50%);
   background-color: ${(props) => props.theme.bgColor};
   border: 1px solid;
   border-color: ${(props) => props.theme.gray_lighter};
