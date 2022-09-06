@@ -5,7 +5,7 @@ export const lightTheme: DefaultTheme = {
   textColor: "black",
   buttonText: "#FFEFEF",
   destructiveColor: "#FF6B6B",
-  primaryColor: "#6200EE",
+  primaryColor: "#0173F7",
   secondaryColor: "rgb(3,218,197)",
   border: "#E9ECEF",
   gray: "rgba(107, 114, 128, 0.5)",
