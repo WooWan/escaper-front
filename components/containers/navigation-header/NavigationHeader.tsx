@@ -1,4 +1,3 @@
-import React, { useEffect, useState } from "react";
 import { Header, LoginBox, Navigator } from "./NavigationHeader.style";
 import Link from "next/link";
 import { useAxiosInterceptor } from "../../../utils/hooks/useAxiosInterceptor";
@@ -25,7 +24,7 @@ function NavigationHeader() {
   };
 
   const handleRegisterPost = (href: string) => {
-    if (isLogin) {
+    if (!isLogin) {
       dispatch(
         openModal({
           modalType: "basic",
@@ -56,7 +55,7 @@ function NavigationHeader() {
           </Link>
         </LoginBox>
         {isLogin ? (
-          "로그아웃"
+          <LoginBox>로그아웃</LoginBox>
         ) : (
           <LoginBox onClick={handleModalOpen}>로그인/회원가입</LoginBox>
         )}
