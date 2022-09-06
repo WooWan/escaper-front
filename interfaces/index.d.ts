@@ -41,9 +41,11 @@ export interface IComment {
 }
 
 export interface ICommentResponse {
+  memberResponse: IMember;
   id: number;
   postId: number;
   content: string;
+  createdDate: Date;
 }
 
 export interface IReview {
