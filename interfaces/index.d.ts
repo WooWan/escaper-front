@@ -1,3 +1,4 @@
+import { IMember } from "./member.d";
 export interface IThemesType {
   id?: number;
   genre: string;
@@ -18,9 +19,11 @@ export interface IThemeList {
 }
 
 export interface IPost {
+  memberResponse: IMember;
   postId: number;
   title: string;
   content: string;
+  createdDate: Date;
   appointmentDate: Array;
   views: number;
   participation: number;
