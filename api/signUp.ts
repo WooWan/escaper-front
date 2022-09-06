@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import { httpClient } from "./../utils/httpClient";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import { ISignUpRequest } from "../interfaces/member";
 
 const signUp = async (user: ISignUpRequest) => {

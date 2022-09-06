@@ -19,6 +19,7 @@ import {
 
 function LoginModal() {
   const dispatch = useDispatch();
+
   return (
     <Modal format="vertical">
       <ModalWrapper>
