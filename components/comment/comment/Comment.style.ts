@@ -9,10 +9,19 @@ export const CommentBox = styled.div`
 
 export const Header = styled.header`
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
   row-gap: 0.375rem;
   margin-bottom: 1rem;
 `;
 export const CommentDate = styled.span`
   color: ${(props) => props.theme.gray_normal};
+`;
+
+export const ButtonContainer = styled.section`
+  display: flex;
+  column-gap: 0.75rem;
+`;
+
+export const Button = styled.button`
+  cursor: pointer;
 `;
