@@ -5,7 +5,8 @@ import { ISignUpRequest } from "../interfaces/member";
 
 const signUp = async (user: ISignUpRequest) => {
   const response = await httpClient.post(`/api/signUp`, user);
-  return response.data;
+  console.log(response);
+  return await response.data;
 };
 
 export const useSignUp = () => {
@@ -13,8 +14,7 @@ export const useSignUp = () => {
   return useMutation(signUp, {
     onSuccess: (data) => {
       const { redirectUrl } = data;
-      router.push("/");
-      //   router.push(redirectUrl);
+      router.push(redirectUrl);
     },
   });
 };
