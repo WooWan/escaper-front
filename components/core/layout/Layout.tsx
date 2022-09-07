@@ -1,10 +1,15 @@
 import { createGlobalStyle } from "styled-components";
-import { ReactNode } from "react";
+import { ReactNode, useEffect } from "react";
 import NavigationHeader from "../../containers/navigation-header/NavigationHeader";
 import { useAxiosInterceptor } from "../../../utils/hooks/useAxiosInterceptor";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { selectModal } from "../../../store/slices/Modal";
 import Modal from "../../containers/modal/Modal";
+import { fetchMember } from "../../../api/member";
+import { useCookies } from "react-cookie";
+import { useRouter } from "next/router";
+import { loginUser, selectUser } from "../../../store/slices/user";
+import { setStorageItem } from "../../../utils/storage";
 
 interface LayoutProps {
   children: ReactNode;
@@ -73,6 +78,25 @@ const GlobalStyle = createGlobalStyle`
 function Layout({ children }: LayoutProps) {
   const { isOpen } = useSelector(selectModal);
   useAxiosInterceptor();
+  const { query } = useRouter();
+  const [cookie, setCookie] = useCookies(["token"]);
+  const dispatch = useDispatch();
+  const { isLogin } = useSelector(selectUser);
+
+  useEffect(() => {
+    const { token } = query;
+    console.log(token);
+    const fetchUser = async () => {
+      console.log("fetch user");
+      const { data } = await fetchMember();
+
+      dispatch(loginUser(data));
+    };
+    if (token) {
+      setCookie("token", token, { path: "/" });
+      fetchUser();
+    }
+  }, [dispatch, setCookie, query]);
 
   return (
     <>
