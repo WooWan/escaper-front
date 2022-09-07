@@ -21,10 +21,11 @@ function LoginModal() {
   const dispatch = useDispatch();
   const router = useRouter();
 
+  const SERVER = process.env.NEXT_PUBLIC_SERVER_HOST;
   const HOST = process.env.NEXT_PUBLIC_HOST_NAME;
 
-  const googleUrl = `http://localhost:8080/oauth2/authorization/google?redirect_uri=${HOST}${router.asPath}&signup=${process.env.NEXT_PUBLIC_SIGNUP}`;
-  const kakaoUrl = `http://localhost:8080/oauth2/authorization/kakao?redirect_uri=${HOST}${router.asPath}&signup=${process.env.NEXT_PUBLIC_SIGNUP}`;
+  const googleUrl = `${SERVER}/oauth2/authorization/google?redirect_uri=${HOST}${router.asPath}&signup=${process.env.NEXT_PUBLIC_SIGNUP}`;
+  const kakaoUrl = `${SERVER}/oauth2/authorization/kakao?redirect_uri=${HOST}${router.asPath}&signup=${process.env.NEXT_PUBLIC_SIGNUP}`;
 
   return (
     <Modal format="vertical">
