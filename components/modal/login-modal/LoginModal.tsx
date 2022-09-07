@@ -1,6 +1,6 @@
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { useDispatch } from "react-redux";
-import { googleUrl, kakaoUrl } from "../../../constants/oauth";
 import { closeModal } from "../../../store/slices/Modal";
 import Cancel from "../../icons/cancel";
 import GoogleIcon from "../../icons/GoogleIcon";
@@ -19,6 +19,12 @@ import {
 
 function LoginModal() {
   const dispatch = useDispatch();
+  const router = useRouter();
+
+  const HOST = process.env.NEXT_PUBLIC_HOST_NAME;
+
+  const googleUrl = `http://localhost:8080/oauth2/authorization/google?redirect_uri=${HOST}${router.asPath}&signup=${process.env.NEXT_PUBLIC_SIGNUP}`;
+  const kakaoUrl = `http://localhost:8080/oauth2/authorization/kakao?redirect_uri=${HOST}${router.asPath}&signup=${process.env.NEXT_PUBLIC_SIGNUP}`;
 
   return (
     <Modal format="vertical">

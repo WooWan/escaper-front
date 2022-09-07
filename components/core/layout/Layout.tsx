@@ -84,19 +84,17 @@ function Layout({ children }: LayoutProps) {
   const { isLogin } = useSelector(selectUser);
 
   useEffect(() => {
-    const { token } = query;
-    console.log(token);
     const fetchUser = async () => {
-      console.log("fetch user");
       const { data } = await fetchMember();
-
       dispatch(loginUser(data));
     };
+    const { token } = query;
+
     if (token) {
       setCookie("token", token, { path: "/" });
       fetchUser();
     }
-  }, [dispatch, setCookie, query]);
+  }, [query, setCookie, dispatch]);
 
   return (
     <>
