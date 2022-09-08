@@ -1,21 +1,28 @@
 import React, { useRef } from "react";
-import { useAddComment } from "../../../utils/comment";
+import { useAddComment, useUpdateComment } from "../../../utils/comment";
 import { useRouter } from "next/router";
 import useValidateUser from "../../../utils/useValidateUser";
 import TextButton from "../../core/button/text-button/TextButton";
-import { TitleFont } from "../../core/font/TitleFonts";
 import { ButtonWrapper, CommentTextArea } from "./Register.style";
 
 interface IProps {
-  postId: number;
-  commentLength?: number;
+  commentId?: number;
+  postId: string | string[] | undefined;
+  content?: string;
+  handleEditComment?: () => void;
 }
 
-function CommentRegister({ postId, commentLength }: IProps) {
+function CommentRegister({
+  commentId,
+  postId,
+  content,
+  handleEditComment,
+}: IProps) {
   const router = useRouter();
   const queryId = router.query.id?.toString() ?? "";
   const commentRef = useRef<HTMLTextAreaElement>(null);
   const { mutate: addComment } = useAddComment(postId);
+  const { mutate: editComment } = useUpdateComment(postId);
   const { validateUser } = useValidateUser();
 
   const handleAddCommentClick = () => {
@@ -23,26 +30,30 @@ function CommentRegister({ postId, commentLength }: IProps) {
     if (!content) return;
     const postId = +queryId;
     commentRef.current.value = "";
-    addComment({ postId, content });
+
+    if (commentId) {
+      editComment({ commentId, postId, content });
+    } else {
+      addComment({ postId, content });
+    }
+    handleEditComment?.();
   };
 
   return (
     <div>
-      <TitleFont fontSize="1.125rem">{commentLength}개의 댓글</TitleFont>
-      <div>
-        <CommentTextArea
-          name=""
-          id=""
-          placeholder="댓글을 작성하세요"
-          ref={commentRef}
-          onClick={validateUser}
-        />
-        <ButtonWrapper>
-          <TextButton buttonType="primary" onClick={handleAddCommentClick}>
-            댓글 작성
-          </TextButton>
-        </ButtonWrapper>
-      </div>
+      <CommentTextArea
+        name=""
+        id=""
+        placeholder="댓글을 작성하세요"
+        ref={commentRef}
+        onClick={validateUser}
+        defaultValue={content}
+      />
+      <ButtonWrapper>
+        <TextButton buttonType="primary" onClick={handleAddCommentClick}>
+          댓글 작성
+        </TextButton>
+      </ButtonWrapper>
     </div>
   );
 }

@@ -35,6 +35,11 @@ export interface IPostsPagination {
   content: IPost[];
 }
 
+export interface ICommentUpdateRequest {
+  commentId: number;
+  postId: number;
+  content: string;
+}
 export interface IComment {
   postId: number;
   content: string;
@@ -43,7 +48,7 @@ export interface IComment {
 export interface ICommentResponse {
   memberResponse: IMember;
   id: number;
-  postId: number;
+  postId: string | string[] | undefined;
   content: string;
   createdDate: Date;
 }
