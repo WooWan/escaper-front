@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const CommentBox = styled.div`
+export const Container = styled.div`
   padding-bottom: 1.5rem;
   padding-top: 1.5rem;
   border-bottom: 1px solid;
