@@ -2,7 +2,7 @@ import "../styles/globals.css";
 import type { AppProps } from "next/app";
 import { useState } from "react";
 import { QueryClient } from "@tanstack/query-core";
-import { QueryClientProvider } from "@tanstack/react-query";
+import { Hydrate, QueryClientProvider } from "@tanstack/react-query";
 import Layout from "../components/core/layout/Layout";
 import { ThemeProvider } from "styled-components";
 import { lightTheme } from "../styles/theme";
@@ -15,15 +15,17 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <CookiesProvider>
-        <Provider store={store}>
-          <ThemeProvider theme={lightTheme}>
-            <Layout>
-              <Component {...pageProps} />
-            </Layout>
-          </ThemeProvider>
-        </Provider>
-      </CookiesProvider>
+      <Hydrate state={pageProps.dehydratedState}>
+        <CookiesProvider>
+          <Provider store={store}>
+            <ThemeProvider theme={lightTheme}>
+              <Layout>
+                <Component {...pageProps} />
+              </Layout>
+            </ThemeProvider>
+          </Provider>
+        </CookiesProvider>
+      </Hydrate>
     </QueryClientProvider>
   );
 }
