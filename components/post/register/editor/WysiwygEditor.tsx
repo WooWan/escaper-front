@@ -24,10 +24,12 @@ EditorWithForwardedRef.displayName = "EditorWithForwardedRef";
 interface IWysiwygEditor extends EditorProps {
   onChange(value: string): void;
   valueType?: "markdown" | "html";
+  content?: string;
 }
 
 function WysiwygEditor(props: IWysiwygEditor) {
-  const { height, initialEditType, useCommandShortcut, onChange } = props;
+  const { height, initialEditType, useCommandShortcut, onChange, content } =
+    props;
   const editorRef = useRef<EditorType>();
   const placeHolder = "내용을 입력해주세요.";
   const handleChange = useCallback(() => {
@@ -43,7 +45,7 @@ function WysiwygEditor(props: IWysiwygEditor) {
       placeholder={placeHolder}
       previewStyle="vertical"
       height={height || "600px"}
-      initialValue=" "
+      initialValue={content ?? " "}
       initialEditType={"wysiwyg" || initialEditType}
       useCommandShortcut={useCommandShortcut || true}
       ref={editorRef}

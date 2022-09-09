@@ -1,4 +1,3 @@
-import { Fragment, useState } from "react";
 import { IPost } from "../../interfaces";
 import { fetchPost, fetchPosts } from "../../api/post/post";
 import { GetStaticPropsContext } from "next";
@@ -8,10 +7,11 @@ import { useCommentData } from "../../utils/comment";
 import Comments from "../../components/comment/comments";
 import styled from "styled-components";
 import CommentRegister from "../../components/comment/register/Register";
+import { TitleFont } from "../../components/core/font/TitleFonts";
+import { dehydrate, QueryClient, useQuery } from "@tanstack/react-query";
 
 const CommentSection = styled.div`
   margin: 0 auto;
-  /* width: 768px; */
 `;
 
 export const Container = styled.div`
@@ -23,17 +23,22 @@ interface IProps {
   post: IPost;
 }
 
-function PostDetail(props: IProps) {
+function PostDetail(props: IPost) {
   const router = useRouter();
-  const postId = router.query.id ?? "";
-  const { data: comments } = useCommentData(+postId);
-  const [post] = useState(props.post);
+  const postId = router.query.id;
+  const { data, isLoading, isFetching, isError } = useQuery<IPost>(
+    ["post", postId],
+    () => fetchPost(postId)
+  );
+  const { data: comments } = useCommentData(postId);
 
+  if (isLoading || isFetching || isError) return;
   return (
     <Container>
-      <Post data={post} />
+      <Post data={data} />
       <CommentSection>
-        <CommentRegister postId={+postId} commentLength={comments?.length} />
+        <TitleFont fontSize="1.125rem">{comments?.length}개의 댓글</TitleFont>
+        <CommentRegister postId={postId} />
         <Comments comments={comments} />
       </CommentSection>
     </Container>
@@ -41,9 +46,11 @@ function PostDetail(props: IProps) {
 }
 
 export async function getStaticProps(context: GetStaticPropsContext) {
+  const queryClient = new QueryClient();
   const postId = context.params?.id;
-  const post = await fetchPost(postId);
-  return { props: { post }, revalidate: 60 };
+  await queryClient.prefetchQuery(["post", postId], () => fetchPost(postId));
+
+  return { props: { dehydratedState: dehydrate(queryClient) }, revalidate: 60 };
 }
 
 export async function getStaticPaths() {
