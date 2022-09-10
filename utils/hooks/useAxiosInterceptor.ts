@@ -1,14 +1,15 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Cookies } from "react-cookie";
-import { httpClient } from "./../httpClient";
-import { getStorageItem } from "./../storage";
+import { httpClient } from "../../service/httpClient";
+import SessionStorage from "../../service/SessionStorage";
 
 export const useAxiosInterceptor = () => {
+  const [storage] = useState(() => new SessionStorage());
   const cookies = new Cookies();
 
   useEffect(() => {
     httpClient.interceptors.request.use((config) => {
-      const accessToken = getStorageItem("token");
+      const accessToken = storage.getStorageItem("token");
       const refreshToken = cookies.get("refresh-token");
 
       if (config.headers && accessToken) {

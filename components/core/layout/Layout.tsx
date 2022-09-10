@@ -1,5 +1,5 @@
 import { createGlobalStyle } from "styled-components";
-import { ReactNode, useEffect } from "react";
+import { ReactNode, useEffect, useMemo } from "react";
 import NavigationHeader from "../../containers/navigation-header/NavigationHeader";
 import { useAxiosInterceptor } from "../../../utils/hooks/useAxiosInterceptor";
 import { useDispatch, useSelector } from "react-redux";
@@ -9,7 +9,7 @@ import { fetchMember } from "../../../api/member";
 import { useCookies } from "react-cookie";
 import { useRouter } from "next/router";
 import { loginUser, selectUser } from "../../../store/slices/user";
-import { setStorageItem } from "../../../utils/storage";
+import SessionStorage from "../../../service/SessionStorage";
 
 interface LayoutProps {
   children: ReactNode;
@@ -75,6 +75,8 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
+const sessionStorage = new SessionStorage();
+
 function Layout({ children }: LayoutProps) {
   const { isOpen } = useSelector(selectModal);
   useAxiosInterceptor();
@@ -83,18 +85,23 @@ function Layout({ children }: LayoutProps) {
   const dispatch = useDispatch();
   const { isLogin } = useSelector(selectUser);
 
+  useEffect(() => {});
   useEffect(() => {
-    const fetchUser = async () => {
+    const { token } = query;
+    if (token) {
+      setCookie("token", token, { path: "/" });
+      sessionStorage.setStorageItem("token", token as string);
+    }
+    const jwt = token || sessionStorage.getStorageItem("token");
+
+    if (isLogin || !jwt) return;
+    setCookie("token", jwt, { path: "/" });
+    const getUser = async () => {
       const { data } = await fetchMember();
       dispatch(loginUser(data));
     };
-    const { token } = query;
-
-    if (token) {
-      setCookie("token", token, { path: "/" });
-      fetchUser();
-    }
-  }, [query, setCookie, dispatch]);
+    getUser();
+  }, [isLogin, dispatch, setCookie, query]);
 
   return (
     <>
