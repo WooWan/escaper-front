@@ -5,7 +5,7 @@ const Container = styled.div`
   align-items: center;
 `;
 interface ICounter {
-  participation: number;
+  participation?: number;
   incrementCount: () => void;
   decrementCount: () => void;
 }
