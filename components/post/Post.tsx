@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
 import { IPost } from "../../interfaces";
@@ -23,7 +24,6 @@ interface IProps {
 }
 function Post({ data }: IProps) {
   const router = useRouter();
-  const postId = router.query.id;
 
   const { user } = useSelector(selectUser);
   const {
@@ -35,6 +35,7 @@ function Post({ data }: IProps) {
     participation,
     createdDate,
   } = data;
+  const { cafeResponse } = themeResponse;
 
   const userId = user?.id;
   const postMemberId = memberResponse?.id;
@@ -64,16 +65,21 @@ function Post({ data }: IProps) {
         <ThemeWrapper>
           <Image
             src={themeResponse?.imageURL}
-            objectFit="cover"
             width={230}
             height={300}
             alt="escape cafe theme"
           />
           <SubtitleFont fontSize="1rem">
-            {themeResponse?.cafeResponse?.name}
+            <Link href={`/cafe/${cafeResponse.id}`}>
+              <a>{cafeResponse?.name}</a>
+            </Link>
           </SubtitleFont>
           <ThemeRating>
-            <TitleFont fontSize="1.25rem">{themeResponse?.name}</TitleFont>
+            <Link href={`/theme/${themeResponse.themeId}`}>
+              <a>
+                <TitleFont fontSize="1.25rem">{themeResponse?.name}</TitleFont>
+              </a>
+            </Link>
             <StarWrapper>
               <StarIcon style={{ color: "#ffbc0b" }} />
               <span>({themeResponse?.rating.toFixed(1)})</span>
@@ -81,6 +87,26 @@ function Post({ data }: IProps) {
           </ThemeRating>
         </ThemeWrapper>
         <PostWrapper>
+          <InfoWrapper>
+            <TitleFont fontSize="1.25rem" color="gray">
+              카페
+            </TitleFont>
+            <Link href={`/cafe/${cafeResponse.id}`}>
+              <a>
+                <TitleFont fontSize="1rem">{cafeResponse?.name}</TitleFont>
+              </a>
+            </Link>
+          </InfoWrapper>
+          <InfoWrapper>
+            <TitleFont fontSize="1.25rem" color="gray">
+              방탈출 테마
+            </TitleFont>
+            <Link href={`/theme/${themeResponse.themeId}`}>
+              <a>
+                <TitleFont fontSize="1rem">{themeResponse?.name}</TitleFont>
+              </a>
+            </Link>
+          </InfoWrapper>
           <InfoWrapper>
             <TitleFont fontSize="1.25rem" color="gray">
               모집 인원
@@ -92,21 +118,6 @@ function Post({ data }: IProps) {
               방탈출 예정일
             </TitleFont>
             <TitleFont fontSize="1rem">{appointmentDate}</TitleFont>
-          </InfoWrapper>
-
-          <InfoWrapper>
-            <TitleFont fontSize="1.25rem" color="gray">
-              카페
-            </TitleFont>
-            <TitleFont fontSize="1rem">
-              {themeResponse?.cafeResponse?.name}
-            </TitleFont>
-          </InfoWrapper>
-          <InfoWrapper>
-            <TitleFont fontSize="1.25rem" color="gray">
-              방탈출 테마
-            </TitleFont>
-            <TitleFont fontSize="1rem">{themeResponse?.name}</TitleFont>
           </InfoWrapper>
         </PostWrapper>
       </InfoSection>
