@@ -9,6 +9,7 @@ import { lightTheme } from "../styles/theme";
 import { store } from "../store/config";
 import { Provider } from "react-redux";
 import { CookiesProvider } from "react-cookie";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 function MyApp({ Component, pageProps }: AppProps) {
   const [queryClient] = useState(() => new QueryClient());
@@ -26,6 +27,7 @@ function MyApp({ Component, pageProps }: AppProps) {
           </Provider>
         </CookiesProvider>
       </Hydrate>
+      <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   );
 }
