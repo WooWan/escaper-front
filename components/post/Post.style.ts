@@ -4,8 +4,14 @@ export const Container = styled.div`
   margin-bottom: 3rem;
 `;
 
-export const IHeaderWrapper = styled.header`
+export const Header = styled.header`
+  display: flex;
+  justify-content: space-between;
   margin-top: 0.5rem;
+`;
+export const ButtonWrapper = styled.section`
+  display: flex;
+  column-gap: 0.75rem;
 `;
 export const ThemeWrapper = styled.div`
   display: flex;
