@@ -2,7 +2,7 @@ import { useRouter } from "next/router";
 import { IPostUpdateRequest } from "./../../interfaces/post.d";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { IOption, ISearch } from "../../interfaces/post";
-import { httpClient } from "../../utils/httpClient";
+import { httpClient } from "../../service/httpClient";
 
 const makeURL = (resource: string, param: string, condition?: string) => {
   return condition === ""

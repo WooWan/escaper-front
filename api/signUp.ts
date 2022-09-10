@@ -1,7 +1,8 @@
 import { useRouter } from "next/router";
-import { httpClient } from "./../utils/httpClient";
+
 import { useMutation } from "@tanstack/react-query";
 import { ISignUpRequest } from "../interfaces/member";
+import { httpClient } from "../service/httpClient";
 
 const signUp = async (user: ISignUpRequest) => {
   const response = await httpClient.post(`/api/signUp`, user);

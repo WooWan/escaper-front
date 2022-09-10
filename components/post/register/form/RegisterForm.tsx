@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { useAddPost, useEditPost } from "../../../../api/post/register";
 import { IPost } from "../../../../interfaces";
 import { IForm } from "../../../../interfaces/post";
-import SessionStorage from "../../../../utils/SessionStorage";
+import SessionStorage from "../../../../service/SessionStorage";
 import TextButton from "../../../core/button/text-button/TextButton";
 import Counter from "../counter/Counter";
 import DatePicker from "../date-picker/DatePicker";

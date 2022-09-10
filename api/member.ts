@@ -1,5 +1,5 @@
+import { httpClient } from "./../service/httpClient";
 import { IMember } from "../interfaces/member";
-import { httpClient } from "../utils/httpClient";
 import { ApiResponse } from "../interfaces/apiResponse";
 
 export const fetchMember = async () => {

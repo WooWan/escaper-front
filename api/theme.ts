@@ -2,9 +2,10 @@ import {
   IThemeDetail,
   IMemberRating as IMemberRating,
 } from "../interfaces/theme";
-import { httpClient } from "../utils/httpClient";
+
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { IThemeInfo } from "../interfaces";
+import { httpClient } from "../service/httpClient";
 
 export async function fetchThemeList() {
   const response = await httpClient.get<IThemeInfo[]>("api/themes");

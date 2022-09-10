@@ -1,7 +1,7 @@
 import { ICommentUpdateRequest } from "./../interfaces/index.d";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { httpClient } from "./httpClient";
 import { IComment, ICommentResponse } from "../interfaces";
+import { httpClient } from "../service/httpClient";
 
 async function addComment(comment: IComment) {
   const content = comment.content;

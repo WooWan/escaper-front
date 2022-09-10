@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { IRatingRequest } from "../interfaces";
-import { httpClient } from "./httpClient";
+import { httpClient } from "../service/httpClient";
 
 export const rateTheme = async ({
   themeId,

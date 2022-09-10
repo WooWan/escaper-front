@@ -1,7 +1,7 @@
-import {httpClient} from "../utils/httpClient";
-import {ICafe} from "../interfaces";
+import { ICafe } from "../interfaces";
+import { httpClient } from "../service/httpClient";
 
-export async function fetchCafeList () {
+export async function fetchCafeList() {
   const response = await httpClient.get<ICafe[]>("/api/cafes");
   return response.data;
 }
