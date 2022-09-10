@@ -85,7 +85,6 @@ function Layout({ children }: LayoutProps) {
   const dispatch = useDispatch();
   const { isLogin } = useSelector(selectUser);
 
-  useEffect(() => {});
   useEffect(() => {
     const { token } = query;
     if (token) {
