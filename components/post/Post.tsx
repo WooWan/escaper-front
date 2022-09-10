@@ -1,11 +1,15 @@
 import Image from "next/image";
+import { useRouter } from "next/router";
+import { useSelector } from "react-redux";
 import { IPost } from "../../interfaces";
+import { selectUser } from "../../store/slices/user";
 import { ContentFont, SubtitleFont, TitleFont } from "../core/font/TitleFonts";
 import { StarIcon } from "../core/rating-bar/star-icon";
 import {
+  ButtonWrapper,
   Container,
   ContentWrapper,
-  IHeaderWrapper,
+  Header,
   InfoSection,
   InfoWrapper,
   PostWrapper,
@@ -18,9 +22,12 @@ interface IProps {
   data: IPost;
 }
 function Post({ data }: IProps) {
-  const { memberResponse } = data;
-  const { username } = memberResponse;
+  const router = useRouter();
+  const postId = router.query.id;
+
+  const { user } = useSelector(selectUser);
   const {
+    memberResponse,
     title,
     content,
     themeResponse,
@@ -29,30 +36,47 @@ function Post({ data }: IProps) {
     createdDate,
   } = data;
 
+  const userId = user?.id;
+  const postMemberId = memberResponse?.id;
+  const username = memberResponse?.username;
+
+  const handleEdit = () => {
+    router.push(
+      { pathname: "/post/register", query: { data: JSON.stringify(data) } },
+      `/post/register`
+    );
+  };
   return (
     <Container>
       <TitleFont fontSize="2rem">{title}</TitleFont>
-      <IHeaderWrapper>
+      <Header>
         <ContentFont fontSize="1rem">
           {username} | {new Date(createdDate).toLocaleDateString()}
         </ContentFont>
-      </IHeaderWrapper>
-
+        {userId === postMemberId ? (
+          <ButtonWrapper>
+            <button onClick={handleEdit}>수정</button>
+            <button>삭제</button>
+          </ButtonWrapper>
+        ) : null}
+      </Header>
       <InfoSection>
         <ThemeWrapper>
           <Image
-            src={themeResponse.imageURL}
+            src={themeResponse?.imageURL}
             objectFit="cover"
             width={230}
             height={300}
             alt="escape cafe theme"
           />
-          <SubtitleFont fontSize="1rem">{themeResponse.cafeName}</SubtitleFont>
+          <SubtitleFont fontSize="1rem">
+            {themeResponse?.cafeResponse?.name}
+          </SubtitleFont>
           <ThemeRating>
-            <TitleFont fontSize="1.25rem">{themeResponse.name}</TitleFont>
+            <TitleFont fontSize="1.25rem">{themeResponse?.name}</TitleFont>
             <StarWrapper>
               <StarIcon style={{ color: "#ffbc0b" }} />
-              <span>({themeResponse.rating.toFixed(1)})</span>
+              <span>({themeResponse?.rating.toFixed(1)})</span>
             </StarWrapper>
           </ThemeRating>
         </ThemeWrapper>
@@ -74,13 +98,15 @@ function Post({ data }: IProps) {
             <TitleFont fontSize="1.25rem" color="gray">
               카페
             </TitleFont>
-            <TitleFont fontSize="1rem">{themeResponse.cafeName}</TitleFont>
+            <TitleFont fontSize="1rem">
+              {themeResponse?.cafeResponse?.name}
+            </TitleFont>
           </InfoWrapper>
           <InfoWrapper>
             <TitleFont fontSize="1.25rem" color="gray">
               방탈출 테마
             </TitleFont>
-            <TitleFont fontSize="1rem">{themeResponse.name}</TitleFont>
+            <TitleFont fontSize="1rem">{themeResponse?.name}</TitleFont>
           </InfoWrapper>
         </PostWrapper>
       </InfoSection>

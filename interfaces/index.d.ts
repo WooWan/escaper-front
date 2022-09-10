@@ -6,11 +6,11 @@ export interface IThemesType {
 
 export interface IThemeInfo {
   themeId: number;
-  cafeName: string;
   name: string;
   genre: string;
   rating: number;
   imageURL: string;
+  cafeResponse: ICafe;
 }
 
 export interface IThemeList {
@@ -70,5 +70,13 @@ export interface IRatingRequest {
 export interface ICafe {
   id: number;
   name: string;
+  address: IAddress;
   themes: IThemeInfo[];
+}
+
+export interface IAddress {
+  city: string;
+  area: string;
+  streets: string;
+  detail: string;
 }

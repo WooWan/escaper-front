@@ -1,8 +1,10 @@
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { useAddPost } from "../../../../api/post/register";
+import { useAddPost, useEditPost } from "../../../../api/post/register";
+import { IPost } from "../../../../interfaces";
 import { IForm } from "../../../../interfaces/post";
+import SessionStorage from "../../../../utils/SessionStorage";
 import TextButton from "../../../core/button/text-button/TextButton";
 import Counter from "../counter/Counter";
 import DatePicker from "../date-picker/DatePicker";
@@ -17,18 +19,52 @@ import {
 } from "./RegisterForm.style";
 
 function PostRegister() {
-  const { register, handleSubmit, control } = useForm<IForm>();
   const router = useRouter();
-  const [content, setContent] = useState<string | undefined>("");
+  const data = router.query?.data as string;
+  const queryPost = router.query?.data as string;
+  const [sessionStorage] = useState(() => new SessionStorage());
+  const sessionPost = sessionStorage.getStorageItem("post");
+  useEffect(() => {
+    if (queryPost) {
+      sessionStorage.setStorageItem("post", queryPost);
+    }
+    return () => sessionStorage.removeItem("post");
+  }, [queryPost, sessionStorage]);
+
+  let post: IPost | undefined;
+  if (queryPost) {
+    post = JSON.parse(queryPost);
+  } else if (sessionPost) {
+    post = JSON.parse(sessionPost);
+  }
+
+  const cafe = post?.themeResponse.cafeResponse;
+  const address = cafe?.address;
+
+  const { register, handleSubmit, control } = useForm<IForm>({
+    defaultValues: {
+      city: address?.city,
+      area: address?.area,
+      cafe: cafe?.name,
+      themeName: post?.themeResponse.name,
+    },
+  });
+  const theme = post?.themeResponse;
+
+  const [content, setContent] = useState<string | undefined>(post?.content);
+
   const { mutate: addPost } = useAddPost();
-  const [participation, setParticipation] = useState(1);
+  const { mutate: editPost } = useEditPost("" + post?.postId);
+  const [participation, setParticipation] = useState(post?.participation ?? 1);
+
   const onSubmit = async (data: IForm) => {
-    const post = { ...data, content, participation };
-    addPost(post, {
-      onSuccess: ({ data }) => {
-        router.push(`/post/${data}`);
-      },
-    });
+    const body = { ...data, content, participation };
+    const postId = post?.postId;
+    if (!post) {
+      addPost(body);
+    } else {
+      editPost({ ...body, postId });
+    }
   };
   const handleInputChange = (content?: string) => {
     setContent(content);
@@ -51,16 +87,17 @@ function PostRegister() {
             {...register("title")}
             type="text"
             placeholder="제목을 입력해주세요"
+            defaultValue={post?.title}
           />
         </main>
-        <SelectInput control={control} />
+        <SelectInput control={control} theme={theme} />
         <DatePicker control={control} />
         <Counter
           participation={participation}
           incrementCount={incrementCount}
           decrementCount={decrementCount}
         />
-        <WysiwygEditor onChange={handleInputChange} />
+        <WysiwygEditor onChange={handleInputChange} content={content} />
         <ButtonWrapper>
           <TextButton onClick={onCancel} buttonType={"basic"}>
             취소하기

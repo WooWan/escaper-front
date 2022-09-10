@@ -9,6 +9,7 @@ import {
   useSearchCity,
   useSearchTheme,
 } from "../../../../api/post/register";
+import { IThemeInfo } from "../../../../interfaces";
 
 const SelectorContainer = styled.div`
   display: flex;
@@ -16,10 +17,12 @@ const SelectorContainer = styled.div`
 `;
 interface ISelectInput {
   control: Control<IForm>;
+  theme?: IThemeInfo;
 }
 
-function SelectInput({ control }: ISelectInput) {
-  const [city, setCity] = useState<string | undefined>("");
+function SelectInput({ control, theme }: ISelectInput) {
+  const address = theme?.cafeResponse?.address;
+  const [city, setCity] = useState<string | undefined>(address?.city);
   const [area, setArea] = useState<string | undefined>("");
   const [cafe, setCafe] = useState<string | undefined>("");
   const cityList = useSearchCity();
@@ -27,20 +30,28 @@ function SelectInput({ control }: ISelectInput) {
   const cafeList = useSearchCafe(area);
   const themeList = useSearchTheme(cafe);
 
-  const { field: cityController } = useController({ control, name: "city" });
+  const {
+    field: { ref, ...inputProps },
+  } = useController({
+    control,
+    name: "city",
+  });
   const { field: areaController } = useController({ control, name: "area" });
+
   const { field: cafeController } = useController({ control, name: "cafe" });
   const { field: themeController } = useController({
     control,
     name: "themeName",
   });
-
+  const cityt = { label: address?.city, value: address?.city };
   return (
     <SelectorContainer>
       <Select
         instanceId={useId()}
+        defaultInputValue={address?.city}
+        ref={areaController.ref}
         onChange={(options) => {
-          cityController.onChange(options?.value);
+          inputProps.onChange(options?.value);
           setCity(options?.value);
         }}
         placeholder="지역"
@@ -48,6 +59,7 @@ function SelectInput({ control }: ISelectInput) {
       />
       <Select
         instanceId={useId()}
+        defaultInputValue={address?.area}
         placeholder="상세지역"
         onChange={(options) => {
           areaController.onChange(options?.value);
@@ -57,6 +69,7 @@ function SelectInput({ control }: ISelectInput) {
       />
       <Select
         instanceId={useId()}
+        defaultInputValue={theme?.cafeResponse?.name}
         placeholder="카페"
         onChange={(options) => {
           cafeController.onChange(options?.value);
@@ -66,6 +79,7 @@ function SelectInput({ control }: ISelectInput) {
       />
       <Select
         instanceId={useId()}
+        defaultInputValue={theme?.name}
         placeholder="테마"
         onChange={(options) => {
           themeController.onChange(options?.value);

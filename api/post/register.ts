@@ -1,3 +1,5 @@
+import { useRouter } from "next/router";
+import { IPostUpdateRequest } from "./../../interfaces/post.d";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { IOption, ISearch } from "../../interfaces/post";
 import { httpClient } from "../../utils/httpClient";
@@ -6,11 +8,6 @@ const makeURL = (resource: string, param: string, condition?: string) => {
   return condition === ""
     ? `/api/${resource}/search`
     : `/api/${resource}/search?${param}=${condition}`;
-};
-
-export const addPost = async ({ ...post }) => {
-  const id = await httpClient.post("/api/post", post);
-  return id;
 };
 
 export const fetchCityList = async () => {
@@ -36,14 +33,38 @@ export const fetchThemeList = async (cafe?: string) => {
   return response.data;
 };
 
+async function addPost({ ...post }) {
+  const id = await httpClient.post("/api/post", post);
+  return id;
+}
+
 export function useAddPost() {
   const queryClient = useQueryClient();
+  const router = useRouter();
   return useMutation(addPost, {
-    onSuccess: async ({ data }) => {
-      await queryClient.invalidateQueries(["posts"]);
+    onSuccess: ({ data }) => {
+      console.log("invalid");
+      queryClient.invalidateQueries(["posts"]);
+      router.push(`/post/${data}`);
     },
     onError: (error) => {
       // console.error(error);
+    },
+  });
+}
+
+async function editPost(updateRequest: IPostUpdateRequest) {
+  const { postId, ...content } = updateRequest;
+  return await httpClient.put("/api/post", content, { params: { postId } });
+}
+
+export function useEditPost(postId: string | string[] | undefined) {
+  const queryClient = useQueryClient();
+  const router = useRouter();
+  return useMutation(editPost, {
+    onSuccess: (data) => {
+      queryClient.invalidateQueries(["post", postId]);
+      router.push(`/post/${postId}`);
     },
   });
 }
