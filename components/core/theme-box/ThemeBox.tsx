@@ -20,7 +20,13 @@ const boxVariants = {
   },
 };
 
-function ThemeBox({ rating, name, cafeName, imageURL, themeId }: IThemeInfo) {
+function ThemeBox({
+  rating,
+  name,
+  cafeResponse,
+  imageURL,
+  themeId,
+}: IThemeInfo) {
   return (
     <Link href={`/theme/${themeId}`}>
       <a>
@@ -38,7 +44,7 @@ function ThemeBox({ rating, name, cafeName, imageURL, themeId }: IThemeInfo) {
           />
           <div>
             <Header>
-              <SubtitleFont fontSize="1rem">{cafeName}</SubtitleFont>
+              <SubtitleFont fontSize="1rem">{cafeResponse.name}</SubtitleFont>
               <TitleFont fontSize="1.2rem">{name}</TitleFont>
             </Header>
             <StarWrapper>
