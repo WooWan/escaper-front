@@ -43,7 +43,6 @@ export function useAddComment(postId: string | string[] | undefined) {
   const queryClient = useQueryClient();
   return useMutation(addComment, {
     onSuccess: () => {
-      console.log("add");
       queryClient.invalidateQueries(["comment", postId]);
     },
   });
