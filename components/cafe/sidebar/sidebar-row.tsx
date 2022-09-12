@@ -1,6 +1,7 @@
 import React, { Dispatch, SetStateAction, SVGProps, useState } from "react";
-import styled, { ThemeContext } from "styled-components";
+import styled from "styled-components";
 import Circle from "../../icons/circle";
+import { SidebarColumnTypes } from "../Cafe";
 
 const Row = styled.li<{ selected: boolean }>`
   position: sticky;
@@ -22,9 +23,10 @@ const Row = styled.li<{ selected: boolean }>`
     }
   }
 `;
+
 interface IProps {
-  title: string;
-  onClick?: () => {};
+  title: SidebarColumnTypes;
+  onClick?: () => void;
   selected: string;
   setSelected: Dispatch<SetStateAction<string>>;
 }

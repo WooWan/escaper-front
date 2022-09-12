@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { useState } from "react";
 import styled from "styled-components";
 import { ICafe, IThemeInfo } from "../../interfaces";
@@ -44,13 +45,26 @@ const ThemeList = styled.ul`
   grid-template-columns: repeat(3, 1fr);
   gap: 1rem;
 `;
-
+export const RatingContent = styled.div`
+  padding-top: 0.25rem;
+  display: flex;
+`;
 interface IProps {
   cafe: ICafe;
 }
 
+export const sidebarColumn = {
+  홈: "홈",
+  방탈출: "방탈출",
+  리뷰: "리뷰",
+} as const;
+export type SidebarColumnTypes =
+  typeof sidebarColumn[keyof typeof sidebarColumn];
+
 function Cafe({ cafe }: IProps) {
   const { name, themes } = cafe;
+  const router = useRouter();
+  const id = router.query.cafeId;
   const [rate, setRate] = useState(0);
 
   const findAverageAge = (arr: IThemeInfo[]) => {
@@ -64,14 +78,14 @@ function Cafe({ cafe }: IProps) {
   return (
     <div>
       <Header>
-        <Title>
+        <Title id={sidebarColumn["홈"]} style={{ scrollBehavior: "smooth" }}>
           <CafeName>{name}</CafeName>
           <Homepage>(http:/sdfdsfsd/sdfs.com)</Homepage>
         </Title>
 
         <Info>
           <span>예약: 010-2342-2343</span>
-          <div>
+          <RatingContent>
             <Rating
               size={20}
               ratingValue={rate}
@@ -79,30 +93,16 @@ function Cafe({ cafe }: IProps) {
               readonly
               transition
             />
-            <span>({averageRate})</span>
-          </div>
+            <span>({averageRate.toFixed(2)})</span>
+          </RatingContent>
         </Info>
       </Header>
-      <Main>
+      <Main id={sidebarColumn["방탈출"]} style={{ scrollBehavior: "smooth" }}>
         <span>{name}의 테마에 대해서 둘러보세요!</span>
         <ThemeList>
           {themes.map((theme) => (
             <Link key={theme.themeId} href={`/theme/${theme.themeId}`}>
-              <div>
-                <ThemeBox {...theme} />
-                <h1>{theme.name}</h1>
-                <h2>{name}</h2>
-                <div>
-                  <Rating
-                    size={20}
-                    ratingValue={rate}
-                    initialValue={theme.rating}
-                    readonly
-                    transition
-                  />
-                  <span>(5.0)</span>
-                </div>
-              </div>
+              <ThemeBox {...theme} />
             </Link>
           ))}
         </ThemeList>
