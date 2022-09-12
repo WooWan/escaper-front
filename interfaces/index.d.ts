@@ -53,12 +53,18 @@ export interface ICommentResponse {
   createdDate: Date;
 }
 
+export interface IReviewResult {
+  data: IReview[];
+  count: number;
+  averageRating: number;
+}
 export interface IReview {
   reviewId: number;
   content: string;
   rate?: number;
   themeId: number;
   likes: number;
+  memberResponse: IMember;
 }
 
 export interface IRatingRequest {

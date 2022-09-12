@@ -10,10 +10,13 @@ import {
   RatingTitle,
   Score,
 } from "../../styles/components";
-import { rateTheme, useRateTheme } from "../../utils/rating";
+import { useRateTheme } from "../../utils/rating";
 import { Rating } from "../core/rating-bar/rating";
 
-const UserRatingBox = styled(GeneralRating)``;
+const UserRatingBox = styled(GeneralRating)`
+  height: 100%;
+  justify-content: space-between;
+`;
 
 interface IProps {
   rating: number | undefined;
@@ -59,15 +62,17 @@ function UserRating({ rating }: IProps) {
     <UserRatingBox>
       <RatingTitle>내 별점</RatingTitle>
       <RatingInfo>
-        <Score>{rating}</Score>
+        <Score>{rating ? rating : 0}</Score>
         <Rating
-          ratingValue={rating ? rating : 0}
+          fillColor="#0173F7"
+          ratingValue={rating ? rating * 20 : 0}
           allowHalfIcon
           transition={true}
           tooltipArray={toolTipArray}
           showTooltip
           tooltipDefaultText={"별점을 남겨주세요"}
           onClick={onHandleRating}
+          size={40}
         />
       </RatingInfo>
     </UserRatingBox>
