@@ -16,16 +16,17 @@ import {
 interface IProps {
   theme: IThemeDetail;
   memberRating: number | undefined;
+  count: number;
+  averageRating: number;
 }
 
-function ThemeInfo({ theme, memberRating }: IProps) {
+function ThemeInfo({ theme, memberRating, count, averageRating }: IProps) {
   const {
     themeId,
     address,
     name,
     description,
     timeLimitation,
-    themeRating,
     cost,
     imageURL,
     cafeId,
@@ -39,6 +40,7 @@ function ThemeInfo({ theme, memberRating }: IProps) {
   const handleMoreBtn = () => {
     setIsMore((prev) => !prev);
   };
+
   return (
     <div>
       <MainInfo>
@@ -57,8 +59,9 @@ function ThemeInfo({ theme, memberRating }: IProps) {
             </a>
           </Link>
           <RatingSection
-            themeRating={themeRating}
+            count={count}
             memberRating={memberRating}
+            averageRating={averageRating}
           />
           <Row>
             <SubtitleFont>위치</SubtitleFont>
@@ -81,7 +84,7 @@ function ThemeInfo({ theme, memberRating }: IProps) {
       <section>
         <Description isActive={isMore}>{description}</Description>
         <ToggleButton onClick={handleMoreBtn}>
-          {isMore ? "더 보기" : "접기"}
+          {/* {isMore ? "더 보기" : "접기"} */}
         </ToggleButton>
       </section>
     </div>
