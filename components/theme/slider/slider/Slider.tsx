@@ -7,7 +7,7 @@ import AngleRight from "../../../icons/angle-right";
 import AngleLeft from "../../../icons/angle-left";
 import { useQuery } from "@tanstack/react-query";
 import { fetchPopularTheme, fetchThemeByGenre } from "../../../../api/theme";
-import ThemeBox from "../../../core/theme-box/ThemeBox";
+import ThemeBox from "../../theme-box/ThemeBox";
 import { TitleFont } from "../../../core/font/TitleFonts";
 import { Button, Row, Slide, TitleWrapper } from "./Slider.style";
 

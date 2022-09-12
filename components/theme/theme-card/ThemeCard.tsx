@@ -1,10 +1,14 @@
+import React, { forwardRef } from "react";
+import { ContentFont, TitleFont } from "../../core/font/TitleFonts";
+import { StarIcon } from "../../core/rating-bar/star-icon";
+import { Box, CardContent, Header, StarWrapper } from "./ThemeCard.style";
 import Image from "next/image";
-import Link from "next/link";
-import { StarIcon } from "../rating-bar/star-icon";
 import { IThemeInfo } from "../../../interfaces";
-import { ContentFont, TitleFont } from "../font/TitleFonts";
-import { Header, StarWrapper, Box, CardContent } from "./ThemeBox.style";
 
+interface Props {
+  href: string;
+  theme: IThemeInfo;
+}
 const boxVariants = {
   normal: {
     scale: 1,
@@ -20,16 +24,12 @@ const boxVariants = {
   },
 };
 
-function ThemeBox({
-  rating,
-  name,
-  cafeResponse,
-  imageURL,
-  themeId,
-}: IThemeInfo) {
-  return (
-    <Link href={`/theme/${themeId}`}>
-      <a>
+const ThemeCard = forwardRef<HTMLAnchorElement, Props>(
+  ({ href, theme }, ref) => {
+    const { imageURL, name, rating, cafeResponse } = theme;
+
+    return (
+      <a href={href} ref={ref}>
         <Box
           variants={boxVariants}
           initial="normal"
@@ -54,10 +54,10 @@ function ThemeBox({
           </CardContent>
         </Box>
       </a>
-    </Link>
-  );
-}
+    );
+  }
+);
 
-ThemeBox.displayName = "ThemeBox";
+ThemeCard.displayName = "ThemeCard";
 
-export default ThemeBox;
+export default ThemeCard;
