@@ -16,6 +16,7 @@ export const ModalContainer = styled.div`
   justify-content: center;
   width: 100%;
   height: 100%;
+  z-index: 10;
 `;
 
 export const ModalWrapper = styled.div<{ format: Format }>`
