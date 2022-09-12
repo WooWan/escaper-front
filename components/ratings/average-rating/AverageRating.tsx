@@ -1,13 +1,12 @@
-import React, { useState } from "react";
 import {
   RatingTitle,
   RatingInfo,
   Score,
   ScoreInfo,
   GeneralRating,
-} from "../../styles/components";
+} from "./AverageRating.style";
 import styled from "styled-components";
-import { Rating } from "../core/rating-bar/rating";
+import { Rating } from "../../core/rating-bar/rating";
 
 const UserRatingBox = styled(GeneralRating)``;
 interface IProps {
