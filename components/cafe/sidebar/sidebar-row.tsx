@@ -1,5 +1,6 @@
 import React, { Dispatch, SetStateAction, SVGProps, useState } from "react";
 import styled, { ThemeContext } from "styled-components";
+import Circle from "../../icons/circle";
 
 const Row = styled.li<{ selected: boolean }>`
   position: sticky;
@@ -22,14 +23,13 @@ const Row = styled.li<{ selected: boolean }>`
   }
 `;
 interface IProps {
-  Icon: (props: SVGProps<SVGSVGElement>) => JSX.Element;
   title: string;
   onClick?: () => {};
   selected: string;
   setSelected: Dispatch<SetStateAction<string>>;
 }
 
-function SidebarRow({ Icon, title, onClick, selected, setSelected }: IProps) {
+function SidebarRow({ title, onClick, selected, setSelected }: IProps) {
   const toggleButton = () => {
     setSelected(title);
   };
@@ -41,7 +41,7 @@ function SidebarRow({ Icon, title, onClick, selected, setSelected }: IProps) {
       }}
       selected={selected === title}
     >
-      <Icon />
+      <Circle />
       <p>{title}</p>
     </Row>
   );

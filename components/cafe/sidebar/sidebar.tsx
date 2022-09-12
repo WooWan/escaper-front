@@ -1,3 +1,4 @@
+import { useRouter } from "next/router";
 import { useState } from "react";
 import styled from "styled-components";
 import Circle from "../../icons/circle";
@@ -11,26 +12,18 @@ const SidebarList = styled.ul`
 `;
 function Sidebar() {
   const [selected, setSelected] = useState("홈");
+  const router = useRouter();
+  const id = router.query.cafeId;
+
   return (
     <SidebarList>
+      <SidebarRow title="홈" selected={selected} setSelected={setSelected} />
       <SidebarRow
-        Icon={Circle}
-        title="홈"
-        selected={selected}
-        setSelected={setSelected}
-      />
-      <SidebarRow
-        Icon={Circle}
         title="방탈출"
         selected={selected}
         setSelected={setSelected}
       />
-      <SidebarRow
-        Icon={Circle}
-        title="리뷰"
-        selected={selected}
-        setSelected={setSelected}
-      />
+      <SidebarRow title="리뷰" selected={selected} setSelected={setSelected} />
     </SidebarList>
   );
 }
