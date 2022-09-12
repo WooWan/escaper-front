@@ -1,5 +1,5 @@
 import { GetStaticPropsContext } from "next";
-import { IReview } from "../../interfaces";
+import { IReviewResult } from "../../interfaces";
 import {
   fetchReview,
   fetchThemeById,
@@ -7,12 +7,12 @@ import {
   fetchThemeRatingOfUser,
 } from "../../api/theme";
 import styled from "styled-components";
-import ThemeInfo from "../../components/theme/ThemeInfo";
-import { useQuery } from "@tanstack/react-query";
+import ThemeInfo from "../../components/theme/theme/Theme";
+import { dehydrate, QueryClient, useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/router";
 import ReviewRegister from "../../components/review/review-register";
 import Reviews from "../../components/review/Reviews";
-import { IThemeDetail } from "../../interfaces/theme";
+import { IMemberRating, IThemeDetail } from "../../interfaces/theme";
 import { useSelector } from "react-redux";
 import { selectUser } from "../../store/slices/user";
 
@@ -30,32 +30,42 @@ const ReviewWrapper = styled.section`
   flex-direction: column;
 `;
 
-interface IProps {
-  theme: IThemeDetail;
-}
-
-function ThemePage({ theme }: IProps) {
+function ThemePage() {
   const router = useRouter();
   const themeId = router.query.id;
+  const {
+    data: theme,
+    isError,
+    isLoading,
+  } = useQuery<IThemeDetail>(["theme", themeId], () => fetchThemeById(themeId));
+
   const { user } = useSelector(selectUser);
   const memberId = user?.id;
 
-  const { data } = useQuery(
+  const { data } = useQuery<IMemberRating>(
     ["rating", memberId, themeId],
     () => fetchThemeRatingOfUser(themeId, memberId),
     { enabled: !!memberId }
   );
-  const memberRating = data?.memberRating;
 
-  const { data: reviews } = useQuery<IReview[]>(["review", themeId], () =>
+  const reviewResult = useQuery<IReviewResult>(["review", themeId], () =>
     fetchReview(themeId)
   );
+  // const { data: review } = reviewResult;
+  if (isLoading || isError) return;
+  if (reviewResult.isLoading || reviewResult.isError) return "review loading";
+
   return (
     <Container>
-      <ThemeInfo theme={theme} memberRating={memberRating} />
+      <ThemeInfo
+        theme={theme}
+        memberRating={data?.memberRating}
+        count={reviewResult.data.count}
+        averageRating={reviewResult?.data.averageRating}
+      />
       <ReviewWrapper>
         <ReviewRegister />
-        <Reviews reviews={reviews} />
+        <Reviews reviews={reviewResult.data} />
       </ReviewWrapper>
     </Container>
   );
@@ -63,8 +73,13 @@ function ThemePage({ theme }: IProps) {
 
 export async function getStaticProps(context: GetStaticPropsContext) {
   const id = context.params?.id;
-  const theme = await fetchThemeById(id);
-  return { props: { theme }, revalidate: 3600 };
+  const queryClient = new QueryClient();
+  await queryClient.prefetchQuery(["theme", id], () => fetchThemeById(id));
+
+  return {
+    props: { dehydratedState: dehydrate(queryClient) },
+    revalidate: 3600,
+  };
 }
 
 export async function getStaticPaths() {
