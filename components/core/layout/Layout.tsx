@@ -96,8 +96,12 @@ function Layout({ children }: LayoutProps) {
     if (isLogin || !jwt) return;
     setCookie("token", jwt, { path: "/" });
     const getUser = async () => {
-      const { data } = await fetchMember();
-      dispatch(loginUser(data));
+      try {
+        const { data } = await fetchMember();
+        dispatch(loginUser(data));
+      } catch (err) {
+        sessionStorage.removeItem("token");
+      }
     };
     getUser();
   }, [isLogin, dispatch, setCookie, query]);
