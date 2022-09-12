@@ -1,11 +1,10 @@
-import { motion } from "framer-motion";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import styled from "styled-components";
 import { ICafe, IThemeInfo } from "../../interfaces";
 import { Rating } from "../core/rating-bar/rating";
-import ThemeBox from "../core/theme-box/ThemeBox";
+import ThemeBox from "../theme/theme-box/ThemeBox";
 
 const Header = styled.header`
   display: flex;
@@ -21,10 +20,7 @@ const CafeName = styled.h2`
   font-size: 1.5rem;
   font-weight: bolder;
 `;
-const Homepage = styled.span`
-  font-size: 0.75rem;
-  color: ${(props) => props.theme.gray};
-`;
+
 const Info = styled.div`
   display: flex;
   flex-direction: column;
@@ -64,7 +60,6 @@ export type SidebarColumnTypes =
 function Cafe({ cafe }: IProps) {
   const { name, themes } = cafe;
   const router = useRouter();
-  const id = router.query.cafeId;
   const [rate, setRate] = useState(0);
 
   const findAverageAge = (arr: IThemeInfo[]) => {
@@ -80,16 +75,14 @@ function Cafe({ cafe }: IProps) {
       <Header>
         <Title id={sidebarColumn["홈"]} style={{ scrollBehavior: "smooth" }}>
           <CafeName>{name}</CafeName>
-          <Homepage>(http:/sdfdsfsd/sdfs.com)</Homepage>
         </Title>
 
         <Info>
-          <span>예약: 010-2342-2343</span>
+          <span>예약: {cafe.phoneNumber}</span>
           <RatingContent>
             <Rating
               size={20}
-              ratingValue={rate}
-              initialValue={averageRate}
+              ratingValue={averageRate ? averageRate * 20 : 0}
               readonly
               transition
             />
@@ -98,12 +91,10 @@ function Cafe({ cafe }: IProps) {
         </Info>
       </Header>
       <Main id={sidebarColumn["방탈출"]} style={{ scrollBehavior: "smooth" }}>
-        <span>{name}의 테마에 대해서 둘러보세요!</span>
+        <span>{name}의 테마를 즐겨보세요!</span>
         <ThemeList>
           {themes.map((theme) => (
-            <Link key={theme.themeId} href={`/theme/${theme.themeId}`}>
-              <ThemeBox {...theme} />
-            </Link>
+            <ThemeBox key={theme.themeId} {...theme} />
           ))}
         </ThemeList>
       </Main>
