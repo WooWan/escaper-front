@@ -40,7 +40,9 @@ function NavigationHeader() {
     <Header>
       <div>
         <Link href="/">
-          <TitleFont fontSize="2rem">Escapers</TitleFont>
+          <a>
+            <TitleFont fontSize="2rem">Escapers</TitleFont>
+          </a>
         </Link>
       </div>
       <Navigator>
