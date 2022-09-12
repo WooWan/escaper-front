@@ -23,7 +23,7 @@ function LoginModal() {
 
   const SERVER = process.env.NEXT_PUBLIC_SERVER_HOST;
   const HOST = process.env.NEXT_PUBLIC_HOST_NAME;
-  console.log(router.asPath);
+
   const { asPath } = router;
   const googleUrl =
     asPath === "/"
@@ -32,7 +32,6 @@ function LoginModal() {
 
   const kakaoUrl = `${SERVER}/oauth2/authorization/kakao?redirect_uri=${HOST}${router.asPath}&signup=${process.env.NEXT_PUBLIC_SIGNUP}`;
 
-  console.log(googleUrl);
   return (
     <Modal format="vertical">
       <ModalWrapper>

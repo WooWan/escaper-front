@@ -6,7 +6,6 @@ import { httpClient } from "../service/httpClient";
 
 const signUp = async (user: ISignUpRequest) => {
   const response = await httpClient.post(`/api/signUp`, user);
-  console.log(response);
   return await response.data;
 };
 
