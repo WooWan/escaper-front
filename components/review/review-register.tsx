@@ -56,7 +56,9 @@ function ReviewRegister() {
         onClick={validateUser}
       />
       <ButtonWrapper>
-        <TextButton onClick={onReviewHandle}>리뷰 작성</TextButton>
+        <TextButton onClick={onReviewHandle} buttonType={"primary"}>
+          리뷰 작성
+        </TextButton>
       </ButtonWrapper>
     </>
   );
