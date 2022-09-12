@@ -77,6 +77,7 @@ export interface ICafe {
   id: number;
   name: string;
   address: IAddress;
+  phoneNumber: string;
   themes: IThemeInfo[];
 }
 
