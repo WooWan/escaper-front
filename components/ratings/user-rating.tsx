@@ -9,7 +9,7 @@ import {
   RatingInfo,
   RatingTitle,
   Score,
-} from "../../styles/components";
+} from "./average-rating/AverageRating.style";
 import { useRateTheme } from "../../utils/rating";
 import { Rating } from "../core/rating-bar/rating";
 

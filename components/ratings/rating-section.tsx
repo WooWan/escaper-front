@@ -1,4 +1,4 @@
-import AverageRating from "./average-rating";
+import AverageRating from "./average-rating/AverageRating";
 import UserRating from "./user-rating";
 import styled from "styled-components";
 
