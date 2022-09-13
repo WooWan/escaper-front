@@ -6,6 +6,7 @@ import { selectUser } from "../../../store/slices/user";
 import { openModal } from "../../../store/slices/Modal";
 import { useRouter } from "next/router";
 import { TitleFont } from "../../core/font/TitleFonts";
+import { Button } from "../../comment/comment/Comment.style";
 
 function NavigationHeader() {
   const dispatch = useDispatch();
@@ -47,9 +48,9 @@ function NavigationHeader() {
       </div>
       <Navigator>
         <LoginBox>
-          <button onClick={() => handleRegisterPost("/post/register")}>
+          <Button onClick={() => handleRegisterPost("/post/register")}>
             방탈출 모집
-          </button>
+          </Button>
         </LoginBox>
         <LoginBox>
           <Link href="/theme">

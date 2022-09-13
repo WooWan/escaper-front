@@ -11,6 +11,7 @@ export const ModalBackground = styled.div`
 
 export const ModalContainer = styled.div`
   position: fixed;
+  inset: 0px;
   display: flex;
   align-items: center;
   justify-content: center;

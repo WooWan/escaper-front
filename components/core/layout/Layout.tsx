@@ -1,4 +1,4 @@
-import { createGlobalStyle } from "styled-components";
+import styled, { createGlobalStyle } from "styled-components";
 import { ReactNode, useEffect, useMemo } from "react";
 import NavigationHeader from "../../containers/navigation-header/NavigationHeader";
 import { useAxiosInterceptor } from "../../../utils/hooks/useAxiosInterceptor";
@@ -14,6 +14,11 @@ import SessionStorage from "../../../service/SessionStorage";
 interface LayoutProps {
   children: ReactNode;
 }
+
+export const Container = styled.div`
+  max-width: 1020px;
+  margin: 0 auto;
+`;
 
 const GlobalStyle = createGlobalStyle`
   html, body, div, span, applet, object, iframe,
@@ -107,12 +112,12 @@ function Layout({ children }: LayoutProps) {
   }, [isLogin, dispatch, setCookie, query]);
 
   return (
-    <>
+    <Container>
       {isOpen && <Modal />}
       <GlobalStyle />
       <NavigationHeader />
       <div>{children}</div>
-    </>
+    </Container>
   );
 }
 

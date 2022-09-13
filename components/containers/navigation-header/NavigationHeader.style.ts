@@ -3,13 +3,12 @@ import styled from "styled-components";
 export const Navigator = styled.div`
   display: flex;
   gap: 20px;
-  margin-right: 20px;
 `;
 export const Header = styled.nav`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 2rem 1.75rem;
+  padding: 2rem 1.5rem;
 `;
 
 export const LoginBox = styled.li`
