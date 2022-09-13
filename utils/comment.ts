@@ -14,16 +14,12 @@ async function addComment(comment: IComment) {
   );
 }
 
-async function editComment({
-  commentId,
-  postId,
-  content,
-}: ICommentUpdateRequest) {
+async function editComment({ commentId, content }: ICommentUpdateRequest) {
   return await httpClient.put(
     "/api/comment",
     { content },
     {
-      params: { commentId, postId },
+      params: { commentId },
     }
   );
 }
@@ -51,6 +47,23 @@ export function useAddComment(postId: string | string[] | undefined) {
 export function useUpdateComment(postId: string | string[] | undefined) {
   const queryClient = useQueryClient();
   return useMutation(editComment, {
+    onSuccess: () => {
+      queryClient.invalidateQueries(["comment", postId]);
+    },
+  });
+}
+
+async function deleteComment(commentId: number) {
+  await httpClient.delete("/api/comment", {
+    params: {
+      commentId,
+    },
+  });
+}
+
+export function useDeleteComment(postId: string | string[] | undefined) {
+  const queryClient = useQueryClient();
+  return useMutation(deleteComment, {
     onSuccess: () => {
       queryClient.invalidateQueries(["comment", postId]);
     },
