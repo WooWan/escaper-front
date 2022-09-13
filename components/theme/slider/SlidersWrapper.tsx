@@ -5,6 +5,7 @@ import { IThemesType } from "../../../interfaces";
 const SlidersWrapper = styled.ul`
   display: flex;
   flex-direction: column;
+  row-gap: 5rem;
 `;
 
 interface IProps {

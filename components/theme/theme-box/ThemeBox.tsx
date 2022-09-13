@@ -18,7 +18,7 @@ function ThemeBox({
     },
     hover: {
       scale: 1.05,
-      y: -30,
+      y: -20,
       transition: {
         delay: 0.4,
         duration: 0.2,
