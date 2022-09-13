@@ -63,6 +63,7 @@ export interface IReview {
   content: string;
   rate?: number;
   themeId: number;
+  themeName: string;
   likes: number;
   memberResponse: IMember;
 }
