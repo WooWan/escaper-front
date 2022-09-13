@@ -38,6 +38,7 @@ function ReviewRegister() {
       );
     } else {
       addReview({ themeId, memberId, review });
+      setReview("");
     }
   };
 
@@ -50,6 +51,7 @@ function ReviewRegister() {
     <>
       <CommentTextArea
         name=""
+        value={review}
         id=""
         placeholder="방탈출에 대한 내 평가를 남겨보세요!"
         onChange={handleReviewChange}
