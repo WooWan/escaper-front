@@ -1,9 +1,10 @@
 import PostBox from "./PostBox";
 import styled from "styled-components";
-import { useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef } from "react";
 import { IPost } from "../../interfaces";
-import { useInfiniteQuery } from "@tanstack/react-query";
+import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import { fetchPostsInfinite } from "../../utils/posts";
+import { useObserver } from "../../utils/hooks/useObserver";
 
 const PostList = styled.ul`
   display: grid;
@@ -26,40 +27,14 @@ interface IPostsPageImpl {
 }
 
 function Posts() {
-  const loadMoreRef = useRef<HTMLDivElement | null>(null);
-  const { data, fetchNextPage } = useInfiniteQuery<IPostsPageImpl>(
+  const loadMoreRef = useRef<HTMLDivElement>(null);
+  const { data, fetchNextPage, hasNextPage } = useInfiniteQuery<IPostsPageImpl>(
     ["posts"],
-    fetchPostsInfinite,
-    {
-      getNextPageParam: (lastPage) => {
-        const { last } = lastPage;
-        if (last) return;
-        return lastPage.pageable.pageNumber + 1;
-      },
-    }
+    fetchPostsInfinite
   );
 
-  useEffect(() => {
-    const option = {
-      root: null,
-      rootMargin: "0px",
-      threshold: 1.0,
-    };
-
-    const handleObserver = ([entry]: IntersectionObserverEntry[]) => {
-      entry.isIntersecting && fetchNextPage();
-    };
-
-    const observer = new IntersectionObserver(handleObserver, option);
-    let observerRefValue: HTMLDivElement | null = null;
-    if (loadMoreRef?.current) {
-      observerRefValue = loadMoreRef?.current;
-      observer.observe(observerRefValue);
-    }
-    return () => {
-      if (observerRefValue) observer.unobserve(observerRefValue);
-    };
-  }, [loadMoreRef, fetchNextPage]);
+  const onIntersect = ([entry]: IntersectionObserverEntry[]) => fetchNextPage();
+  useObserver({ target: loadMoreRef, onIntersect });
 
   useEffect(() => {
     const scrollY = localStorage.getItem("post_scrollY");
