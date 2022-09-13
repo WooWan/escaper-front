@@ -1,8 +1,10 @@
+import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { ICommentResponse } from "../../../interfaces";
 import { selectUser } from "../../../store/slices/user";
+import { useDeleteComment } from "../../../utils/comment";
 import { ContentFont, TitleFont } from "../../core/font/TitleFonts";
 import CommentRegister from "../register/Register";
 import { Button, ButtonContainer, Container, Header } from "./Comment.style";
@@ -20,8 +22,12 @@ function Comment({
   const [isEdited, setIsEdited] = useState(false);
   const router = useRouter();
   const postId = router.query.id;
+  const { mutate: deleteComment } = useDeleteComment(postId);
   const handleEditComment = () => {
     setIsEdited((prev) => !prev);
+  };
+  const handleDeleteComment = () => {
+    deleteComment(id);
   };
 
   return (
@@ -45,7 +51,7 @@ function Comment({
             {userId === commentUserId ? (
               <ButtonContainer>
                 <Button onClick={handleEditComment}>수정</Button>
-                <Button>삭제</Button>
+                <Button onClick={handleDeleteComment}>삭제</Button>
               </ButtonContainer>
             ) : null}
           </Header>
