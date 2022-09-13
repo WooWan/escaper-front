@@ -4,6 +4,9 @@ import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
 import { IPost } from "../../interfaces";
 import { selectUser } from "../../store/slices/user";
+
+import { useDeletePost } from "../../utils/posts";
+import { Button } from "../comment/comment/Comment.style";
 import { ContentFont, SubtitleFont, TitleFont } from "../core/font/TitleFonts";
 import { StarIcon } from "../core/rating-bar/star-icon";
 import {
@@ -24,7 +27,7 @@ interface IProps {
 }
 function Post({ data }: IProps) {
   const router = useRouter();
-
+  const { id } = router.query;
   const { user } = useSelector(selectUser);
   const {
     memberResponse,
@@ -36,6 +39,7 @@ function Post({ data }: IProps) {
     createdDate,
   } = data;
   const { cafeResponse } = themeResponse;
+  const { mutate: deletePost } = useDeletePost(id);
 
   const userId = user?.id;
   const postMemberId = memberResponse?.id;
@@ -47,6 +51,9 @@ function Post({ data }: IProps) {
       `/post/register`
     );
   };
+  const handleDeletePost = () => {
+    deletePost(id);
+  };
   return (
     <Container>
       <TitleFont fontSize="2rem">{title}</TitleFont>
@@ -56,8 +63,8 @@ function Post({ data }: IProps) {
         </ContentFont>
         {userId === postMemberId ? (
           <ButtonWrapper>
-            <button onClick={handleEdit}>수정</button>
-            <button>삭제</button>
+            <Button onClick={handleEdit}>수정</Button>
+            <Button onClick={handleDeletePost}>삭제</Button>
           </ButtonWrapper>
         ) : null}
       </Header>
