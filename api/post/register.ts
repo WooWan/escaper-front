@@ -43,8 +43,8 @@ export function useAddPost() {
   const router = useRouter();
   return useMutation(addPost, {
     onSuccess: ({ data }) => {
-      queryClient.invalidateQueries(["posts"]);
       router.push(`/post/${data}`);
+      return queryClient.invalidateQueries(["posts"]);
     },
     onError: (error) => {
       // console.error(error);
