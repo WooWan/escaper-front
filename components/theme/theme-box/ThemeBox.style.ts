@@ -5,7 +5,7 @@ export const Box = styled(motion.div)`
   display: flex;
   flex-direction: column;
   background-position: center center;
-  height: 400px;
+  height: 99.5%;
   cursor: pointer;
   z-index: 10;
   box-shadow: 0 2px 3px rgb(0 10 18 / 10%), 0 0 0 1px rgb(0 10 18 / 10%);
