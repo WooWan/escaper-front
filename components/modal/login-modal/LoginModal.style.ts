@@ -1,14 +1,33 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
+import { Format } from "../basic/Modal";
 
-export const ModalWrapper = styled.div`
+export const Container = styled.div<{ format: Format }>`
   position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding: 2rem;
+  background-color: ${(props) => props.theme.bgColor};
+  border: 1px solid;
+  border-color: ${(props) => props.theme.gray_lighter};
+  border-radius: 8px;
   row-gap: 0.75rem;
-  padding: 2.5rem 1.5rem;
-  width: 100%;
+  z-index: 5;
+  ${({ format }) => {
+    if (format === "vertical") {
+      return css`
+        width: 20rem;
+        height: 16rem;
+      `;
+    } else if (format === "horizontal") {
+      return css`
+        width: 22rem;
+        height: 10rem;
+      `;
+    }
+  }}
 `;
+
 export const CancelButtonWrapper = styled.div`
   position: absolute;
   right: 8px;

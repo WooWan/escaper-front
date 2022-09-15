@@ -38,7 +38,7 @@ function UserRating({ rating }: IProps) {
     } else {
       dispatch(
         openModal({
-          modalType: "basic",
+          modalType: "LoginErrorModal",
           isOpen: true,
         })
       );

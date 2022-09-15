@@ -8,7 +8,7 @@ function useValidateUser() {
 
   const validateUser = () => {
     if (!isLogin) {
-      dispatch(openModal({ modalType: "basic", isOpen: true }));
+      dispatch(openModal({ modalType: "LoginErrorModal", isOpen: true }));
     }
   };
 

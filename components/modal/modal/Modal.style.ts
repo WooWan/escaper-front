@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components";
-import { Format } from "./Modal";
+import { Format } from "../basic/Modal";
 
-export const ModalBackground = styled.div`
+export const Overlay = styled.div`
   position: fixed;
   width: 100%;
   height: 100%;
@@ -9,7 +9,7 @@ export const ModalBackground = styled.div`
   outline: none;
 `;
 
-export const ModalContainer = styled.div`
+export const Container = styled.div`
   position: fixed;
   inset: 0px;
   display: flex;

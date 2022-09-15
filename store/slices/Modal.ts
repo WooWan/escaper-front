@@ -1,13 +1,15 @@
 import { RootState } from "./../config";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { Modals } from "../../components/modal/modal/Modal";
 
-type ModalType = "basic" | "LoginModal";
+export type modalTypes = typeof Modals[keyof typeof Modals];
 interface ModalState {
-  modalType: ModalType;
+  modalType: modalTypes;
   isOpen: boolean;
 }
+
 const initialState: ModalState = {
-  modalType: "basic",
+  modalType: "LoginErrorModal",
   isOpen: false,
 };
 

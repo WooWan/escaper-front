@@ -3,8 +3,7 @@ import { ReactNode, useEffect, useMemo } from "react";
 import NavigationHeader from "../../containers/navigation-header/NavigationHeader";
 import { useAxiosInterceptor } from "../../../utils/hooks/useAxiosInterceptor";
 import { useDispatch, useSelector } from "react-redux";
-import { selectModal } from "../../../store/slices/Modal";
-import Modal from "../../containers/modal/Modal";
+import ModalManager from "../../modal/modal/Modal";
 import { fetchMember } from "../../../api/member";
 import { useCookies } from "react-cookie";
 import { useRouter } from "next/router";
@@ -83,7 +82,6 @@ const GlobalStyle = createGlobalStyle`
 const sessionStorage = new SessionStorage();
 
 function Layout({ children }: LayoutProps) {
-  const { isOpen } = useSelector(selectModal);
   useAxiosInterceptor();
   const { query } = useRouter();
   const [cookie, setCookie] = useCookies(["token"]);
@@ -113,7 +111,7 @@ function Layout({ children }: LayoutProps) {
 
   return (
     <Container>
-      {isOpen && <Modal />}
+      <ModalManager />
       <GlobalStyle />
       <NavigationHeader />
       <div>{children}</div>

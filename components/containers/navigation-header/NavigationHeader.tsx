@@ -28,7 +28,7 @@ function NavigationHeader() {
     if (!isLogin) {
       dispatch(
         openModal({
-          modalType: "basic",
+          modalType: "LoginErrorModal",
           isOpen: true,
         })
       );

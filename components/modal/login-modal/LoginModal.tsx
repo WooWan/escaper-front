@@ -12,7 +12,7 @@ import {
   LoginButton,
   LoginWrapper,
   LoginButtonList,
-  ModalWrapper,
+  Container,
   SignInUpText,
   KakaoWrapper,
 } from "./LoginModal.style";
@@ -33,36 +33,34 @@ function LoginModal() {
   const kakaoUrl = `${SERVER}/oauth2/authorization/kakao?redirect_uri=${HOST}${router.asPath}&signup=${process.env.NEXT_PUBLIC_SIGNUP}`;
 
   return (
-    <Modal format="vertical">
-      <ModalWrapper>
-        <CancelButtonWrapper onClick={() => dispatch(closeModal())}>
-          <Cancel />
-        </CancelButtonWrapper>
-        <LoginWrapper>
-          <SignInUpText>로그인/회원가입</SignInUpText>
-          <LoginButtonList>
-            <Link href={googleUrl}>
-              <LoginButton>
-                <GoogleIcon />
-                <ButtonTextWrapper>
-                  <p>구글 계정으로 계속하기</p>
-                </ButtonTextWrapper>
-              </LoginButton>
-            </Link>
-            <Link href={kakaoUrl}>
-              <LoginButton>
-                <KakaoWrapper>
-                  <KakaoIcon />
-                </KakaoWrapper>
-                <ButtonTextWrapper>
-                  <p>카카오 계정으로 계속하기</p>
-                </ButtonTextWrapper>
-              </LoginButton>
-            </Link>
-          </LoginButtonList>
-        </LoginWrapper>
-      </ModalWrapper>
-    </Modal>
+    <Container format={"vertical"}>
+      <CancelButtonWrapper onClick={() => dispatch(closeModal())}>
+        <Cancel />
+      </CancelButtonWrapper>
+      <LoginWrapper>
+        <SignInUpText>로그인/회원가입</SignInUpText>
+        <LoginButtonList>
+          <Link href={googleUrl}>
+            <LoginButton>
+              <GoogleIcon />
+              <ButtonTextWrapper>
+                <p>구글 계정으로 계속하기</p>
+              </ButtonTextWrapper>
+            </LoginButton>
+          </Link>
+          <Link href={kakaoUrl}>
+            <LoginButton>
+              <KakaoWrapper>
+                <KakaoIcon />
+              </KakaoWrapper>
+              <ButtonTextWrapper>
+                <p>카카오 계정으로 계속하기</p>
+              </ButtonTextWrapper>
+            </LoginButton>
+          </Link>
+        </LoginButtonList>
+      </LoginWrapper>
+    </Container>
   );
 }
 
