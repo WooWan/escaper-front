@@ -1,5 +1,6 @@
 import styled, { css } from "styled-components";
-import { Format } from "../basic/Modal";
+
+export type Format = "horizontal" | "vertical";
 
 export const Overlay = styled.div`
   position: fixed;

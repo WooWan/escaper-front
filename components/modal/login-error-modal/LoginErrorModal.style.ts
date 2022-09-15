@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import { Format } from "../basic/Modal";
+import { Format } from "../modal/Modal.style";
 
 export const Container = styled.div<{ format: Format }>`
   display: flex;
