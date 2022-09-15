@@ -5,7 +5,7 @@ import { closeModal } from "../../../store/slices/Modal";
 import Cancel from "../../icons/cancel";
 import GoogleIcon from "../../icons/GoogleIcon";
 import KakaoIcon from "../../icons/KakaoIcon";
-import Modal from "../basic/Modal";
+
 import {
   ButtonTextWrapper,
   CancelButtonWrapper,

@@ -28,7 +28,6 @@ function ModalManager() {
     return modal.type === modalType;
   });
   const renderModal = () => {
-    console.log(findModal?.component);
     return findModal?.component;
   };
   if (!isOpen) return null;
