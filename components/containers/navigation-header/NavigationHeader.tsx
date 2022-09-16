@@ -2,12 +2,13 @@ import { Header, LoginBox, Navigator } from "./NavigationHeader.style";
 import Link from "next/link";
 import { useAxiosInterceptor } from "../../../utils/hooks/useAxiosInterceptor";
 import { useDispatch, useSelector } from "react-redux";
-import { selectUser } from "../../../store/slices/user";
+import { logoutUser, selectUser } from "../../../store/slices/user";
 import { openModal } from "../../../store/slices/Modal";
 import { useRouter } from "next/router";
 import { TitleFont } from "../../core/font/TitleFonts";
 import { Button } from "../../comment/comment/Comment.style";
-
+import SessionStorage from "../../../service/SessionStorage";
+const sessionStorage = new SessionStorage();
 function NavigationHeader() {
   const dispatch = useDispatch();
   const router = useRouter();
@@ -23,7 +24,10 @@ function NavigationHeader() {
       })
     );
   };
-
+  const handleLogout = () => {
+    sessionStorage.removeItem("token");
+    dispatch(logoutUser());
+  };
   const handleRegisterPost = (href: string) => {
     if (!isLogin) {
       dispatch(
@@ -58,7 +62,7 @@ function NavigationHeader() {
           </Link>
         </LoginBox>
         {isLogin ? (
-          <LoginBox>로그아웃</LoginBox>
+          <LoginBox onClick={handleLogout}>로그아웃</LoginBox>
         ) : (
           <LoginBox onClick={handleModalOpen}>로그인/회원가입</LoginBox>
         )}
