@@ -24,11 +24,7 @@ function LoginModal() {
   const SERVER = process.env.NEXT_PUBLIC_SERVER_HOST;
   const HOST = process.env.NEXT_PUBLIC_HOST_NAME;
 
-  const { asPath } = router;
-  const googleUrl =
-    asPath === "/"
-      ? `${SERVER}/oauth2/authorization/google?redirect_uri=${HOST}&signup=${process.env.NEXT_PUBLIC_SIGNUP}`
-      : `${SERVER}/oauth2/authorization/google?redirect_uri=${HOST}${router.asPath}&signup=${process.env.NEXT_PUBLIC_SIGNUP}`;
+  const googleUrl = `${SERVER}/oauth2/authorization/google?redirect_uri=${HOST}&signup=${process.env.NEXT_PUBLIC_SIGNUP}`;
 
   const kakaoUrl = `${SERVER}/oauth2/authorization/kakao?redirect_uri=${HOST}${router.asPath}&signup=${process.env.NEXT_PUBLIC_SIGNUP}`;
 

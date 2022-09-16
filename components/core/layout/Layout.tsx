@@ -1,12 +1,12 @@
 import styled, { createGlobalStyle } from "styled-components";
-import { ReactNode, useEffect, useMemo } from "react";
+import { ReactNode, useEffect } from "react";
 import NavigationHeader from "../../containers/navigation-header/NavigationHeader";
 import { useAxiosInterceptor } from "../../../utils/hooks/useAxiosInterceptor";
 import { useDispatch, useSelector } from "react-redux";
 import ModalManager from "../../modal/modal/Modal";
 import { fetchMember } from "../../../api/member";
 import { useCookies } from "react-cookie";
-import { useRouter } from "next/router";
+import Router, { useRouter } from "next/router";
 import { loginUser, selectUser } from "../../../store/slices/user";
 import SessionStorage from "../../../service/SessionStorage";
 
@@ -83,11 +83,12 @@ const sessionStorage = new SessionStorage();
 
 function Layout({ children }: LayoutProps) {
   useAxiosInterceptor();
-  const { query } = useRouter();
+  const router = useRouter();
+  const { query } = router;
   const [cookie, setCookie] = useCookies(["token"]);
   const dispatch = useDispatch();
   const { isLogin } = useSelector(selectUser);
-
+  console.log(router);
   useEffect(() => {
     const { token } = query;
     if (token) {
@@ -104,10 +105,12 @@ function Layout({ children }: LayoutProps) {
         dispatch(loginUser(data));
       } catch (err) {
         sessionStorage.removeItem("token");
+      } finally {
+        router.push("/");
       }
     };
     getUser();
-  }, [isLogin, dispatch, setCookie, query]);
+  }, [isLogin, dispatch, setCookie, query, router]);
 
   return (
     <Container>
