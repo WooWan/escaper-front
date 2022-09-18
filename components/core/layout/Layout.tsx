@@ -92,7 +92,7 @@ function Layout({ children }: LayoutProps) {
   useEffect(() => {
     const { token } = query;
     if (token) {
-      setCookie("token", token, { path: "/" });
+      setCookie("token", token, { path: "/", httpOnly: true });
       sessionStorage.setStorageItem("token", token as string);
     }
     const jwt = token || sessionStorage.getStorageItem("token");
