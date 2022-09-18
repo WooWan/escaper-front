@@ -7,11 +7,12 @@ import { openModal } from "../../../store/slices/Modal";
 import { useRouter } from "next/router";
 import { TitleFont } from "../../core/font/TitleFonts";
 import { Button } from "../../comment/comment/Comment.style";
-import SessionStorage from "../../../service/SessionStorage";
-const sessionStorage = new SessionStorage();
+import { useCookies } from "react-cookie";
+
 function NavigationHeader() {
   const dispatch = useDispatch();
   const router = useRouter();
+  const [cookies, setCookies, removeCookie] = useCookies(["token"]);
 
   const { isLogin } = useSelector(selectUser);
   useAxiosInterceptor();
@@ -25,7 +26,7 @@ function NavigationHeader() {
     );
   };
   const handleLogout = () => {
-    sessionStorage.removeItem("token");
+    removeCookie("token");
     dispatch(logoutUser());
   };
   const handleRegisterPost = (href: string) => {

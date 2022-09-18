@@ -6,9 +6,8 @@ import { useDispatch, useSelector } from "react-redux";
 import ModalManager from "../../modal/modal/Modal";
 import { fetchMember } from "../../../api/member";
 import { useCookies } from "react-cookie";
-import Router, { useRouter } from "next/router";
+import { useRouter } from "next/router";
 import { loginUser, selectUser } from "../../../store/slices/user";
-import SessionStorage from "../../../service/SessionStorage";
 
 interface LayoutProps {
   children: ReactNode;
@@ -79,38 +78,45 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
-const sessionStorage = new SessionStorage();
-
 function Layout({ children }: LayoutProps) {
   useAxiosInterceptor();
   const router = useRouter();
   const { query } = router;
-  const [cookie, setCookie] = useCookies(["token"]);
+  const [cookies, setCookies, removeCookie] = useCookies(["token"]);
   const dispatch = useDispatch();
   const { isLogin } = useSelector(selectUser);
-  console.log(router);
+
   useEffect(() => {
     const { token } = query;
     if (token) {
-      setCookie("token", token, { path: "/", httpOnly: true });
-      sessionStorage.setStorageItem("token", token as string);
+      setCookies("token", token, { path: "/", httpOnly: true });
     }
-    const jwt = token || sessionStorage.getStorageItem("token");
+
+    const jwt = token || cookies["token"];
 
     if (isLogin || !jwt) return;
-    setCookie("token", jwt, { path: "/" });
+    setCookies("token", jwt, { path: "/" });
     const getUser = async () => {
       try {
         const { data } = await fetchMember();
         dispatch(loginUser(data));
       } catch (err) {
-        sessionStorage.removeItem("token");
+        removeCookie("token");
       } finally {
         router.push("/");
       }
     };
     getUser();
-  }, [isLogin, dispatch, setCookie, query, router]);
+  }, [
+    isLogin,
+    dispatch,
+    setCookies,
+    query,
+    router,
+    cookies,
+    cookies.token,
+    removeCookie,
+  ]);
 
   return (
     <Container>

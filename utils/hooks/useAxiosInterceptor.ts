@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 import { useCookies } from "react-cookie";
 import { httpClient } from "../../service/httpClient";
-import SessionStorage from "../../service/SessionStorage";
 
 export const useAxiosInterceptor = () => {
   const [cookies] = useCookies(["token"]);
