@@ -22,11 +22,9 @@ export const useObserver = ({
         threshold: 0.3,
       });
       // 실제 Element가 들어있는 current 관측을 시작한다.
-      observer.observe(target.current);
+      // observer.observe(target.current);
     }
     const value = target.current;
-    return () => {
-      observer.disconnect();
-    };
+    return () => observer && observer.disconnect();
   }, [target, onIntersect]);
 };
