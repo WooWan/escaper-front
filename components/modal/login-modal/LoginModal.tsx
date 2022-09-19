@@ -26,7 +26,7 @@ function LoginModal() {
 
   const googleUrl = `${SERVER}/oauth2/authorization/google?redirect_uri=${HOST}&signup=${process.env.NEXT_PUBLIC_SIGNUP}`;
 
-  const kakaoUrl = `${SERVER}/oauth2/authorization/kakao?redirect_uri=${HOST}${router.asPath}&signup=${process.env.NEXT_PUBLIC_SIGNUP}`;
+  const kakaoUrl = `${SERVER}/oauth2/authorization/kakao?redirect_uri=${HOST}&signup=${process.env.NEXT_PUBLIC_SIGNUP}`;
 
   return (
     <Container format={"vertical"}>
