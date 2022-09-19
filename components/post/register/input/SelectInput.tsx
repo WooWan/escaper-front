@@ -43,7 +43,13 @@ function SelectInput({ control, theme }: ISelectInput) {
     control,
     name: "themeName",
   });
-  const cityt = { label: address?.city, value: address?.city };
+  const customStyles = {
+    control: (css: any) => ({
+      ...css,
+      width: 175,
+    }),
+  };
+
   return (
     <SelectorContainer>
       <Select
@@ -69,6 +75,7 @@ function SelectInput({ control, theme }: ISelectInput) {
       />
       <Select
         instanceId={useId()}
+        styles={customStyles}
         defaultInputValue={theme?.cafeResponse?.name}
         placeholder="카페"
         onChange={(options) => {
