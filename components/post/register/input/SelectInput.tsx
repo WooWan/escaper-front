@@ -22,7 +22,7 @@ interface ISelectInput {
 
 function SelectInput({ control, theme }: ISelectInput) {
   const address = theme?.cafeResponse?.address;
-  const [city, setCity] = useState<string | undefined>(address?.city);
+  const [city, setCity] = useState<string | undefined>("");
   const [area, setArea] = useState<string | undefined>("");
   const [cafe, setCafe] = useState<string | undefined>("");
   const cityList = useSearchCity();
