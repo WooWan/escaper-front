@@ -32,7 +32,7 @@ function PostDetail(props: IPost) {
   );
   const { data: comments } = useCommentData(postId);
 
-  if (isLoading || isFetching || isError) return;
+  if (isLoading || isError) return;
   return (
     <Container>
       <Post data={data} />
