@@ -1,8 +1,8 @@
 import PostBox from "./PostBox";
 import styled from "styled-components";
-import { useCallback, useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import { IPost } from "../../interfaces";
-import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
+import { useInfiniteQuery } from "@tanstack/react-query";
 import { fetchPostsInfinite } from "../../utils/posts";
 import { useObserver } from "../../utils/hooks/useObserver";
 
