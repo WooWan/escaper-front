@@ -7,18 +7,7 @@ const nextConfig = withBundleAnalyzer({
   swcMinify: true,
   compress: true,
   compiler: {
-    styledComponents: {
-      ssr: true,
-      displayName: true,
-    },
-  },
-  webpack(config) {
-    let prod = process.env.NODE_ENV === "production";
-    return {
-      ...config,
-      mode: prod ? "production" : "development",
-      devtool: prod ? "hidden-source-map" : "eval",
-    };
+    styledComponents: true,
   },
   images: {
     domains: ["escapertest.s3.ap-northeast-2.amazonaws.com"],
