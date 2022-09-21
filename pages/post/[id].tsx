@@ -26,9 +26,10 @@ interface IProps {
 function PostDetail(props: IPost) {
   const router = useRouter();
   const postId = router.query.id;
-  const { data, isLoading, isFetching, isError } = useQuery<IPost>(
+  const { data, isLoading, isError } = useQuery<IPost>(
     ["post", postId],
-    () => fetchPost(postId)
+    () => fetchPost(postId),
+    { suspense: true }
   );
   const { data: comments } = useCommentData(postId);
 
