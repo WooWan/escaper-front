@@ -14,7 +14,7 @@ interface IProps {
 function Sliders({ data }: IProps) {
   return (
     <SlidersWrapper>
-      <Slider genre="popular" />
+      {/* <Slider genre="popular" /> */}
       {/* {data?.map((theme) => (
         <Slider key={theme.id} id={theme.id} genre={theme.genre} />
       ))} */}
