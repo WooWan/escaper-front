@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { IReview } from "../../../interfaces";
 import { SubtitleFont, TitleFont } from "../../core/font/TitleFonts";
 import { Rating } from "../../core/rating-bar/rating";
-import ThumbUp from "../../icons/thumb-up";
+
 import {
   Container,
   Header,

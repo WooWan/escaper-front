@@ -1,4 +1,4 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import { closeModal, openModal } from "../../../store/slices/Modal";
 import TextButton from "../../core/button/text-button/TextButton";

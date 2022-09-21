@@ -1,5 +1,4 @@
 import React, { useMemo, useReducer, useCallback, Fragment } from "react";
-import styled from "styled-components";
 import { StarIcon } from "./star-icon";
 const isTouchDevice = () =>
   "ontouchstart" in window || navigator.maxTouchPoints > 0;

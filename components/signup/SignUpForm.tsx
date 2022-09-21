@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
 import { useSignUp } from "../../api/signUp";
-import { ISignUpForm, ISignUpRequest } from "../../interfaces/member";
+import { ISignUpForm } from "../../interfaces/member";
 import TextButton from "../core/button/text-button/TextButton";
 import { SubtitleFont, TitleFont } from "../core/font/TitleFonts";
 import {

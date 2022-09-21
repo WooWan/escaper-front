@@ -9,7 +9,6 @@ import ThemeBox from "../../theme-box/ThemeBox";
 import { TitleFont } from "../../../core/font/TitleFonts";
 import { Button, Container, Row, Slide, TitleWrapper } from "./Slider.style";
 import useElementSize from "../../../../utils/hooks/useElementSize";
-import useWindowSize from "../../../../utils/hooks/useWindowSize";
 
 const OFFSET = 5;
 
