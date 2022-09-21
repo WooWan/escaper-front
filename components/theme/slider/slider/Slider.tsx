@@ -23,8 +23,13 @@ const genreTitle: GenreType = {
 };
 
 function Slider({ genre }: IThemesType) {
+  // const { data } = useQuery<IThemeInfo[]>(
+  //   ["theme", genre],
+  //   genre === "popular" ? fetchPopularTheme : () => fetchThemeByGenre(genre)
+  // );
   const { data } = useQuery<IThemeInfo[]>(
-    ["theme", genre],
+    // ["theme", genre],
+    ["popular"],
     genre === "popular" ? fetchPopularTheme : () => fetchThemeByGenre(genre)
   );
 
