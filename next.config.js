@@ -13,7 +13,6 @@ const nextConfig = withBundleAnalyzer({
     },
   },
   webpack(config) {
-    console.log(config);
     let prod = process.env.NODE_ENV === "production";
     return {
       ...config,
