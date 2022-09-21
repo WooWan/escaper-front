@@ -1,3 +1,4 @@
+import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -7,9 +8,9 @@ import { IForm } from "../../../../interfaces/post";
 import SessionStorage from "../../../../service/SessionStorage";
 import TextButton from "../../../core/button/text-button/TextButton";
 import Counter from "../counter/Counter";
-import DatePicker from "../date-picker/DatePicker";
-import WysiwygEditor from "../editor/WysiwygEditor";
-import SelectInput from "../input/SelectInput";
+const DatePicker = dynamic(() => import("../date-picker/DatePicker"));
+const WysiwygEditor = dynamic(() => import("../editor/WysiwygEditor"));
+const SelectInput = dynamic(() => import("../input/SelectInput"));
 import {
   ButtonWrapper,
   Container,
@@ -20,7 +21,6 @@ import {
 
 function PostRegister() {
   const router = useRouter();
-  const data = router.query?.data as string;
   const queryPost = router.query?.data as string;
   const [sessionStorage] = useState(() => new SessionStorage());
   const sessionPost = sessionStorage.getStorageItem("post");
