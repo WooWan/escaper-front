@@ -1,6 +1,11 @@
 import Sliders from "../../components/theme/slider/SlidersWrapper";
 import { IThemesType } from "../../interfaces";
-import { useQuery } from "@tanstack/react-query";
+import {
+  dehydrate,
+  QueryClient,
+  useQuery,
+  useQueryClient,
+} from "@tanstack/react-query";
 import { fetchThemeTypes } from "../../api/theme";
 import { Suspense } from "react";
 
@@ -13,4 +18,12 @@ function Theme() {
     </Suspense>
   );
 }
+
+export async function getStaticProps() {
+  const queryClient = new QueryClient();
+  await queryClient.fetchQuery(["themeTypes"], fetchThemeTypes);
+
+  return { props: { dehydratedState: dehydrate(queryClient) } };
+}
+
 export default Theme;
