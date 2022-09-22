@@ -1,7 +1,7 @@
 import Sliders from "../../components/theme/slider/SlidersWrapper";
 import { IThemesType } from "../../interfaces";
 import { dehydrate, QueryClient, useQuery } from "@tanstack/react-query";
-import { fetchPopularTheme, fetchThemeTypes } from "../../api/theme";
+import { fetchThemeTypes } from "../../api/theme";
 
 function Theme() {
   const { data } = useQuery<IThemesType[]>(["themeTypes"], fetchThemeTypes);
@@ -11,9 +11,7 @@ function Theme() {
 
 export async function getStaticProps() {
   const queryClient = new QueryClient();
-
-  await queryClient.fetchQuery(["popular"], fetchPopularTheme);
-  // await queryClient.fetchQuery(["themeTypes"], fetchThemeTypes);
+  await queryClient.prefetchQuery(["themeTypes"], fetchThemeTypes);
 
   return { props: { dehydratedState: dehydrate(queryClient) } };
 }
