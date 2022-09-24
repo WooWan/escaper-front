@@ -56,6 +56,9 @@ function SelectInput({ control, theme }: ISelectInput) {
         }}
         placeholder="지역"
         options={cityList.data}
+        styles={{
+          menu: (provided) => ({ ...provided, zIndex: 9999 }),
+        }}
       />
       <Select
         instanceId={useId()}
@@ -66,6 +69,9 @@ function SelectInput({ control, theme }: ISelectInput) {
           setArea(options?.value);
         }}
         options={areaList.data}
+        styles={{
+          menu: (provided) => ({ ...provided, zIndex: 9999 }),
+        }}
       />
       <Select
         instanceId={useId()}
@@ -76,6 +82,9 @@ function SelectInput({ control, theme }: ISelectInput) {
           setCafe(options?.value);
         }}
         options={cafeList.data}
+        styles={{
+          menu: (provided) => ({ ...provided, zIndex: 9999 }),
+        }}
       />
       <Select
         instanceId={useId()}
