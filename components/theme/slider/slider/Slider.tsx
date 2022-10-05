@@ -51,7 +51,8 @@ function Slider({ genre }: IThemesType) {
     }),
   };
   const totalMovies = data?.length;
-  const maxIndex = totalMovies && Math.floor(totalMovies / OFFSET);
+  const maxIndex = totalMovies && Math.floor(totalMovies / OFFSET)-1;
+
   const nextSlide = () => {
     if (leaving) return;
     setBack(false);
