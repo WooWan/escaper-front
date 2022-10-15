@@ -2,7 +2,7 @@ import { Header, LoginBox, Navigator } from "./NavigationHeader.style";
 import Link from "next/link";
 import { useAxiosInterceptor } from "../../../utils/hooks/useAxiosInterceptor";
 import { useDispatch, useSelector } from "react-redux";
-import { logoutUser, selectUser } from "../../../store/slices/user";
+import { logoutUser, selectUser } from "../../../store/slices/user/user";
 import { openModal } from "../../../store/slices/Modal";
 import { useRouter } from "next/router";
 import { TitleFont } from "../../core/font/TitleFonts";

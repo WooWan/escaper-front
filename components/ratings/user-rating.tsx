@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { openModal } from "../../store/slices/Modal";
-import { selectUser } from "../../store/slices/user";
+import { selectUser } from "../../store/slices/user/user";
 import {
   GeneralRating,
   RatingInfo,

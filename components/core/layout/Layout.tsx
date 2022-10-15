@@ -7,7 +7,7 @@ import ModalManager from "../../modal/modal/Modal";
 import { loginMember } from "../../../api/member";
 import { useCookies } from "react-cookie";
 import { useRouter } from "next/router";
-import { loginUser, selectUser } from "../../../store/slices/user";
+import { loginUser, selectUser } from "../../../store/slices/user/user";
 
 interface LayoutProps {
   children: ReactNode;

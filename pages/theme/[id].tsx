@@ -14,7 +14,7 @@ import ReviewRegister from "../../components/review/review-register";
 import Reviews from "../../components/review/Reviews";
 import { IMemberRating, IThemeDetail } from "../../interfaces/theme";
 import { useSelector } from "react-redux";
-import { selectUser } from "../../store/slices/user";
+import { selectUser } from "../../store/slices/user/user";
 
 const Container = styled.div`
   display: flex;

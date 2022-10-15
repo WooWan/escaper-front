@@ -3,7 +3,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
 import { IPost } from "../../interfaces";
-import { selectUser } from "../../store/slices/user";
+import { selectUser } from "../../store/slices/user/user";
 
 import { useDeletePost } from "../../utils/posts";
 import { Button } from "../comment/comment/Comment.style";

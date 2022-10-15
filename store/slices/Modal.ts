@@ -1,4 +1,4 @@
-import { RootState } from "./../config";
+import { RootState } from "../config";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Modals } from "../../components/modal/modal/Modal";
 

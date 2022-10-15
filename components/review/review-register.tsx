@@ -4,7 +4,7 @@ import { useAddReview } from "../../api/theme";
 import { useRouter } from "next/router";
 import TextButton from "../core/button/text-button/TextButton";
 import { useDispatch, useSelector } from "react-redux";
-import { selectUser } from "../../store/slices/user";
+import { selectUser } from "../../store/slices/user/user";
 import useValidateUser from "../../utils/useValidateUser";
 import { openModal } from "../../store/slices/Modal";
 
