@@ -1,4 +1,5 @@
-import { IMember } from "./member.d";
+import { IMember } from "./member";
+
 export interface IThemesType {
   id?: number;
   genre: string;
@@ -11,11 +12,6 @@ export interface IThemeInfo {
   rating: number;
   imageURL: string;
   cafeResponse: ICafe;
-}
-
-export interface IThemeList {
-  id: number;
-  name: string;
 }
 
 export interface IPost {

@@ -1,4 +1,5 @@
-import { IAddress } from "./index.d";
+import { IAddress } from "./index";
+
 export interface IThemeDetail {
   themeId: number;
   name: number;
