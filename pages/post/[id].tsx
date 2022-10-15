@@ -19,11 +19,7 @@ export const Container = styled.div`
   margin: 0 auto;
 `;
 
-interface IProps {
-  post: IPost;
-}
-
-function PostDetail(props: IPost) {
+function PostDetail() {
   const router = useRouter();
   const postId = router.query.id;
   const { data, isLoading, isError } = useQuery<IPost>(
