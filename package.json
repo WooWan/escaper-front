@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "cross-env NODE_ENV=production ANALYZE=true next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "test": "jest --watch"
   },
   "dependencies": {
     "@next/bundle-analyzer": "^12.3.1",
