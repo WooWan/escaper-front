@@ -1,5 +1,5 @@
-import { RootState } from "./../config";
-import { IMember } from "./../../interfaces/member.d";
+import { RootState } from "../../config";
+import { IMember } from "../../../interfaces/member";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 type LoginState = {
@@ -11,7 +11,7 @@ type LogoutState = {
   isLogin: false;
 };
 
-type UserState = LoginState | LogoutState;
+export type UserState = LoginState | LogoutState;
 
 const initialState: UserState = {
   user: null,
