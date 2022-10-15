@@ -4,7 +4,7 @@ import NavigationHeader from "../../containers/navigation-header/NavigationHeade
 import { useAxiosInterceptor } from "../../../utils/hooks/useAxiosInterceptor";
 import { useDispatch, useSelector } from "react-redux";
 import ModalManager from "../../modal/modal/Modal";
-import { fetchMember } from "../../../api/member";
+import { loginMember } from "../../../api/member";
 import { useCookies } from "react-cookie";
 import { useRouter } from "next/router";
 import { loginUser, selectUser } from "../../../store/slices/user";
@@ -98,7 +98,7 @@ function Layout({ children }: LayoutProps) {
     setCookies("token", jwt, { path: "/" });
     const getUser = async () => {
       try {
-        const { data } = await fetchMember();
+        const { data } = await loginMember();
         dispatch(loginUser(data));
       } catch (err) {
         removeCookie("token");
