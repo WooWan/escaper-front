@@ -12,6 +12,9 @@ const PostList = styled.ul`
   grid-template-columns: repeat(4, 1fr);
   max-width: 1200px;
   margin: 0 auto;
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
 `;
 
 interface IPostsPageImpl {
@@ -28,12 +31,12 @@ interface IPostsPageImpl {
 
 function Posts() {
   const loadMoreRef = useRef<HTMLDivElement>(null);
-  const { data, fetchNextPage, hasNextPage } = useInfiniteQuery<IPostsPageImpl>(
+  const { data, fetchNextPage } = useInfiniteQuery<IPostsPageImpl>(
     ["posts"],
     fetchPostsInfinite
   );
 
-  const onIntersect = ([entry]: IntersectionObserverEntry[]) => fetchNextPage();
+  const onIntersect = ([]: IntersectionObserverEntry[]) => fetchNextPage();
   useObserver({ target: loadMoreRef, onIntersect });
 
   useEffect(() => {
