@@ -2,7 +2,6 @@ import { useForm } from "react-hook-form";
 import styled from "styled-components";
 import { useSignUp } from "../../api/signUp";
 import { ISignUpForm } from "../../interfaces/member";
-import TextButton from "../core/button/text-button/TextButton";
 import Font from "../core/font/Font";
 import {
   Container,
@@ -12,6 +11,7 @@ import {
   InputBox,
   StyledForm,
 } from "./SignUp.style";
+import Button from "../core/button/Button";
 
 export const ButtonWrapper = styled.div`
   display: flex;
@@ -52,9 +52,9 @@ function SignUpForm({ email }: IProps) {
           )}
         </FormInputContainer>
         <ButtonWrapper>
-          <TextButton buttonType="primary" size="100%">
+          <Button buttonType="primary">
             가입하기
-          </TextButton>
+          </Button>
         </ButtonWrapper>
       </StyledForm>
     </Container>

@@ -2,11 +2,11 @@ import styled from "styled-components";
 import React, { useState } from "react";
 import { useAddReview } from "../../api/theme";
 import { useRouter } from "next/router";
-import TextButton from "../core/button/text-button/TextButton";
 import { useDispatch, useSelector } from "react-redux";
 import { selectUser } from "../../store/slices/user/user";
 import useValidateUser from "../../utils/useValidateUser";
 import { openModal } from "../../store/slices/Modal";
+import Button from "../core/button/Button";
 
 const CommentTextArea = styled.textarea`
   padding: 1rem 1rem 1.5rem;
@@ -58,9 +58,10 @@ function ReviewRegister() {
         onClick={validateUser}
       />
       <ButtonWrapper>
-        <TextButton onClick={onReviewHandle} buttonType={"primary"}>
+        <Button buttonType="primary" onClick={onReviewHandle} isTextWhite>
           리뷰 작성
-        </TextButton>
+        </Button>
+
       </ButtonWrapper>
     </>
   );

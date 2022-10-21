@@ -6,7 +6,6 @@ import { useAddPost, useEditPost } from "../../../../api/post/register";
 import { IPost } from "../../../../interfaces";
 import { IForm } from "../../../../interfaces/post";
 import SessionStorage from "../../../../service/SessionStorage";
-import TextButton from "../../../core/button/text-button/TextButton";
 import Counter from "../counter/Counter";
 const DatePicker = dynamic(() => import("../date-picker/DatePicker"));
 const WysiwygEditor = dynamic(() => import("../editor/WysiwygEditor"));
@@ -16,8 +15,8 @@ import {
   Container,
   Form,
   Input,
-  SubmitButton,
 } from "./RegisterForm.style";
+import Button from "../../../core/button/Button";
 
 function PostRegister() {
   const router = useRouter();
@@ -99,10 +98,12 @@ function PostRegister() {
         />
         <WysiwygEditor onChange={handleInputChange} content={content} />
         <ButtonWrapper>
-          <TextButton onClick={onCancel} buttonType={"basic"}>
+          <Button onClick={onCancel} buttonType ="destructive">
             취소하기
-          </TextButton>
-          <SubmitButton buttonType={"primary"}>글 등록</SubmitButton>
+          </Button>
+          <Button buttonType="primary">
+            글 등록
+          </Button>
         </ButtonWrapper>
       </Form>
     </Container>

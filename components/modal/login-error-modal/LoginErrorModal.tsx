@@ -1,14 +1,13 @@
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import { closeModal, openModal } from "../../../store/slices/Modal";
-import TextButton from "../../core/button/text-button/TextButton";
 import Font from "../../core/font/Font";
-
 import {
   ButtonWrapper,
   Footer,
   Container,
 } from "./LoginErrorModal.style";
+import Button from "../../core/button/Button";
 
 export const Content = styled.main`
   margin-left: 0.875rem;
@@ -31,19 +30,19 @@ function LoginErrorModal() {
       </Content>
       <Footer>
         <ButtonWrapper>
-          <TextButton
+          <Button
             buttonType="destructive"
             onClick={() => dispatch(closeModal())}
+            isTextWhite
           >
             취소
-          </TextButton>
-          <TextButton buttonType="primary" onClick={handleModalOpen}>
+          </Button>
+          <Button buttonType="primary" onClick={handleModalOpen} isTextWhite>
             로그인
-          </TextButton>
+          </Button>
         </ButtonWrapper>
       </Footer>
     </Container>
-    // </Modal>
   );
 }
 

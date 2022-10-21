@@ -2,8 +2,8 @@ import React, { useRef } from "react";
 import { useAddComment, useUpdateComment } from "../../../utils/comment";
 import { useRouter } from "next/router";
 import useValidateUser from "../../../utils/useValidateUser";
-import TextButton from "../../core/button/text-button/TextButton";
 import { ButtonWrapper, CommentTextArea } from "./Register.style";
+import Button from "../../core/button/Button";
 
 interface IProps {
   commentId?: number;
@@ -50,9 +50,9 @@ function CommentRegister({
         defaultValue={content}
       />
       <ButtonWrapper>
-        <TextButton buttonType="primary" onClick={handleAddCommentClick}>
+        <Button buttonType="primary" isTextWhite onClick={handleAddCommentClick}>
           댓글 작성
-        </TextButton>
+        </Button>
       </ButtonWrapper>
     </div>
   );
