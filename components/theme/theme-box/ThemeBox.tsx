@@ -2,7 +2,7 @@ import Link from "next/link";
 import { IThemeInfo } from "../../../interfaces";
 import Image from "next/image";
 import { Box, CardContent, Header, StarWrapper } from "./ThemeBox.style";
-import { ContentFont, TitleFont } from "../../core/font/TitleFonts";
+import Font from "../../core/font/Font";
 import { StarIcon } from "../../core/rating-bar/star-icon";
 
 function ThemeBox({
@@ -43,12 +43,12 @@ function ThemeBox({
           />
           <CardContent>
             <Header>
-              <ContentFont fontSize="1rem">{cafeResponse.name}</ContentFont>
-              <TitleFont>{name}</TitleFont>
+              <Font fontType="content">{cafeResponse.name}</Font>
+              <Font fontType="subtitle">{name}</Font>
             </Header>
             <StarWrapper>
               <StarIcon style={{ color: "#ffbc0b" }} />
-              <span>({rating.toFixed(1)})</span>
+              <Font fontType="content">({rating.toFixed(1)})</Font>
             </StarWrapper>
           </CardContent>
         </Box>

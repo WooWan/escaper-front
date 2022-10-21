@@ -7,11 +7,10 @@ import { selectUser } from "../../store/slices/user/user";
 import {
   GeneralRating,
   RatingInfo,
-  RatingTitle,
-  Score,
 } from "./average-rating/AverageRating.style";
 import { useRateTheme } from "../../utils/rating";
 import { Rating } from "../core/rating-bar/rating";
+import Font from "../core/font/Font";
 
 const UserRatingBox = styled(GeneralRating)`
   height: 100%;
@@ -23,7 +22,7 @@ interface IProps {
 }
 function UserRating({ rating }: IProps) {
   const router = useRouter();
-  const [score, setScore] = useState(rating ? rating : 0);
+  const [_, setScore] = useState(rating ? rating : 0);
   const themeId = router.query.id;
   const { user } = useSelector(selectUser);
   const memberId = user?.id;
@@ -60,9 +59,9 @@ function UserRating({ rating }: IProps) {
 
   return (
     <UserRatingBox>
-      <RatingTitle>내 별점</RatingTitle>
+      <Font fontType="subtitle">내 별점</Font>
       <RatingInfo>
-        <Score>{rating ? rating : 0}</Score>
+        <Font fontType="title" fontSize="1.5rem">{rating ? rating : 0}</Font>
         <Rating
           fillColor="#0173F7"
           ratingValue={rating ? rating * 20 : 0}

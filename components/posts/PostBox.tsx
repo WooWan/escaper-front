@@ -2,6 +2,8 @@ import Image from "next/image";
 import styled from "styled-components";
 import Link from "next/link";
 import { IPost } from "../../interfaces";
+import {themedPalette} from "../../styles/theme";
+import Font from "../core/font/Font";
 
 const Post = styled.li`
   display: flex;
@@ -9,7 +11,9 @@ const Post = styled.li`
   &:hover {
     cursor: pointer;
   }
+  color: ${themedPalette.text1}
 `;
+
 const AppointmentDate = styled.section`
   display: flex;
   column-gap: 0.3rem;
@@ -26,7 +30,7 @@ function PostBox(props: IPost) {
   const storeScrollY = (scrollY: number) => {
     localStorage.setItem("post_scrollY", scrollY.toString());
   };
-
+  
   return (
     <Link href={`post/${postId}`} passHref>
       <Post onClick={() => storeScrollY(window.scrollY)}>
@@ -38,9 +42,9 @@ function PostBox(props: IPost) {
         />
         <Title>{title}</Title>
         <AppointmentDate>
-          <span>방탈출 예정일</span>
-          <span>|</span>
-          <span>{appointmentDate}</span>
+          <Font fontType="content">방탈출 예정일</Font>
+          <Font fontType="content">|</Font>
+          <Font fontType="content">{appointmentDate}</Font>
         </AppointmentDate>
       </Post>
     </Link>

@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { IReview } from "../../../interfaces";
-import { SubtitleFont, TitleFont } from "../../core/font/TitleFonts";
+import Font from "../../core/font/Font";
 import { Rating } from "../../core/rating-bar/rating";
 
 import {
@@ -8,7 +8,6 @@ import {
   Header,
   Article,
   Footer,
-  ThumbUpWrapper,
 } from "./Review.style";
 export const RatingBox = styled.div`
   display: flex;
@@ -28,13 +27,13 @@ function Review({ content, likes, rate, themeName, memberResponse }: IReview) {
     <Container>
       <Header>
         <RatingWrapper>
-          <TitleFont>{themeName}</TitleFont>
+          <Font fontType="content">{themeName}</Font>
           <RatingBox>
             <Rating ratingValue={rate ? rate * 20 : 0} size={30} readonly />
-            <TitleFont>{rate?.toFixed(1)}</TitleFont>
+            <Font fontType="content">{rate?.toFixed(1)}</Font>
           </RatingBox>
         </RatingWrapper>
-        <SubtitleFont>{username}</SubtitleFont>
+        <Font fontType="subtitle">{username}</Font>
       </Header>
       <Article>{content}</Article>
       <Footer>

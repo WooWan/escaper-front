@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { IThemeDetail } from "../../../interfaces/theme";
-import { SubtitleFont, TitleFont } from "../../core/font/TitleFonts";
+import Font from "../../core/font/Font";
 import RatingSection from "../../ratings/rating-section";
 import {
   MainInfo,
@@ -12,6 +12,7 @@ import {
   Description,
   ToggleButton,
 } from "./Theme.style";
+import {themedPalette} from "../../../styles/theme";
 
 interface IProps {
   theme: IThemeDetail;
@@ -50,12 +51,12 @@ function ThemeInfo({ theme, memberRating, count, averageRating }: IProps) {
         <ThemeAbout>
           <Link href={`/cafe/${cafeId}`}>
             <a>
-              <SubtitleFont>{cafeName}</SubtitleFont>
+              <Font fontType="title">{cafeName}</Font>
             </a>
           </Link>
           <Link href={`/theme/${themeId}`}>
             <a>
-              <TitleFont>{name}</TitleFont>
+              <Font fontType="subtitle">{name}</Font>
             </a>
           </Link>
           <RatingSection
@@ -64,20 +65,20 @@ function ThemeInfo({ theme, memberRating, count, averageRating }: IProps) {
             averageRating={averageRating}
           />
           <Row>
-            <SubtitleFont>위치</SubtitleFont>
-            <TitleFont>{transformedAddress}</TitleFont>
+            <Font fontType="subtitle" color={themedPalette.gray1}>위치</Font>
+            <Font fontType="subtitle">{transformedAddress}</Font>
           </Row>
           <Row>
-            <SubtitleFont>전화 번호</SubtitleFont>
-            <TitleFont>{phoneNumber}</TitleFont>
+            <Font fontType="subtitle" color={themedPalette.gray1}>전화 번호</Font>
+            <Font fontType="subtitle">{phoneNumber}</Font>
           </Row>
           <Row>
-            <SubtitleFont>제한 시간</SubtitleFont>
-            <TitleFont>{timeLimitation}</TitleFont>
+            <Font fontType="subtitle" color={themedPalette.gray1}>제한 시간</Font>
+            <Font fontType="subtitle">{timeLimitation}</Font>
           </Row>
           <Row>
-            <SubtitleFont>가격</SubtitleFont>
-            <TitleFont>{cost}</TitleFont>
+            <Font fontType="subtitle" color={themedPalette.gray1}>가격</Font>
+            <Font fontType="subtitle">{cost}</Font>
           </Row>
         </ThemeAbout>
       </MainInfo>

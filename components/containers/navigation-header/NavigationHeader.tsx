@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { logoutUser, selectUser } from "../../../store/slices/user/user";
 import { openModal } from "../../../store/slices/Modal";
 import { useRouter } from "next/router";
-import { TitleFont } from "../../core/font/TitleFonts";
+import Font from "../../core/font/Font";
 import { Button } from "../../comment/comment/Comment.style";
 import { useCookies } from "react-cookie";
 
@@ -47,13 +47,13 @@ function NavigationHeader() {
       <div>
         <Link href="/">
           <a>
-            <TitleFont fontSize="2rem">Escapers</TitleFont>
+            <Font fontType="title" fontSize="2rem">Escapers</Font>
           </a>
         </Link>
       </div>
       <Navigator>
         <LoginBox>
-          <Button onClick={() => handleRegisterPost("/post/register")}>
+          <Button onClick={() => handleRegisterPost("/post/register")} color="white">
             방탈출 모집
           </Button>
         </LoginBox>

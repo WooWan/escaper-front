@@ -4,9 +4,10 @@ import { useSelector } from "react-redux";
 import { ICommentResponse } from "../../../interfaces";
 import { selectUser } from "../../../store/slices/user/user";
 import { useDeleteComment } from "../../../utils/comment";
-import { ContentFont, TitleFont } from "../../core/font/TitleFonts";
+import Font from "../../core/font/Font";
 import CommentRegister from "../register/Register";
 import { Button, ButtonContainer, Container, Header } from "./Comment.style";
+import {themedPalette} from "../../../styles/theme";
 
 function Comment({
   memberResponse,
@@ -42,10 +43,10 @@ function Comment({
         <>
           <Header>
             <div>
-              <TitleFont fontSize="1rem">{username}</TitleFont>
-              <ContentFont fontSize="0.875rem" color="gray">
+              <Font fontType="content">{username}</Font>
+              <Font fontType="content" fontSize="0.875rem" color={themedPalette.gray1}>
                 {new Date(createdDate).toLocaleTimeString()}
-              </ContentFont>
+              </Font>
             </div>
             {userId === commentUserId ? (
               <ButtonContainer>
@@ -54,7 +55,7 @@ function Comment({
               </ButtonContainer>
             ) : null}
           </Header>
-          <p>{content}</p>
+          <Font fontType="content">{content}</Font>
         </>
       )}
     </Container>

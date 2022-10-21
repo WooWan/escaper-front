@@ -4,15 +4,13 @@ import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
 import { IPost } from "../../interfaces";
 import { selectUser } from "../../store/slices/user/user";
-
 import { useDeletePost } from "../../utils/posts";
 import { Button } from "../comment/comment/Comment.style";
-import { ContentFont, SubtitleFont, TitleFont } from "../core/font/TitleFonts";
+import Font from "../core/font/Font";
 import { StarIcon } from "../core/rating-bar/star-icon";
 import {
   ButtonWrapper,
   Container,
-  ContentWrapper,
   Header,
   InfoSection,
   InfoWrapper,
@@ -56,11 +54,11 @@ function Post({ data }: IProps) {
   };
   return (
     <Container>
-      <TitleFont fontSize="2rem">{title}</TitleFont>
+      <Font fontType="title">{title}</Font>
       <Header>
-        <ContentFont fontSize="1rem">
-          {username} | {new Date(createdDate).toLocaleDateString()}
-        </ContentFont>
+        <Font fontType="content">
+          {/*{username} | {new Date(createdDate).toLocaleDateString()}*/}
+        </Font>
         {userId === postMemberId ? (
           <ButtonWrapper>
             <Button onClick={handleEdit}>수정</Button>
@@ -76,59 +74,59 @@ function Post({ data }: IProps) {
             height={300}
             alt="escape cafe theme"
           />
-          <SubtitleFont fontSize="1rem">
+          <Font fontType="subtitle">
             <Link href={`/cafe/${cafeResponse.id}`}>
               <a>{cafeResponse?.name}</a>
             </Link>
-          </SubtitleFont>
+          </Font>
           <ThemeRating>
             <Link href={`/theme/${themeResponse.themeId}`}>
               <a>
-                <TitleFont fontSize="1.25rem">{themeResponse?.name}</TitleFont>
+                <Font fontType="subtitle" >{themeResponse?.name}</Font>
               </a>
             </Link>
             <StarWrapper>
-              <StarIcon style={{ color: "#ffbc0b" }} />
-              <span>({themeResponse?.rating.toFixed(1)})</span>
+              <StarIcon style={{color: "#ffbc0b"}}/>
+              <Font fontType="content">({themeResponse?.rating.toFixed(1)})</Font>
             </StarWrapper>
           </ThemeRating>
         </ThemeWrapper>
         <PostWrapper>
           <InfoWrapper>
-            <TitleFont fontSize="1.25rem" color="gray">
+            <Font fontType="subtitle" color="gray">
               카페
-            </TitleFont>
+            </Font>
             <Link href={`/cafe/${cafeResponse.id}`}>
               <a>
-                <TitleFont fontSize="1rem">{cafeResponse?.name}</TitleFont>
+                <Font fontType="subtitle">{cafeResponse?.name}</Font>
               </a>
             </Link>
           </InfoWrapper>
           <InfoWrapper>
-            <TitleFont fontSize="1.25rem" color="gray">
+            <Font fontType="subtitle" color="gray">
               방탈출 테마
-            </TitleFont>
+            </Font>
             <Link href={`/theme/${themeResponse.themeId}`}>
               <a>
-                <TitleFont fontSize="1rem">{themeResponse?.name}</TitleFont>
+                <Font fontType="subtitle" >{themeResponse?.name}</Font>
               </a>
             </Link>
           </InfoWrapper>
           <InfoWrapper>
-            <TitleFont fontSize="1.25rem" color="gray">
+            <Font fontType="subtitle" color="gray">
               모집 인원
-            </TitleFont>
-            <TitleFont fontSize="1rem">{participation}</TitleFont>
+            </Font>
+            <Font fontType="subtitle">{participation}</Font>
           </InfoWrapper>
           <InfoWrapper>
-            <TitleFont fontSize="1.25rem" color="gray">
+            <Font fontType="subtitle" color="gray">
               방탈출 예정일
-            </TitleFont>
-            <TitleFont fontSize="1rem">{appointmentDate}</TitleFont>
+            </Font>
+            <Font fontType="subtitle">{appointmentDate}</Font>
           </InfoWrapper>
         </PostWrapper>
       </InfoSection>
-      <ContentWrapper>{content}</ContentWrapper>
+      <Font fontType="content">{content}</Font>
     </Container>
   );
 }

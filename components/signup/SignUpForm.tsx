@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { useSignUp } from "../../api/signUp";
 import { ISignUpForm } from "../../interfaces/member";
 import TextButton from "../core/button/text-button/TextButton";
-import { SubtitleFont, TitleFont } from "../core/font/TitleFonts";
+import Font from "../core/font/Font";
 import {
   Container,
   FormInputContainer,
@@ -36,14 +36,14 @@ function SignUpForm({ email }: IProps) {
   return (
     <Container>
       <Info>
-        <TitleFont fontSize="2.5rem">회원가입</TitleFont>
-        <SubtitleFont fontSize="1.125rem">
+        <Font fontType="title" fontSize="2.5rem">회원가입</Font>
+        <Font fontType="subtitle">
           사용할 닉네임을 설정해주세요!
-        </SubtitleFont>
+        </Font>
       </Info>
       <StyledForm onSubmit={handleSubmit(onSubmit)}>
         <FormInputContainer>
-          <SubtitleFont fontSize="1rem">닉네임*</SubtitleFont>
+          <Font fontType="subtitle" fontSize="1rem">닉네임*</Font>
           <InputBox>
             <Input {...register("nickname", { required: true })} />
           </InputBox>

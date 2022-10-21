@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { useRouter } from "next/router";
 import { useDispatch } from "react-redux";
 import { closeModal } from "../../../store/slices/Modal";
 import Cancel from "../../icons/cancel";
@@ -13,13 +12,12 @@ import {
   LoginWrapper,
   LoginButtonList,
   Container,
-  SignInUpText,
   KakaoWrapper,
 } from "./LoginModal.style";
+import Font from "../../core/font/Font";
 
 function LoginModal() {
   const dispatch = useDispatch();
-  const router = useRouter();
 
   const SERVER = process.env.NEXT_PUBLIC_SERVER_HOST;
   const HOST = process.env.NEXT_PUBLIC_HOST_NAME;
@@ -34,7 +32,7 @@ function LoginModal() {
         <Cancel />
       </CancelButtonWrapper>
       <LoginWrapper>
-        <SignInUpText>로그인/회원가입</SignInUpText>
+        <Font fontType="subtitle" style={{ paddingBottom :"1rem"}}>로그인/회원가입</Font>
         <LoginButtonList>
           <Link href={googleUrl}>
             <LoginButton>

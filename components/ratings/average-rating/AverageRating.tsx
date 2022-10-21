@@ -1,12 +1,10 @@
 import {
-  RatingTitle,
   RatingInfo,
-  Score,
-  ScoreInfo,
   GeneralRating,
 } from "./AverageRating.style";
 import styled from "styled-components";
 import { Rating } from "../../core/rating-bar/rating";
+import Font from "../../core/font/Font";
 
 const UserRatingBox = styled(GeneralRating)``;
 interface IProps {
@@ -17,10 +15,10 @@ interface IProps {
 function AverageRating({ rating, count }: IProps) {
   return (
     <UserRatingBox>
-      <RatingTitle>평균 별점</RatingTitle>
+      <Font fontType="subtitle" >평균 별점</Font>
       <RatingInfo>
-        <Score>{rating?.toFixed(2)}</Score>
-        <ScoreInfo>{count}개의 별점</ScoreInfo>
+        <Font fontType="title" fontSize="1.5rem">{rating?.toFixed(2)}</Font>
+        <Font fontType="content" fontSize="0.875rem">{count}개의 별점</Font>
         <Rating
           fillColor="#0173F7"
           ratingValue={rating ? rating * 20 : 0}

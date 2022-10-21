@@ -2,13 +2,12 @@ import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import { closeModal, openModal } from "../../../store/slices/Modal";
 import TextButton from "../../core/button/text-button/TextButton";
-import { TitleFont } from "../../core/font/TitleFonts";
+import Font from "../../core/font/Font";
 
 import {
   ButtonWrapper,
   Footer,
   Container,
-  Wrapper,
 } from "./LoginErrorModal.style";
 
 export const Content = styled.main`
@@ -28,7 +27,7 @@ function LoginErrorModal() {
   return (
     <Container format={"horizontal"}>
       <Content>
-        <TitleFont fontSize="1.375rem">로그인 후 이용해주세요.</TitleFont>
+        <Font fontType="title" fontSize="1.375rem">로그인 후 이용해주세요.</Font>
       </Content>
       <Footer>
         <ButtonWrapper>

@@ -6,7 +6,7 @@ import AngleLeft from "../../../icons/angle-left";
 import { useQuery } from "@tanstack/react-query";
 import { fetchPopularTheme, fetchThemeByGenre } from "../../../../api/theme";
 import ThemeBox from "../../theme-box/ThemeBox";
-import { TitleFont } from "../../../core/font/TitleFonts";
+import Font from "../../../core/font/Font";
 import { Button, Container, Row, Slide, TitleWrapper } from "./Slider.style";
 import useElementSize from "../../../../utils/hooks/useElementSize";
 
@@ -71,11 +71,11 @@ function Slider({ genre }: IThemesType) {
 
   const setVisibleOn = () => setVisible(true);
   const setVisibleOff = () => setVisible(false);
-
+  
   return (
     <Container>
       <TitleWrapper>
-        <TitleFont fontSize="1.4rem">{handleTitle(genre)}</TitleFont>
+        <Font fontType="title">{handleTitle(genre)}</Font>
       </TitleWrapper>
       <Slide
         onMouseOver={setVisibleOn}
@@ -83,13 +83,13 @@ function Slider({ genre }: IThemesType) {
         ref={sliderRef}
       >
         <Button onClick={prevSlide} visible={visible}>
-          <AngleLeft />
+          <AngleLeft/>
         </Button>
         <AnimatePresence initial={false} custom={back}>
           <Row
             custom={back}
             variants={rowVariants}
-            transition={{ type: "tween", duration: 1 }}
+            transition={{type: "tween", duration: 1}}
             initial="entry"
             animate="center"
             exit="exit"
@@ -103,7 +103,7 @@ function Slider({ genre }: IThemesType) {
           </Row>
         </AnimatePresence>
         <Button onClick={nextSlide} visible={visible}>
-          <AngleRight />
+          <AngleRight/>
         </Button>
       </Slide>
     </Container>

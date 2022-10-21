@@ -7,7 +7,7 @@ import { useCommentData } from "../../utils/comment";
 import Comments from "../../components/comment/comments";
 import styled from "styled-components";
 import CommentRegister from "../../components/comment/register/Register";
-import { TitleFont } from "../../components/core/font/TitleFonts";
+import Font from "../../components/core/font/Font";
 import { dehydrate, QueryClient, useQuery } from "@tanstack/react-query";
 
 const CommentSection = styled.div`
@@ -34,7 +34,7 @@ function PostDetail() {
     <Container>
       <Post data={data} />
       <CommentSection>
-        <TitleFont fontSize="1.125rem">{comments?.length}개의 댓글</TitleFont>
+        <Font fontType="subtitle">{comments?.length}개의 댓글</Font>
         <CommentRegister postId={postId} />
         <Comments comments={comments} />
       </CommentSection>
