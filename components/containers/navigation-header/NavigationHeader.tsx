@@ -1,4 +1,4 @@
-import { Header, LoginBox, Navigator } from "./NavigationHeader.style";
+import { Header, Box, Navigator } from "./NavigationHeader.style";
 import Link from "next/link";
 import { useAxiosInterceptor } from "../../../utils/hooks/useAxiosInterceptor";
 import { useDispatch, useSelector } from "react-redux";
@@ -8,6 +8,7 @@ import { useRouter } from "next/router";
 import Font from "../../core/font/Font";
 import { Button } from "../../comment/comment/Comment.style";
 import { useCookies } from "react-cookie";
+import Moon from "../../icons/moon";
 
 function NavigationHeader() {
   const dispatch = useDispatch();
@@ -41,7 +42,7 @@ function NavigationHeader() {
       router.push(href);
     }
   };
-
+  
   return (
     <Header>
       <div>
@@ -52,20 +53,22 @@ function NavigationHeader() {
         </Link>
       </div>
       <Navigator>
-        <LoginBox>
+        
+        <Moon/>
+        <Box>
           <Button onClick={() => handleRegisterPost("/post/register")} color="white">
             방탈출 모집
           </Button>
-        </LoginBox>
-        <LoginBox>
+        </Box>
+        <Box>
           <Link href="/theme">
             <a>테마</a>
           </Link>
-        </LoginBox>
+        </Box>
         {isLogin ? (
-          <LoginBox onClick={handleLogout}>로그아웃</LoginBox>
+          <Box onClick={handleLogout}>로그아웃</Box>
         ) : (
-          <LoginBox onClick={handleModalOpen}>로그인/회원가입</LoginBox>
+          <Box onClick={handleModalOpen}>로그인/회원가입</Box>
         )}
       </Navigator>
     </Header>
