@@ -28,6 +28,6 @@ export const ToggleBtn = styled.button`
     transform: scale(1.15);
   }
   svg {
-    fill: ${themedPalette.dark_mode_icon};
+     fill: ${themedPalette.dark_mode_icon};
   }
 `

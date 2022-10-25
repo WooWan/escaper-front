@@ -4,8 +4,6 @@ import { useState } from "react";
 import { QueryClient } from "@tanstack/query-core";
 import { Hydrate, QueryClientProvider } from "@tanstack/react-query";
 import Layout from "../components/core/layout/Layout";
-import { ThemeProvider } from "styled-components";
-import { lightTheme } from "../styles/theme";
 import { store } from "../store/config";
 import { Provider } from "react-redux";
 import { CookiesProvider } from "react-cookie";
@@ -19,11 +17,9 @@ function MyApp({ Component, pageProps }: AppProps) {
       <Hydrate state={pageProps.dehydratedState}>
         <CookiesProvider>
           <Provider store={store}>
-            <ThemeProvider theme={lightTheme}>
               <Layout>
                 <Component {...pageProps} />
               </Layout>
-            </ThemeProvider>
           </Provider>
         </CookiesProvider>
       </Hydrate>

@@ -5,6 +5,7 @@ import { useAxiosInterceptor } from "../../../utils/hooks/useAxiosInterceptor";
 import ModalManager from "../../modal/modal/Modal";
 import useLoginEffect from "../../../utils/useLoginEffect";
 import useDarkMode from "../../../utils/hooks/dark-mode/useDarkMode";
+import GlobalStyle from "../../../styles/globalStyle";
 
 interface LayoutProps {
   children: ReactNode;
@@ -22,6 +23,7 @@ function Layout({ children }: LayoutProps) {
 
   return (
     <Container>
+      <GlobalStyle/>
       <ModalManager />
       <NavigationHeader />
       <div>{children}</div>
