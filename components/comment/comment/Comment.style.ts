@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import {themedPalette} from "../../../styles/theme";
 
 export const Container = styled.div`
   padding-bottom: 1.5rem;
@@ -13,9 +14,6 @@ export const Header = styled.header`
   row-gap: 0.375rem;
   margin-bottom: 1rem;
 `;
-export const CommentDate = styled.span`
-  color: ${(props) => props.theme.gray_normal};
-`;
 
 export const ButtonContainer = styled.section`
   display: flex;
@@ -24,4 +22,5 @@ export const ButtonContainer = styled.section`
 
 export const Button = styled.button`
   cursor: pointer;
+  color: ${themedPalette.text1}
 `;

@@ -19,3 +19,15 @@ export const Box = styled.li`
   font-size: 18px;
   font-weight: 600;
 `;
+
+export const ToggleBtn = styled.button`
+  color: ${themedPalette.gray1};
+  transition: all 150ms ease-in-out;
+  cursor: pointer;
+  &:hover {
+    transform: scale(1.15);
+  }
+  svg {
+    fill: ${themedPalette.dark_mode_icon};
+  }
+`

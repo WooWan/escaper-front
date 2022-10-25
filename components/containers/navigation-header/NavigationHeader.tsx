@@ -1,4 +1,4 @@
-import { Header, Box, Navigator } from "./NavigationHeader.style";
+import { Header, Box, Navigator, ToggleBtn } from "./NavigationHeader.style";
 import Link from "next/link";
 import { useAxiosInterceptor } from "../../../utils/hooks/useAxiosInterceptor";
 import { useDispatch, useSelector } from "react-redux";
@@ -8,14 +8,18 @@ import { useRouter } from "next/router";
 import Font from "../../core/font/Font";
 import { Button } from "../../comment/comment/Comment.style";
 import { useCookies } from "react-cookie";
+import useToggleDarkMode from "../../../utils/hooks/dark-mode/useToggleDarkMode";
+import {selectDarkMode} from "../../../store/slices/Theme";
 import Moon from "../../icons/moon";
+import Sun from "../../icons/Sun";
 
 function NavigationHeader() {
   const dispatch = useDispatch();
   const router = useRouter();
   const [cookies, setCookies, removeCookie] = useCookies(["token"]);
-
+  const toggleDarkMode = useToggleDarkMode();
   const { isLogin } = useSelector(selectUser);
+  const {theme} = useSelector(selectDarkMode);
   useAxiosInterceptor();
 
   const handleModalOpen = () => {
@@ -45,16 +49,17 @@ function NavigationHeader() {
   
   return (
     <Header>
-      <div>
+      <section>
         <Link href="/">
           <a>
             <Font fontType="title" fontSize="2rem">Escapers</Font>
           </a>
         </Link>
-      </div>
+      </section>
       <Navigator>
-        
-        <Moon/>
+        <ToggleBtn onClick={toggleDarkMode}>
+          { theme === "dark" ? <Sun/> : <Moon/> }
+        </ToggleBtn>
         <Box>
           <Button onClick={() => handleRegisterPost("/post/register")} color="white">
             방탈출 모집

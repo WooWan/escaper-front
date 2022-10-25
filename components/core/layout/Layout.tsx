@@ -4,6 +4,7 @@ import NavigationHeader from "../../containers/navigation-header/NavigationHeade
 import { useAxiosInterceptor } from "../../../utils/hooks/useAxiosInterceptor";
 import ModalManager from "../../modal/modal/Modal";
 import useLoginEffect from "../../../utils/useLoginEffect";
+import useDarkMode from "../../../utils/hooks/dark-mode/useDarkMode";
 
 interface LayoutProps {
   children: ReactNode;
@@ -17,6 +18,7 @@ export const Container = styled.div`
 function Layout({ children }: LayoutProps) {
   useAxiosInterceptor();
   useLoginEffect();
+  useDarkMode();
 
   return (
     <Container>
