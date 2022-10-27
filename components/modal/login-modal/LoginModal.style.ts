@@ -57,4 +57,5 @@ export const KakaoWrapper = styled.div`
   background-color: ${themedPalette.kakao};
   width: 32px;
   height: 32px;
+  border-radius: 0.4rem;
 `;
