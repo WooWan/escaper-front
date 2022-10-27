@@ -17,6 +17,7 @@ export const Form = styled.form`
 
 export const Input = styled.input`
   width: 65%;
+  background-color: transparent;
   padding: 0.5rem 0.4rem;
   border: none ${(props) => props.theme.gray_lighter};
   border-bottom: 2px solid;
