@@ -18,10 +18,10 @@ function LoginModal() {
   const dispatch = useDispatch();
 
   const SERVER = process.env.NEXT_PUBLIC_SERVER_HOST;
-  const HOST = process.env.NEXT_PUBLIC_HOST_NAME;
+  const REDIRECT_URL = process.env.NEXT_PUBLIC_REDIRECT_URL
 
-  const googleUrl = `${SERVER}/oauth2/authorization/google?redirect_uri=${HOST}&signup=${process.env.NEXT_PUBLIC_SIGNUP}`;
-  const kakaoUrl = `${SERVER}/oauth2/authorization/kakao?redirect_uri=${HOST}&signup=${process.env.NEXT_PUBLIC_SIGNUP}`;
+  const googleUrl = `${SERVER}/oauth2/authorization/google?redirect_uri=${REDIRECT_URL}&signup=${process.env.NEXT_PUBLIC_SIGNUP}`;
+  const kakaoUrl = `${SERVER}/oauth2/authorization/kakao?redirect_uri=${REDIRECT_URL}&signup=${process.env.NEXT_PUBLIC_SIGNUP}`;
 
   return (
     <Container format={"vertical"}>
