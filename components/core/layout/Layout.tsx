@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import {ReactNode} from "react";
 import NavigationHeader from "../../containers/navigation-header/NavigationHeader";
-import { useAxiosInterceptor } from "../../../utils/hooks/useAxiosInterceptor";
 import ModalManager from "../../modal/modal/Modal";
 import useDarkMode from "../../../utils/hooks/dark-mode/useDarkMode";
 import GlobalStyle from "../../../styles/globalStyle";
@@ -17,7 +16,6 @@ export const Container = styled.div`
 `;
 
 function Layout({ children }: LayoutProps) {
-  useAxiosInterceptor();
   useDarkMode();
   useLoginMaintain()
 
