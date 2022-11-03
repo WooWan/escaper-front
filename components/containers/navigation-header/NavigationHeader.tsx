@@ -1,26 +1,23 @@
 import { Header, Box, Navigator, ToggleBtn } from "./NavigationHeader.style";
 import Link from "next/link";
-import { useAxiosInterceptor } from "../../../utils/hooks/useAxiosInterceptor";
 import { useDispatch, useSelector } from "react-redux";
 import { logoutUser, selectUser } from "../../../store/slices/user/user";
 import { openModal } from "../../../store/slices/Modal";
 import { useRouter } from "next/router";
 import Font from "../../core/font/Font";
 import { Button } from "../../comment/comment/Comment.style";
-import { useCookies } from "react-cookie";
 import useToggleDarkMode from "../../../utils/hooks/dark-mode/useToggleDarkMode";
 import {selectDarkMode} from "../../../store/slices/Theme";
 import Moon from "../../icons/moon";
 import Sun from "../../icons/Sun";
+import {removeCookie} from "../../../utils/Cookie";
 
 function NavigationHeader() {
   const dispatch = useDispatch();
   const router = useRouter();
-  const [cookies, setCookies, removeCookie] = useCookies(["token"]);
   const toggleDarkMode = useToggleDarkMode();
   const { isLogin } = useSelector(selectUser);
   const {theme} = useSelector(selectDarkMode);
-  useAxiosInterceptor();
 
   const handleModalOpen = () => {
     dispatch(

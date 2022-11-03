@@ -1,8 +1,7 @@
 import "../styles/globals.css";
 import type { AppProps } from "next/app";
 import { useState } from "react";
-import { QueryClient } from "@tanstack/query-core";
-import { Hydrate, QueryClientProvider } from "@tanstack/react-query";
+import {QueryClient, QueryClientProvider, Hydrate} from '@tanstack/react-query';
 import Layout from "../components/core/layout/Layout";
 import { store } from "../store/config";
 import { Provider } from "react-redux";
