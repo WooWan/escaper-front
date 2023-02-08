@@ -17,6 +17,11 @@ export const handlers = [
                         appointmentDate: "Date",
                         views: 1,
                         participation: 1,
+                        themeResponse: {
+                            themeId: 1,
+                            name: "string",
+                            imageURL: "string",
+                        },
                         themeList: [
                             {
                                 id: 1,
