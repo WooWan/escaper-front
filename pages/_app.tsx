@@ -8,6 +8,20 @@ import { Provider } from "react-redux";
 import { CookiesProvider } from "react-cookie";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
+const isServer = typeof window !== "undefined";
+if (process.env.NODE_ENV === 'development') {
+    if (isServer) {
+        (async () => {
+            const { server } = await import('../mocks/server');
+            server.listen();
+        })();
+    } else {
+        (async () => {
+            const { worker } = await import('../mocks/browser');
+            worker.start();
+        })();
+    }
+}
 function MyApp({ Component, pageProps }: AppProps) {
   const [queryClient] = useState(() => new QueryClient());
 
