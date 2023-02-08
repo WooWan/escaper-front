@@ -227,7 +227,7 @@ async function getResponse(event, client, requestId) {
 
   // Bypass requests with the explicit bypass header.
   // Such requests can be issued by "ctx.fetch()".
-  if (request.headers.get('x-mocks-bypass') === 'true') {
+  if (request.headers.get('x-msw-bypass') === 'true') {
     return passthrough()
   }
 
