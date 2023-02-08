@@ -43,14 +43,12 @@ function NavigationHeader() {
       router.push(href);
     }
   };
-  
+
   return (
     <Header>
       <section>
         <Link href="/">
-          <a>
             <Font fontType="title" fontSize="2rem">Escapers</Font>
-          </a>
         </Link>
       </section>
       <Navigator>
@@ -64,7 +62,7 @@ function NavigationHeader() {
         </Box>
         <Box>
           <Link href="/theme">
-            <a>테마</a>
+            테마
           </Link>
         </Box>
         {isLogin ? (

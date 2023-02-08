@@ -34,14 +34,12 @@ function Post({ data }: IProps) {
     themeResponse,
     appointmentDate,
     participation,
-    createdDate,
   } = data;
   const { cafeResponse } = themeResponse;
   const { mutate: deletePost } = useDeletePost(id);
 
   const userId = user?.id;
   const postMemberId = memberResponse?.id;
-  const username = memberResponse?.username;
 
   const handleEdit = () => {
     router.push(
@@ -76,7 +74,7 @@ function Post({ data }: IProps) {
           />
           <Font fontType="subtitle">
             <Link href={`/cafe/${cafeResponse.id}`}>
-              <a>{cafeResponse?.name}</a>
+              {cafeResponse?.name}
             </Link>
           </Font>
           <ThemeRating>
@@ -97,9 +95,7 @@ function Post({ data }: IProps) {
               카페
             </Font>
             <Link href={`/cafe/${cafeResponse.id}`}>
-              <a>
                 <Font fontType="subtitle">{cafeResponse?.name}</Font>
-              </a>
             </Link>
           </InfoWrapper>
           <InfoWrapper>
@@ -107,9 +103,7 @@ function Post({ data }: IProps) {
               방탈출 테마
             </Font>
             <Link href={`/theme/${themeResponse.themeId}`}>
-              <a>
                 <Font fontType="subtitle" >{themeResponse?.name}</Font>
-              </a>
             </Link>
           </InfoWrapper>
           <InfoWrapper>

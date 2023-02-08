@@ -28,7 +28,6 @@ function ThemeBox({
   };
   return (
     <Link href={`/theme/${themeId}`}>
-      <a>
         <Box
           variants={boxVariants}
           initial="normal"
@@ -52,7 +51,6 @@ function ThemeBox({
             </StarWrapper>
           </CardContent>
         </Box>
-      </a>
     </Link>
   );
 }

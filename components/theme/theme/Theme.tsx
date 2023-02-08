@@ -50,14 +50,10 @@ function ThemeInfo({ theme, memberRating, count, averageRating }: IProps) {
         </ImageContainer>
         <ThemeAbout>
           <Link href={`/cafe/${cafeId}`}>
-            <a>
               <Font fontType="title">{cafeName}</Font>
-            </a>
           </Link>
           <Link href={`/theme/${themeId}`}>
-            <a>
               <Font fontType="subtitle">{name}</Font>
-            </a>
           </Link>
           <RatingSection
             count={count}

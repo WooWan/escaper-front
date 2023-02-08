@@ -32,16 +32,13 @@ function LoginModal() {
         <Font fontType="subtitle" style={{paddingBottom: "1rem"}}>로그인/회원가입</Font>
         <LoginButtonList>
           <Link href={googleUrl}>
-            <a>
               <Button buttonType="basic" width="100%" hasBorder
                       style={{padding: "1.25rem", display: "inline-flex", gap: "0.75rem"}}>
                 <GoogleIcon/>
                 <Font>구글 계정으로 계속하기</Font>
               </Button>
-            </a>
           </Link>
           <Link href={kakaoUrl}>
-            <a>
               <Button buttonType="basic" width="100%" hasBorder
                       style={{padding: "1.25rem", display: "inline-flex", gap: "0.75rem"}}>
                 <KakaoWrapper>
@@ -49,7 +46,6 @@ function LoginModal() {
                 </KakaoWrapper>
                 <Font>카카오 계정으로 계속하기</Font>
               </Button>
-            </a>
           </Link>
         </LoginButtonList>
       </LoginWrapper>
