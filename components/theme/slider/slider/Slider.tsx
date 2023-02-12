@@ -1,44 +1,41 @@
-import { useRef, useState } from "react";
-import { AnimatePresence } from "framer-motion";
-import { IThemeInfo, IThemesType } from "../../../../interfaces";
-import AngleRight from "../../../icons/angle-right";
-import AngleLeft from "../../../icons/angle-left";
-import { useQuery } from "@tanstack/react-query";
-import { fetchPopularTheme, fetchThemeByGenre } from "../../../../api/theme";
-import ThemeBox from "../../theme-box/ThemeBox";
-import Font from "../../../core/font/Font";
-import { Button, Container, Row, Slide, TitleWrapper } from "./Slider.style";
-import useElementSize from "../../../../utils/hooks/useElementSize";
+import { useRef, useState } from 'react'
+import { AnimatePresence } from 'framer-motion'
+import { IThemeInfo, IThemesType } from '@/types'
+import AngleRight from '@/components/icons/angle-right'
+import AngleLeft from '@/components/icons/angle-left'
+import { useQuery } from '@tanstack/react-query'
+import { fetchPopularTheme, fetchThemeByGenre } from '@/api/theme'
+import Font from '@/components/core/font/Font'
+import { Button, Container, Row, Slide, TitleWrapper } from './Slider.style'
+import useElementSize from '../../../../utils/hooks/useElementSize'
+import ThemeBox from '@/components/theme/theme-box/ThemeBox'
 
-const OFFSET = 5;
+const OFFSET = 5
 
 interface GenreType {
-  [key: string]: string;
+  [key: string]: string
 }
 const genreTitle: GenreType = {
-  popular: "현재 인기 있는 테마를 즐겨보세요!",
-  공포: "일상의 지루함에는 오싹한 탈출!",
-  로맨스: "두근두근한 방탈출의 경험",
-  미스터리: "미스터리한 방에 어떤 것이 숨겨져 있을까요?",
-};
+  popular: '현재 인기 있는 테마를 즐겨보세요!',
+  공포: '일상의 지루함에는 오싹한 탈출!',
+  로맨스: '두근두근한 방탈출의 경험',
+  미스터리: '미스터리한 방에 어떤 것이 숨겨져 있을까요?',
+}
 
 function Slider({ genre }: IThemesType) {
-  const { data } = useQuery<IThemeInfo[]>(
-    genre === "popular" ? ["popular"] : [genre],
-    genre === "popular" ? fetchPopularTheme : () => fetchThemeByGenre(genre)
-  );
+  const { data } = useQuery<IThemeInfo[]>(genre === 'popular' ? ['popular'] : [genre], genre === 'popular' ? fetchPopularTheme : () => fetchThemeByGenre(genre))
 
-  const [visible, setVisible] = useState(false);
-  const [index, setIndex] = useState(0);
-  const [leaving, setLeaving] = useState(false);
-  const [back, setBack] = useState(false);
+  const [visible, setVisible] = useState(false)
+  const [index, setIndex] = useState(0)
+  const [leaving, setLeaving] = useState(false)
+  const [back, setBack] = useState(false)
 
-  const sliderRef = useRef<HTMLLIElement>(null);
-  const size = useElementSize({ ref: sliderRef });
+  const sliderRef = useRef<HTMLLIElement>(null)
+  const size = useElementSize({ ref: sliderRef })
 
   const handleTitle = (genre: string): string => {
-    return genreTitle[genre];
-  };
+    return genreTitle[genre]
+  }
   const rowVariants = {
     entry: (isBack: boolean) => ({
       x: isBack ? -(size.width + 5) : size.width + 5,
@@ -49,65 +46,51 @@ function Slider({ genre }: IThemesType) {
     exit: (isBack: boolean) => ({
       x: isBack ? size.width + 5 : -(size.width + 5),
     }),
-  };
-  const totalMovies = data?.length;
-  const maxIndex = totalMovies && Math.floor(totalMovies / OFFSET)-1;
+  }
+  const totalMovies = data?.length
+  const maxIndex = totalMovies && Math.floor(totalMovies / OFFSET) - 1
 
   const nextSlide = () => {
-    if (leaving) return;
-    setBack(false);
-    toggleLeaving();
-    setIndex((prev) => (prev === maxIndex ? 0 : prev + 1));
-    toggleLeaving();
-  };
+    if (leaving) return
+    setBack(false)
+    toggleLeaving()
+    setIndex((prev) => (prev === maxIndex ? 0 : prev + 1))
+    toggleLeaving()
+  }
   const prevSlide = () => {
-    if (leaving) return;
-    setBack(true);
-    toggleLeaving();
-    setIndex((prev) => (prev === 0 && maxIndex ? maxIndex : prev - 1));
-    toggleLeaving();
-  };
-  const toggleLeaving = () => setLeaving((prev) => !prev);
+    if (leaving) return
+    setBack(true)
+    toggleLeaving()
+    setIndex((prev) => (prev === 0 && maxIndex ? maxIndex : prev - 1))
+    toggleLeaving()
+  }
+  const toggleLeaving = () => setLeaving((prev) => !prev)
 
-  const setVisibleOn = () => setVisible(true);
-  const setVisibleOff = () => setVisible(false);
-  
+  const setVisibleOn = () => setVisible(true)
+  const setVisibleOff = () => setVisible(false)
+
   return (
     <Container>
       <TitleWrapper>
         <Font fontType="title">{handleTitle(genre)}</Font>
       </TitleWrapper>
-      <Slide
-        onMouseOver={setVisibleOn}
-        onMouseOut={setVisibleOff}
-        ref={sliderRef}
-      >
+      <Slide onMouseOver={setVisibleOn} onMouseOut={setVisibleOff} ref={sliderRef}>
         <Button onClick={prevSlide} visible={visible}>
-          <AngleLeft/>
+          <AngleLeft />
         </Button>
         <AnimatePresence initial={false} custom={back}>
-          <Row
-            custom={back}
-            variants={rowVariants}
-            transition={{type: "tween", duration: 1}}
-            initial="entry"
-            animate="center"
-            exit="exit"
-            key={index}
-          >
-            {data
-              ?.slice(OFFSET * index, OFFSET * index + OFFSET)
-              .map((theme) => (
-                <ThemeBox key={theme.themeId} {...theme} />
-              ))}
+          <Row custom={back} variants={rowVariants} transition={{ type: 'tween', duration: 1 }} initial="entry" animate="center" exit="exit" key={index}>
+            {data?.slice(OFFSET * index, OFFSET * index + OFFSET).map((theme) => (
+              <ThemeBox key={theme.themeId} {...theme} />
+            ))}
           </Row>
         </AnimatePresence>
         <Button onClick={nextSlide} visible={visible}>
-          <AngleRight/>
+          <AngleRight />
         </Button>
       </Slide>
     </Container>
-  );
+  )
 }
 
-export default Slider;
+export default Slider

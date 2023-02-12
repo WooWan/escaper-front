@@ -1,15 +1,15 @@
-import Slider from "./slider/Slider";
-import styled from "styled-components";
-import { IThemesType } from "../../../interfaces";
+import Slider from './slider/Slider'
+import styled from 'styled-components'
+import { IThemesType } from '@/types'
 
 const SlidersWrapper = styled.ul`
   display: flex;
   flex-direction: column;
   row-gap: 5rem;
-`;
+`
 
 interface IProps {
-  data?: IThemesType[];
+  data?: IThemesType[]
 }
 function Sliders({ data }: IProps) {
   return (
@@ -19,7 +19,7 @@ function Sliders({ data }: IProps) {
         <Slider key={theme.id} id={theme.id} genre={theme.genre} />
       ))}
     </SlidersWrapper>
-  );
+  )
 }
 
-export default Sliders;
+export default Sliders

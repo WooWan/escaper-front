@@ -1,62 +1,40 @@
-import Image from "next/image";
-import Link from "next/link";
-import { useRouter } from "next/router";
-import { useSelector } from "react-redux";
-import { IPost } from "../../interfaces";
-import { selectUser } from "../../store/slices/user/user";
-import { useDeletePost } from "../../utils/posts";
-import { Button } from "../comment/comment/Comment.style";
-import Font from "../core/font/Font";
-import { StarIcon } from "../core/rating-bar/star-icon";
-import {
-  ButtonWrapper,
-  Container,
-  Header,
-  InfoSection,
-  InfoWrapper,
-  PostWrapper,
-  StarWrapper,
-  ThemeRating,
-  ThemeWrapper,
-} from "./Post.style";
+import Image from 'next/image'
+import Link from 'next/link'
+import { useRouter } from 'next/router'
+import { useSelector } from 'react-redux'
+import { IPost } from '@/types'
+import { selectUser } from '@/store/slices/user/user'
+import { useDeletePost } from '@/utils/posts'
+import { Button } from '@/components/comment/comment/Comment.style'
+import Font from '@/components/core/font/Font'
+import { StarIcon } from '@/components/core/rating-bar/star-icon'
+import { ButtonWrapper, Container, Header, InfoSection, InfoWrapper, PostWrapper, StarWrapper, ThemeRating, ThemeWrapper } from './Post.style'
 
 interface IProps {
-  data: IPost;
+  data: IPost
 }
 function Post({ data }: IProps) {
-  const router = useRouter();
-  const { id } = router.query;
-  const { user } = useSelector(selectUser);
-  const {
-    memberResponse,
-    title,
-    content,
-    themeResponse,
-    appointmentDate,
-    participation,
-  } = data;
-  const { cafeResponse } = themeResponse;
-  const { mutate: deletePost } = useDeletePost(id);
+  const router = useRouter()
+  const { id } = router.query
+  const { user } = useSelector(selectUser)
+  const { memberResponse, title, content, themeResponse, appointmentDate, participation } = data
+  const { cafeResponse } = themeResponse
+  const { mutate: deletePost } = useDeletePost(id)
 
-  const userId = user?.id;
-  const postMemberId = memberResponse?.id;
+  const userId = user?.id
+  const postMemberId = memberResponse?.id
 
   const handleEdit = () => {
-    router.push(
-      { pathname: "/post/register", query: { data: JSON.stringify(data) } },
-      `/post/register`
-    );
-  };
+    router.push({ pathname: '/post/register', query: { data: JSON.stringify(data) } }, `/post/register`)
+  }
   const handleDeletePost = () => {
-    deletePost(id);
-  };
+    deletePost(id)
+  }
   return (
     <Container>
       <Font fontType="title">{title}</Font>
       <Header>
-        <Font fontType="content">
-          {/*{username} | {new Date(createdDate).toLocaleDateString()}*/}
-        </Font>
+        <Font fontType="content">{/*{username} | {new Date(createdDate).toLocaleDateString()}*/}</Font>
         {userId === postMemberId ? (
           <ButtonWrapper>
             <Button onClick={handleEdit}>수정</Button>
@@ -66,25 +44,18 @@ function Post({ data }: IProps) {
       </Header>
       <InfoSection>
         <ThemeWrapper>
-          <Image
-            src={themeResponse?.imageURL}
-            width={230}
-            height={300}
-            alt="escape cafe theme"
-          />
+          <Image src={themeResponse?.imageURL} width={230} height={300} alt="escape cafe theme" />
           <Font fontType="subtitle">
-            <Link href={`/cafe/${cafeResponse.id}`}>
-              {cafeResponse?.name}
-            </Link>
+            <Link href={`/cafe/${cafeResponse.id}`}>{cafeResponse?.name}</Link>
           </Font>
           <ThemeRating>
             <Link href={`/theme/${themeResponse.themeId}`}>
               <a>
-                <Font fontType="subtitle" >{themeResponse?.name}</Font>
+                <Font fontType="subtitle">{themeResponse?.name}</Font>
               </a>
             </Link>
             <StarWrapper>
-              <StarIcon style={{color: "#ffbc0b"}}/>
+              <StarIcon style={{ color: '#ffbc0b' }} />
               <Font fontType="content">({themeResponse?.rating.toFixed(1)})</Font>
             </StarWrapper>
           </ThemeRating>
@@ -95,7 +66,7 @@ function Post({ data }: IProps) {
               카페
             </Font>
             <Link href={`/cafe/${cafeResponse.id}`}>
-                <Font fontType="subtitle">{cafeResponse?.name}</Font>
+              <Font fontType="subtitle">{cafeResponse?.name}</Font>
             </Link>
           </InfoWrapper>
           <InfoWrapper>
@@ -103,7 +74,7 @@ function Post({ data }: IProps) {
               방탈출 테마
             </Font>
             <Link href={`/theme/${themeResponse.themeId}`}>
-                <Font fontType="subtitle" >{themeResponse?.name}</Font>
+              <Font fontType="subtitle">{themeResponse?.name}</Font>
             </Link>
           </InfoWrapper>
           <InfoWrapper>
@@ -122,7 +93,7 @@ function Post({ data }: IProps) {
       </InfoSection>
       <Font fontType="content">{content}</Font>
     </Container>
-  );
+  )
 }
 
-export default Post;
+export default Post

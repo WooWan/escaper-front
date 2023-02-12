@@ -1,18 +1,19 @@
-import React from "react";
-import { ICommentResponse } from "../../interfaces";
-import Comment from "./comment/Comment";
+import React from 'react'
+import { ICommentResponse } from '@/types'
+import Comment from '@/components/comment/comment/Comment'
+
 interface IProps {
-  comments?: ICommentResponse[];
+  comments?: ICommentResponse[]
 }
 
 function Comments({ comments }: IProps) {
   return (
     <div>
       {comments?.map((comment) => {
-        return <Comment key={comment.id} {...comment} />;
+        return <Comment key={comment.id} {...comment} />
       })}
     </div>
-  );
+  )
 }
 
-export default Comments;
+export default Comments
