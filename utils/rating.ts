@@ -1,25 +1,18 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { IRatingRequest } from "../interfaces";
-import { httpClient } from "../service/httpClient";
+import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { IRatingRequest } from '@/types'
+import { httpClient } from '@/service/httpClient'
 
-export const rateTheme = async ({
-  themeId,
-  memberId,
-  rating,
-}: IRatingRequest) => {
+export const rateTheme = async ({ themeId, memberId, rating }: IRatingRequest) => {
   return await httpClient.post(`/api/rate/${themeId}/member/${memberId}`, {
     rating,
-  });
-};
+  })
+}
 
-export const useRateTheme = (
-  memberId: number | undefined,
-  themeId: string | string[] | undefined
-) => {
-  const queryClient = useQueryClient();
+export const useRateTheme = (memberId: number | undefined, themeId: string | string[] | undefined) => {
+  const queryClient = useQueryClient()
   return useMutation(rateTheme, {
     onSuccess: () => {
-      queryClient.invalidateQueries(["rating", memberId, themeId]);
+      queryClient.invalidateQueries(['rating', memberId, themeId])
     },
-  });
-};
+  })
+}

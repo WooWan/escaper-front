@@ -1,18 +1,18 @@
-import styled from "styled-components";
-import Review from "./review/Review";
-import SwitchVertical from "../icons/switch-vertical";
-import { IReviewResult } from "../../interfaces";
+import styled from 'styled-components'
+import SwitchVertical from '@/components/icons/switch-vertical'
+import { IReviewResult } from '@/types'
+import Review from '@/components/review/review/Review'
 
 const Container = styled.ul`
   display: flex;
   flex-direction: column;
   padding-left: 0.5rem;
-`;
+`
 const Header = styled.header`
   display: flex;
   justify-content: space-between;
   margin-bottom: 1.25rem;
-`;
+`
 const AlignWrapper = styled.div`
   display: flex;
   justify-content: center;
@@ -28,14 +28,14 @@ const AlignWrapper = styled.div`
   svg {
     flex: 1 1 10px;
   }
-`;
+`
 
 interface IProps {
-  reviews: IReviewResult;
+  reviews: IReviewResult
 }
 
 function Reviews({ reviews }: IProps) {
-  const { data } = reviews;
+  const { data } = reviews
   return (
     <Container>
       <Header>
@@ -49,7 +49,7 @@ function Reviews({ reviews }: IProps) {
         <Review key={review.reviewId} {...review} />
       ))}
     </Container>
-  );
+  )
 }
 
-export default Reviews;
+export default Reviews

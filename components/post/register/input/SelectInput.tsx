@@ -1,48 +1,43 @@
-import React, { useId, useState } from "react";
-import Select from "react-select";
-import { Control, useController } from "react-hook-form";
-import styled from "styled-components";
-import { IForm } from "../../../../interfaces/post";
-import {
-  useSearchArea,
-  useSearchCafe,
-  useSearchCity,
-  useSearchTheme,
-} from "../../../../api/post/register";
-import { IThemeInfo } from "../../../../interfaces";
+import React, { useId, useState } from 'react'
+import Select from 'react-select'
+import { Control, useController } from 'react-hook-form'
+import styled from 'styled-components'
+import { IForm } from '@/types/post'
+import { useSearchArea, useSearchCafe, useSearchCity, useSearchTheme } from '@/api/post/register'
+import { IThemeInfo } from '@/types'
 
 const SelectorContainer = styled.div`
   display: flex;
   gap: 12px;
-`;
+`
 interface ISelectInput {
-  control: Control<IForm>;
-  theme?: IThemeInfo;
+  control: Control<IForm>
+  theme?: IThemeInfo
 }
 
 function SelectInput({ control, theme }: ISelectInput) {
-  const address = theme?.cafeResponse?.address;
-  const [city, setCity] = useState<string | undefined>("");
-  const [area, setArea] = useState<string | undefined>("");
-  const [cafe, setCafe] = useState<string | undefined>("");
-  const cityList = useSearchCity();
-  const areaList = useSearchArea(city);
-  const cafeList = useSearchCafe(area);
-  const themeList = useSearchTheme(cafe);
+  const address = theme?.cafeResponse?.address
+  const [city, setCity] = useState<string | undefined>('')
+  const [area, setArea] = useState<string | undefined>('')
+  const [cafe, setCafe] = useState<string | undefined>('')
+  const cityList = useSearchCity()
+  const areaList = useSearchArea(city)
+  const cafeList = useSearchCafe(area)
+  const themeList = useSearchTheme(cafe)
 
   const {
     field: { ref, ...inputProps },
   } = useController({
     control,
-    name: "city",
-  });
-  const { field: areaController } = useController({ control, name: "area" });
+    name: 'city',
+  })
+  const { field: areaController } = useController({ control, name: 'area' })
 
-  const { field: cafeController } = useController({ control, name: "cafe" });
+  const { field: cafeController } = useController({ control, name: 'cafe' })
   const { field: themeController } = useController({
     control,
-    name: "themeName",
-  });
+    name: 'themeName',
+  })
 
   return (
     <SelectorContainer>
@@ -51,8 +46,8 @@ function SelectInput({ control, theme }: ISelectInput) {
         defaultInputValue={address?.city}
         ref={areaController.ref}
         onChange={(options) => {
-          inputProps.onChange(options?.value);
-          setCity(options?.value);
+          inputProps.onChange(options?.value)
+          setCity(options?.value)
         }}
         placeholder="지역"
         options={cityList.data}
@@ -65,8 +60,8 @@ function SelectInput({ control, theme }: ISelectInput) {
         defaultInputValue={address?.area}
         placeholder="상세지역"
         onChange={(options) => {
-          areaController.onChange(options?.value);
-          setArea(options?.value);
+          areaController.onChange(options?.value)
+          setArea(options?.value)
         }}
         options={areaList.data}
         styles={{
@@ -78,8 +73,8 @@ function SelectInput({ control, theme }: ISelectInput) {
         defaultInputValue={theme?.cafeResponse?.name}
         placeholder="카페"
         onChange={(options) => {
-          cafeController.onChange(options?.value);
-          setCafe(options?.value);
+          cafeController.onChange(options?.value)
+          setCafe(options?.value)
         }}
         options={cafeList.data}
         styles={{
@@ -91,7 +86,7 @@ function SelectInput({ control, theme }: ISelectInput) {
         defaultInputValue={theme?.name}
         placeholder="테마"
         onChange={(options) => {
-          themeController.onChange(options?.value);
+          themeController.onChange(options?.value)
         }}
         options={themeList.data}
         styles={{
@@ -99,7 +94,7 @@ function SelectInput({ control, theme }: ISelectInput) {
         }}
       />
     </SelectorContainer>
-  );
+  )
 }
 
-export default SelectInput;
+export default SelectInput

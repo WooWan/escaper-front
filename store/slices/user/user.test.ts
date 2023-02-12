@@ -1,35 +1,35 @@
-import {store} from "../../config";
-import {IMember} from "../../../interfaces/member";
-import {loginUser, logoutUser, UserState} from "./user";
+import { store } from '@/store/config'
+import { IMember } from '@/types/member'
+import { loginUser, logoutUser, UserState } from './user'
 
-describe("user test", () => {
-  let state:UserState;
-  let user: IMember;
+describe('user test', () => {
+  let state: UserState
+  let user: IMember
   beforeEach(() => {
-    state = store.getState().user;
+    state = store.getState().user
     user = {
       id: 1,
-      username: "test",
-      profileImageUrl: "test",
-      providerType: "test",
-      roleType: "test",
-    };
+      username: 'test',
+      profileImageUrl: 'test',
+      providerType: 'test',
+      roleType: 'test',
+    }
   })
-  it("initial state", () => {
-    expect(state.isLogin).toBe(false);
-  })
-
-  it("loginUser", () => {
-    store.dispatch(loginUser(user));
-    const newState = store.getState().user;
-    expect(newState.isLogin).toBe(true);
-    expect(newState.user).toEqual(user);
+  it('initial state', () => {
+    expect(state.isLogin).toBe(false)
   })
 
-  it("logout User", () => {
-    store.dispatch(logoutUser());
-    const newState = store.getState().user;
-    expect(newState.isLogin).toBe(false);
-    expect(newState.user).toBeNull();
+  it('loginUser', () => {
+    store.dispatch(loginUser(user))
+    const newState = store.getState().user
+    expect(newState.isLogin).toBe(true)
+    expect(newState.user).toEqual(user)
+  })
+
+  it('logout User', () => {
+    store.dispatch(logoutUser())
+    const newState = store.getState().user
+    expect(newState.isLogin).toBe(false)
+    expect(newState.user).toBeNull()
   })
 })
