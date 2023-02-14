@@ -1,0 +1,35 @@
+// schema.prisma
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+// schema.prisma
+
+model Cafe {
+  id          String        @id @default(cuid())
+  name        String
+  address     String
+  city        String
+  phoneNumber String
+  website     String
+  rating      Float
+  themeList   EscapeTheme[]
+}
+
+model EscapeTheme {
+  id             String @id @default(cuid())
+  name           String
+  description    String
+  timeLimitation Int
+  imageURL       String
+  cost           Int
+  rating         Float
+  cafeId         String
+  cafe           Cafe   @relation(fields: [cafeId], references: [id])
+  test           String @default("test")
+}
