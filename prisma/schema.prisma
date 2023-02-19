@@ -46,6 +46,7 @@ model User {
   accounts      Account[]
   sessions      Session[]
   Review        Review[]
+  likes          Like[]
 }
 
 model VerificationToken {
@@ -87,7 +88,18 @@ model Review {
   escapeTheme   EscapeTheme @relation(fields: [escapeThemeId], references: [id])
   userId        String
   user          User        @relation(fields: [userId], references: [id])
-  rating        Float
+  rating        Float?
   description   String
   createdAt     DateTime    @default(now())
+  likeCount     Int         @default(0)
+  likes          Like[]
+}
+
+model Like {
+  id        String   @id @default(cuid())
+  reviewId  String
+  review    Review   @relation(fields: [reviewId], references: [id])
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  createdAt DateTime @default(now())
 }
