@@ -1,29 +1,18 @@
-import type { NextPage } from "next";
-import Posts from "../components/posts/Posts";
-import Head from "next/head";
-import { dehydrate, QueryClient } from "@tanstack/react-query";
-import { fetchPostsInfinite } from "../utils/posts";
+import type { NextPage } from 'next'
+import Posts from '../components/posts/Posts'
+import Head from 'next/head'
+import { useSession } from 'next-auth/react'
 
 const Home: NextPage = () => {
+  const { data } = useSession()
   return (
     <div>
       <Head>
         <title>Room escaper</title>
       </Head>
-      <Posts />
+      {/* <Posts /> */}
     </div>
-  );
-};
-
-export async function getStaticProps() {
-  const queryClient = new QueryClient();
-  await queryClient.prefetchInfiniteQuery(["posts"], fetchPostsInfinite);
-
-  return {
-    props: {
-      dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
-    },
-  };
+  )
 }
 
-export default Home;
+export default Home

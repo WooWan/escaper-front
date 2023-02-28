@@ -6,7 +6,7 @@ import { httpClient } from '@/service/httpClient'
 async function addComment(comment: IComment) {
   const content = comment.content
   return await httpClient.post(
-    '/api/comment',
+    '/comment',
     { content },
     {
       params: { postId: comment.postId },
@@ -16,7 +16,7 @@ async function addComment(comment: IComment) {
 
 async function editComment({ commentId, content }: ICommentUpdateRequest) {
   return await httpClient.put(
-    '/api/comment',
+    '/comment',
     { content },
     {
       params: { commentId },
@@ -25,7 +25,7 @@ async function editComment({ commentId, content }: ICommentUpdateRequest) {
 }
 
 async function fetchComments(postId: string | string[] | undefined) {
-  const response = await httpClient.get('/api/comment', { params: { postId } })
+  const response = await httpClient.get('/comment', { params: { postId } })
   return response.data
 }
 

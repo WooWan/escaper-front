@@ -5,11 +5,11 @@ import { IOption, ISearch } from '@/types/post'
 import { httpClient } from '@/service/httpClient'
 
 const makeURL = (resource: string, param: string, condition?: string) => {
-  return condition === '' ? `/api/${resource}/search` : `/api/${resource}/search?${param}=${condition}`
+  return condition === '' ? `/${resource}/search` : `/${resource}/search?${param}=${condition}`
 }
 
 export const fetchCityList = async () => {
-  const response = await httpClient.get('/api/cities/search')
+  const response = await httpClient.get('/cities/search')
   return await response.data
 }
 
@@ -32,7 +32,7 @@ export const fetchThemeList = async (cafe?: string) => {
 }
 
 async function addPost({ ...post }) {
-  const id = await httpClient.post('/api/post', post)
+  const id = await httpClient.post('/post', post)
   return id
 }
 

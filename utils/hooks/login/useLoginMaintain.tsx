@@ -14,7 +14,6 @@ export default function useLoginMaintain() {
   useEffect(() => {
     const token = getCookie('token')
     if (token && data) {
-      console.log()
       dispatch(loginUser(data.data))
     }
   }, [dispatch, data])

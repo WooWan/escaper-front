@@ -12,13 +12,7 @@ const buttonStyles = cva(['font-semibold', 'border', 'rounded'], {
       medium: ['text-base', 'py-2', 'px-4'],
     },
   },
-  // compoundVariants: [
-  //   {
-  //     intent: 'primary',
-  //     size: 'medium',
-  //     class: 'uppercase',
-  //   },
-  // ],
+
   defaultVariants: {
     intent: 'primary',
     size: 'medium',
@@ -28,7 +22,6 @@ const buttonStyles = cva(['font-semibold', 'border', 'rounded'], {
 type ButtonProps = VariantProps<typeof buttonStyles> & React.HTMLAttributes<HTMLButtonElement>
 
 const Button = ({ size, intent, children, ...props }: ButtonProps) => {
-  console.log(props)
   return (
     <button className={buttonStyles({ intent, size })} {...props}>
       {children}

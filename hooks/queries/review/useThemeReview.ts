@@ -1,6 +1,6 @@
 import { reviewKeys } from './queries'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { addReviewApi, getReviewApi as getReviewsApi } from '@/api/review'
+import { addReviewApi, getReviewsApi } from '@/api/review'
 
 export const useReviews = (themeId: string) => {
   return useQuery({

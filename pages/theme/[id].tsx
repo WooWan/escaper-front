@@ -51,23 +51,23 @@ function ThemePage() {
   )
 }
 
-export async function getStaticProps(context: GetStaticPropsContext) {
-  const id = context.params?.id
-  const queryClient = new QueryClient()
-  await queryClient.prefetchQuery(['theme', id], () => fetchThemeById(id))
+// export async function getStaticProps(context: GetStaticPropsContext) {
+//   const id = context.params?.id
+//   const queryClient = new QueryClient()
+//   await queryClient.prefetchQuery(['theme', id], () => fetchThemeById(id))
 
-  return {
-    props: { dehydratedState: dehydrate(queryClient) },
-    revalidate: 3600,
-  }
-}
+//   return {
+//     props: { dehydratedState: dehydrate(queryClient) },
+//     revalidate: 3600,
+//   }
+// }
 
-export async function getStaticPaths() {
-  const themeList = await fetchThemeList()
-  const paths = themeList?.map((theme) => ({
-    params: { id: theme.themeId.toString() },
-  }))
-  return { paths, fallback: 'blocking' }
-}
+// export async function getStaticPaths() {
+//   const themeList = await fetchThemeList()
+//   const paths = themeList?.map((theme) => ({
+//     params: { id: theme.themeId.toString() },
+//   }))
+//   return { paths, fallback: 'blocking' }
+// }
 
 export default ThemePage
