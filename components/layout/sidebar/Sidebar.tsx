@@ -11,7 +11,7 @@ export default function Sidebar() {
   const router = useRouter()
 
   return (
-    <nav className="sticky top-0 min-h-screen max-w-[200px] border-r-[1px] border-solid border-r-slate-100 pt-10 pl-8">
+    <nav className="sticky top-0 min-h-screen min-w-[240px] max-w-[200px] border-r-[1px] border-solid border-r-slate-100 pt-10 pl-8">
       <div className="pb-8">
         <span className="text-h2 text-main500">Escapers</span>
         {/* <Image src="/images/escape.jpeg" width={40} height={40} alt="logo" /> */}
