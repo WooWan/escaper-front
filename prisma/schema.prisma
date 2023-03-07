@@ -88,8 +88,8 @@ model Review {
   escapeTheme   EscapeTheme @relation(fields: [escapeThemeId], references: [id])
   userId        String
   user          User        @relation(fields: [userId], references: [id])
-  rating        Float
-  description   String?
+  rating        Float?
+  review   String?
   createdAt     DateTime?    @default(now())
   likeCount     Int?         @default(0)
   likes          Like[]
