@@ -9,6 +9,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     },
     include: {
       cafe: true,
+      reviewList: {
+        include: {
+          user: true,
+        },
+      },
     },
   })
 
