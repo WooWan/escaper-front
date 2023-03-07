@@ -1,4 +1,5 @@
 import { IAddress } from './index'
+import { ReviewType } from '@/types'
 
 export interface IThemeDetail {
   themeId: number
@@ -29,9 +30,10 @@ export type ThemeDetail = {
   cost: number
   imageURL: string
   cafe: Cafe
+  reviewList: ReviewType[]
 }
 
-export type Cafe = {
+export type CafeType = {
   id: string
   name: string
   address: string
@@ -39,4 +41,5 @@ export type Cafe = {
   phoneNumber: string
   website: string
   rating: number
+  themeList: ThemeDetail[]
 }
