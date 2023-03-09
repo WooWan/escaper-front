@@ -60,25 +60,26 @@ model VerificationToken {
 model Cafe {
   id          String        @id @default(cuid())
   name        String
-  address     String
-  city        String
+    city        String
+  area     String @default("없음")
+  street      String @default("없음")
   phoneNumber String
   website     String
   rating      Float
   themeList   EscapeTheme[]
 }
 
+
 model EscapeTheme {
   id             String   @id @default(cuid())
   name           String
-  description    String
+  description    String?
   timeLimitation Int
-  imageURL       String
+  imageURL       String @default("https://images.unsplash.com/photo-1600000000000-000000000000?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1000&q=80")
   cost           Int
   rating         Float
   cafeId         String
   cafe           Cafe     @relation(fields: [cafeId], references: [id])
-  test           String   @default("test")
   reviewList     Review[]
 }
 
