@@ -10,7 +10,7 @@ const nextConfig = withBundleAnalyzer({
     styledComponents: true,
   },
   images: {
-    domains: ['escapertest.s3.ap-northeast-2.amazonaws.com', 'adhgloqjygnspxqhqpmq.supabase.co', 'img.danawa.com'],
+    domains: ['adhgloqjygnspxqhqpmq.supabase.co', 'img.danawa.com'],
   },
 })
 
