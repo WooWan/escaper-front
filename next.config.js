@@ -1,6 +1,6 @@
-const withBundleAnalyzer = require("@next/bundle-analyzer")({
-  enabled: process.env.ANALYZE === "true",
-});
+const withBundleAnalyzer = require('@next/bundle-analyzer')({
+  enabled: process.env.ANALYZE === 'true',
+})
 
 const nextConfig = withBundleAnalyzer({
   reactStrictMode: true,
@@ -10,8 +10,8 @@ const nextConfig = withBundleAnalyzer({
     styledComponents: true,
   },
   images: {
-    domains: ["escapertest.s3.ap-northeast-2.amazonaws.com"],
+    domains: ['escapertest.s3.ap-northeast-2.amazonaws.com', 'adhgloqjygnspxqhqpmq.supabase.co', 'img.danawa.com'],
   },
-});
+})
 
-module.exports = nextConfig;
+module.exports = nextConfig
