@@ -1,6 +1,5 @@
-import { fetchRating, updateRating } from './../../../api/rating'
+import { fetchRating, updateRating } from '@/api/rating'
 import { ratingKeys } from './queries'
-import { reviewKeys } from './../review/queries'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { addRating } from '@/api/rating'
 
