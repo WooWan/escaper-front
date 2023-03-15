@@ -1,86 +1,105 @@
-import { IMember } from "./member";
+import { IMember, User } from './member'
 
 export interface IThemesType {
-  id?: number;
-  genre: string;
+  id?: number
+  genre: string
 }
 
 export interface IThemeInfo {
-  themeId: number;
-  name: string;
-  genre: string;
-  rating: number;
-  imageURL: string;
-  cafeResponse: ICafe;
+  themeId: number
+  name: string
+  genre: string
+  rating: number
+  imageURL: string
+  cafeResponse: ICafe
 }
 
 export interface IPost {
-  memberResponse: IMember;
-  postId: number;
-  title: string;
-  content: string;
-  createdDate: Date;
-  appointmentDate: Array;
-  views: number;
-  participation: number;
-  imageURL: string;
-  themeResponse: IThemeInfo;
+  memberResponse: IMember
+  postId: number
+  title: string
+  content: string
+  createdDate: Date
+  appointmentDate: Array
+  views: number
+  participation: number
+  imageURL: string
+  themeResponse: IThemeInfo
 }
 
 export interface IPostsPagination {
-  content: IPost[];
+  content: IPost[]
 }
 
 export interface ICommentUpdateRequest {
-  commentId: number;
-  postId: number;
-  content: string;
+  commentId: number
+  postId: number
+  content: string
 }
 export interface IComment {
-  postId: number;
-  content: string;
+  postId: number
+  content: string
 }
 
 export interface ICommentResponse {
-  memberResponse: IMember;
-  id: number;
-  postId: string | string[] | undefined;
-  content: string;
-  createdDate: Date;
+  memberResponse: IMember
+  id: number
+  postId: string | string[] | undefined
+  content: string
+  createdDate: Date
 }
 
 export interface IReviewResult {
-  data: IReview[];
-  count: number;
-  averageRating: number;
+  data: IReview[]
+  count: number
+  averageRating: number
 }
+
+export type ReviewType = {
+  createdAt: Date
+  escapeThemeId: string
+  id: string
+  likeCount: number
+  rating: number
+  review: string
+  userId: string
+  user: User
+}
+
 export interface IReview {
-  reviewId: number;
-  content: string;
-  rate?: number;
-  themeId: number;
-  themeName: string;
-  likes: number;
-  memberResponse: IMember;
+  // reviewId: number;
+  // content: string;
+  // rate?: number;
+  // themeId: number;
+  // themeName: string;
+  // likes: number;
+  // memberResponse: IMember;
+  id: string
+  escapeThemeId: string
+  likeCount: number
+  rating: number
+  review: string
+  user: User
+  usrId: string
 }
 
 export interface IRatingRequest {
-  themeId: string | string[] | undefined;
-  memberId: number;
-  rating: number;
+  themeId: string | string[] | undefined
+  memberId: number
+  rating: number
 }
 
 export interface ICafe {
-  id: number;
-  name: string;
-  address: IAddress;
-  phoneNumber: string;
-  themes: IThemeInfo[];
+  id: number
+  name: string
+  address: IAddress
+  phoneNumber: string
+  themes: IThemeInfo[]
 }
 
 export interface IAddress {
-  city: string;
-  area: string;
-  streets: string;
-  detail: string;
+  city: string
+  area: string
+  streets: string
+  detail: string
 }
