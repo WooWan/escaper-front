@@ -1,9 +1,9 @@
 import styled from 'styled-components'
-import { IReview } from '@/types'
-import Font from '@/components/core/font/Font'
-import { Rating } from '@/components/core/rating-bar/rating'
+import { ReviewType } from '@/types'
+import { MoreVertical } from 'lucide-react'
+import { Container, Header, Article } from './Review.style'
+import { Rating } from 'react-simple-star-rating'
 
-import { Container, Header, Article, Footer } from './Review.style'
 export const RatingBox = styled.div`
   display: flex;
   align-items: center;
@@ -15,28 +15,25 @@ export const RatingWrapper = styled.section`
   row-gap: 0.5rem;
 `
 
-function Review({ content, likes, rate, themeName, memberResponse }: IReview) {
-  const { username } = memberResponse
+const ZERO = 0
+function Review({ review, likeCount, rating, user }: ReviewType) {
+  const { name } = user
 
   return (
     <Container>
       <Header>
         <RatingWrapper>
-          <Font fontType="content">{themeName}</Font>
           <RatingBox>
-            <Rating ratingValue={rate ? rate * 20 : 0} size={30} readonly />
-            <Font fontType="content">{rate?.toFixed(1)}</Font>
+            <Rating SVGstyle={{ display: 'inline-block' }} initialValue={rating ? rating : 0} size={30} readonly />
+            <span className="text-s3">{rating ? rating?.toFixed(1) : ZERO.toFixed(1)}</span>
           </RatingBox>
         </RatingWrapper>
-        <Font fontType="subtitle">{username}</Font>
+        <div className="flex items-center">
+          <span className="text-s3">{name}</span>
+          <MoreVertical size={16} />
+        </div>
       </Header>
-      <Article>{content}</Article>
-      <Footer>
-        {/* <ThumbUpWrapper>
-          <ThumbUp />
-          <span>{likes}</span>
-        </ThumbUpWrapper> */}
-      </Footer>
+      <Article>{review}</Article>
     </Container>
   )
 }
