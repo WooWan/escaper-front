@@ -1,55 +1,59 @@
-import styled from "styled-components";
-import React, { useState } from "react";
-import { useAddReview } from "../../api/theme";
-import { useRouter } from "next/router";
-import { useDispatch, useSelector } from "react-redux";
-import { selectUser } from "../../store/slices/user/user";
-import useValidateUser from "../../utils/useValidateUser";
-import { openModal } from "../../store/slices/Modal";
-import Button from "../core/button/Button";
+import styled from 'styled-components'
+import React, { useState } from 'react'
+import { useRouter } from 'next/router'
+import { useDispatch } from 'react-redux'
+import useValidateUser from '@/utils/useValidateUser'
+import { openModal } from '@/store/slices/Modal'
+import { useAddReview } from '@/hooks/queries/review/useThemeReview'
+import Button from '../ui/button/Button'
+import { useSession } from 'next-auth/react'
 
 const CommentTextArea = styled.textarea`
   padding: 1rem 1rem 1.5rem;
   width: 100%;
   margin-bottom: 1.25rem;
-`;
+`
 const ButtonWrapper = styled.div`
   display: flex;
   justify-content: flex-end;
-`;
+`
 function ReviewRegister() {
-  const router = useRouter();
-  const dispatch = useDispatch();
-  const { validateUser } = useValidateUser();
-  const themeId = router.query.id;
-  const { user, isLogin } = useSelector(selectUser);
-  const memberId = user?.id;
+  const router = useRouter()
+  const dispatch = useDispatch()
+  const { validateUser } = useValidateUser()
+  const themeId = router.query.id
+  const { data: session } = useSession()
+  const userId = session?.user.id
+  // const { user, isLogin } = useSelector(selectUser)
 
-  const [review, setReview] = useState("");
-  const { mutate: addReview } = useAddReview(themeId);
+  const [review, setReview] = useState('')
+  const { mutate: addReview } = useAddReview(String(themeId))
 
   const onReviewHandle = () => {
-    if (!isLogin) {
+    if (!session) {
       dispatch(
         openModal({
-          modalType: "LoginModal",
+          modalType: 'LoginModal',
           isOpen: true,
         })
-      );
+      )
     } else {
-      addReview({ themeId, memberId, review });
-      setReview("");
+      addReview({
+        escapeThemeId: String(themeId),
+        userId: String(userId),
+        review: review,
+      })
+      setReview('')
     }
-  };
+  }
 
-  const handleReviewChange = (
-    event: React.ChangeEvent<HTMLTextAreaElement>
-  ) => {
-    setReview(event.target.value);
-  };
+  const handleReviewChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setReview(event.target.value)
+  }
   return (
     <>
       <CommentTextArea
+        className="h-auto rounded-md border-2"
         name=""
         value={review}
         id=""
@@ -58,13 +62,12 @@ function ReviewRegister() {
         onClick={validateUser}
       />
       <ButtonWrapper>
-        <Button buttonType="primary" onClick={onReviewHandle} isTextWhite>
+        <Button intent="primary" size="small" onClick={onReviewHandle}>
           리뷰 작성
         </Button>
-
       </ButtonWrapper>
     </>
-  );
+  )
 }
 
-export default ReviewRegister;
+export default ReviewRegister
