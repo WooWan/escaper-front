@@ -1,6 +1,5 @@
 import Link from 'next/link'
 import React from 'react'
-import Image from 'next/image'
 import { Album, Home, LogIn, TrendingUp, Settings } from 'lucide-react'
 import { signIn, signOut, useSession } from 'next-auth/react'
 import clsx from 'clsx'
@@ -11,47 +10,51 @@ export default function Sidebar() {
   const router = useRouter()
 
   return (
-    <nav className="sticky top-0 min-h-screen min-w-[240px]  border-r-[1px] border-solid border-r-slate-100 pt-10 pl-8">
-      <Link href="/home">
-        <div className="pb-8">
-          <span className="text-h2 text-main500">Escapers</span>
-          {/* <Image src="/images/escape.jpeg" width={40} height={40} alt="logo" /> */}
-        </div>
-      </Link>
+    <nav className="sticky top-0 min-h-screen min-w-[88px] border-r-[1px] border-solid border-r-slate-100 pt-10 md:min-w-[240px] md:pl-6">
       <div>
         <ul className="flex flex-col gap-y-6 border-b-[1px] border-r-slate-100 pb-6">
           <Link href="/home">
             <li
-              className={clsx('flex cursor-pointer items-center gap-4 border-r-4', {
+              className={clsx('flex cursor-pointer flex-col items-center gap-x-4 border-r-[4px] md:flex-row', {
                 'border-main500': router.asPath === '/home',
               })}
             >
-              <Home color={'black'} size={24} className="shrink-0" />
-              <span>Home</span>
+              <Home
+                color={'black'}
+                size={24}
+                className={clsx('shrink-0 ', { 'border-main500': router.asPath === '/home' })}
+              />
+              <span className="hidden md:inline">Home</span>
             </li>
           </Link>
           <Link href="/theme">
-            <li className="flex items-center gap-4">
+            <li className="flex flex-col items-center gap-x-4 md:flex-row">
               <Album color={'black'} size={24} className="shrink-0" />
-              <span>Bookmark</span>
+              <span className="hidden md:inline">Bookmark</span>
             </li>
           </Link>
-          <li className="flex items-center gap-4">
+          <li className="flex flex-col items-center gap-x-4 md:flex-row">
             <TrendingUp color={'black'} size={24} className="shrink-0" />
-            <span>트렌드</span>
+            <span className="hidden md:inline">트렌드</span>
           </li>
         </ul>
-
         <div className="py-6">
           <ul className="flex flex-col gap-y-6 border-b-[1px] border-r-slate-100 pb-6">
-            <li className="flex cursor-pointer gap-4" onClick={() => (session ? signOut() : signIn('google'))}>
+            <li
+              className="flex cursor-pointer flex-col items-center gap-x-4 md:flex-row"
+              onClick={() => (session ? signOut() : signIn('google'))}
+            >
               <LogIn color={'black'} size={24} className="shrink-0" />
-              {session ? <span>로그아웃</span> : <span>로그인</span>}
+              {session ? (
+                <span className="hidden md:inline">로그아웃</span>
+              ) : (
+                <span className="hidden md:inline">로그인</span>
+              )}
             </li>
             <Link href="/mypage">
-              <li className="flex items-center gap-4">
+              <li className="flex flex-col items-center gap-x-4 md:flex-row">
                 <Settings />
-                <span>마이 페이지</span>
+                <span className="hidden md:inline">마이 페이지</span>
               </li>
             </Link>
           </ul>
