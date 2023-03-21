@@ -1,5 +1,6 @@
 import React from 'react'
 import Sidebar from './sidebar/Sidebar'
+import Header from '@/components/layout/header/Header'
 
 type Props = {
   children: React.ReactNode
@@ -7,9 +8,12 @@ type Props = {
 
 export default function SidebarLayout({ children }: Props) {
   return (
-    <div className="grid grid-cols-[240px_1fr] gap-x-4 ">
-      <Sidebar />
-      {children}
+    <div>
+      <Header />
+      <div className="grid grid-cols-[80px_1fr] gap-x-4 md:grid-cols-[240px_1fr]">
+        <Sidebar />
+        {children}
+      </div>
     </div>
   )
 }
