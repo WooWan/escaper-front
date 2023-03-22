@@ -1,6 +1,7 @@
 import SearchBar from '@/components/layout/header/SearchBar'
 import Link from 'next/link'
 import React from 'react'
+import { User } from 'lucide-react'
 
 const Header = () => {
   return (
@@ -13,7 +14,9 @@ const Header = () => {
       </Link>
       <div className="flex items-center gap-4">
         <SearchBar />
-        <div>icon</div>
+        <div className="cursor-pointer">
+          <User />
+        </div>
       </div>
     </header>
   )
