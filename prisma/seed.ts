@@ -1,29 +1,25 @@
-import { prisma } from '../lib/prisma'
+import { prisma } from '@/lib/prisma'
+import fs from 'fs'
+import path from 'path'
+import csv from 'csv-parser'
 
 async function main() {
-  const cafe = await prisma.cafe.create({
-    data: {
-      phoneNumber: '010-1234-5678',
-      website: 'test',
-      name: 'test',
-      address: 'test',
-      city: 'Seoul',
-      rating: 5,
-      id: 'clea0hwbg0000gvge9lmogmfi',
-    },
-  })
-  const post = await prisma.escapeTheme.create({
-    data: {
-      name: 'test',
-      description: 'test',
-      imageURL: 'test',
-      cost: 100,
-      rating: 5,
-      timeLimitation: 80,
-      id: 'clea0hdbg00006vge9lmogmfi',
-      cafeId: cafe.id,
-    },
-  })
+  const coolPath = path.join(__dirname, 'results.csv')
+  fs.createReadStream(coolPath)
+    .pipe(csv())
+    .on('data', async (row) => {
+      await prisma.cafe.create({
+        data: {
+          phoneNumber: row.phoneNumber,
+          website: row.website,
+          name: row.name,
+          city: row.city,
+          area: row.area,
+          rating: 0,
+          street: row.street,
+        },
+      })
+    })
 }
 
 main()
