@@ -1,32 +1,7 @@
-import { useRouter } from 'next/router'
-import { useState } from 'react'
 import styled from 'styled-components'
-import { ICafe, IThemeInfo } from '@/types'
-import { Rating } from '@/components/core/rating-bar/rating'
 import ThemeBox from '@/components/theme/theme-box/ThemeBox'
-
-const Header = styled.header`
-  display: flex;
-  flex-direction: column;
-`
-const Title = styled.div`
-  display: flex;
-  align-items: baseline;
-  gap: 0.4rem;
-  padding-bottom: 1rem;
-`
-const CafeName = styled.h2`
-  font-size: 1.5rem;
-  font-weight: bolder;
-`
-
-const Info = styled.div`
-  display: flex;
-  flex-direction: column;
-  padding-bottom: 3rem;
-  border-bottom: 1px solid;
-  border-color: ${(props) => props.theme.gray};
-`
+import { CafeType } from '@/types/theme'
+import { useMemo } from 'react'
 
 const Main = styled.div`
   display: flex;
@@ -35,17 +10,8 @@ const Main = styled.div`
   padding-top: 3rem;
 `
 
-const ThemeList = styled.ul`
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1rem;
-`
-export const RatingContent = styled.div`
-  padding-top: 0.25rem;
-  display: flex;
-`
 interface IProps {
-  cafe: ICafe
+  cafe: CafeType
 }
 
 export const sidebarColumn = {
@@ -56,40 +22,38 @@ export const sidebarColumn = {
 export type SidebarColumnTypes = (typeof sidebarColumn)[keyof typeof sidebarColumn]
 
 function Cafe({ cafe }: IProps) {
-  const { name, themes } = cafe
-  const router = useRouter()
-  const [rate, setRate] = useState(0)
+  const { name, themeList } = cafe
 
-  const findAverageAge = (arr: IThemeInfo[]) => {
-    const { length } = arr
-    return arr.reduce((acc, val) => {
-      return acc + val.rating / length
-    }, 0)
-  }
-  const averageRate = findAverageAge(themes)
+  const averageRating = useMemo(
+    () => themeList.map((theme) => theme.rating).reduce((acc, cur) => acc + cur, 0) / themeList.length,
+    [themeList]
+  )
+
+  console.log(averageRating)
 
   return (
     <div>
-      <Header>
-        <Title id={sidebarColumn['홈']} style={{ scrollBehavior: 'smooth' }}>
-          <CafeName>{name}</CafeName>
-        </Title>
-
-        <Info>
-          <span>예약: {cafe.phoneNumber}</span>
+      <header className="border-b-[1px] py-6">
+        <div className="flex flex-col gap-2">
+          <div className="flex items-center gap-2">
+            <h3 className="text-h1">{name}</h3>
+            <span className="text-gray-400">{cafe.phoneNumber}</span>
+          </div>
+          <span>{name}의 테마를 즐겨보세요!</span>
+        </div>
+        {/* <Info>
           <RatingContent>
             <Rating size={20} ratingValue={averageRate ? averageRate * 20 : 0} readonly transition />
             <span>({averageRate.toFixed(2)})</span>
           </RatingContent>
-        </Info>
-      </Header>
+        </Info> */}
+      </header>
       <Main id={sidebarColumn['방탈출']} style={{ scrollBehavior: 'smooth' }}>
-        <span>{name}의 테마를 즐겨보세요!</span>
-        <ThemeList>
-          {themes.map((theme) => (
-            <ThemeBox key={theme.themeId} {...theme} />
+        <ul className="grid grid-cols-4 gap-4">
+          {themeList.map((theme) => (
+            <ThemeBox key={theme.id} {...theme} />
           ))}
-        </ThemeList>
+        </ul>
       </Main>
     </div>
   )
