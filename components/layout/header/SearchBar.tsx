@@ -1,21 +1,26 @@
 import { useEffect, useState } from 'react'
 import { Search, X } from 'lucide-react'
-import { useDispatch } from 'react-redux'
-import { setSearchKeyword } from '@/store/slices/SearchKeyword'
 import useDebounce from '@/utils/useDebounce'
+import { useRouter } from 'next/router'
 
 const SearchBar = () => {
-  const dispatch = useDispatch()
   const [keyword, setKeyword] = useState('')
+  const router = useRouter()
+  const debouncedKeyword = useDebounce({ value: keyword, delay: 250 })
+
+  useEffect(() => {
+    if (!debouncedKeyword) {
+      console.log('debouncedKeyword is ', debouncedKeyword, router.pathname)
+      if (router.pathname === '/home') return
+      router.push('/home')
+    } else {
+      router.push('/search?q=' + debouncedKeyword)
+    }
+  }, [debouncedKeyword])
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setKeyword(e.target.value)
   }
-  const debouncedKeyword = useDebounce({ value: keyword, delay: 250 })
-
-  useEffect(() => {
-    dispatch(setSearchKeyword(debouncedKeyword))
-  }, [debouncedKeyword])
 
   return (
     <div className="flex items-center gap-x-2 rounded-md border-[1px] border-gray-300 bg-white py-1 px-4">
