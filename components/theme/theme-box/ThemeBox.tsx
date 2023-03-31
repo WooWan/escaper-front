@@ -1,41 +1,27 @@
 import Link from 'next/link'
-import { IThemeInfo } from '@/types'
 import Image from 'next/image'
-import { Box, CardContent, Header, StarWrapper } from './ThemeBox.style'
-import Font from '@/components/core/font/Font'
-import { StarIcon } from '@/components/core/rating-bar/star-icon'
+import { ThemeDetail } from '@/types/theme'
+import { Rating } from '@/components/ui/rating/Rating'
 
-function ThemeBox({ name, rating, imageURL, cafeResponse, themeId }: IThemeInfo) {
-  const boxVariants = {
-    normal: {
-      scale: 1,
-    },
-    hover: {
-      scale: 1.05,
-      y: -20,
-      transition: {
-        delay: 0.4,
-        duration: 0.2,
-        type: 'tween',
-      },
-    },
-  }
+function ThemeBox(theme: ThemeDetail) {
   return (
-    <Link href={`/theme/${themeId}`}>
-      <Box variants={boxVariants} initial="normal" whileHover="hover" transition={{ type: 'tween' }}>
-        <Image src={imageURL} width={'250'} height={'310'} alt="theme-image" />
-        <CardContent>
-          <Header>
-            <Font fontType="content">{cafeResponse.name}</Font>
-            <Font fontType="subtitle">{name}</Font>
-          </Header>
-          <StarWrapper>
-            <StarIcon style={{ color: '#ffbc0b' }} />
-            <Font fontType="content">({rating.toFixed(1)})</Font>
-          </StarWrapper>
-        </CardContent>
-      </Box>
-    </Link>
+    <div className="flex-shrink-0 grow-0 basis-[20%]">
+      <Link key={theme.id} href={`/theme/${theme.id}`}>
+        <div className="relative aspect-square">
+          <Image src={theme.imageURL} fill alt="logo" />
+        </div>
+        <div className="flex flex-col px-2">
+          <h4>{theme.name}</h4>
+          <div className="relative flex h-4 w-4 items-center">
+            <div className="flex items-baseline gap-2">
+              <Rating initialValue={theme.rating} readonly size={16} SVGstyle={{ display: 'inline-flex' }} />
+              <span className="text-b1">{theme.rating}</span>
+            </div>
+          </div>
+          <div className="text-b2 text-gray-400">{theme.cafe.name}</div>
+        </div>
+      </Link>
+    </div>
   )
 }
 
