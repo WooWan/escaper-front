@@ -13,7 +13,7 @@
     "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts"
   },
   "dependencies": {
-    "@lexical/react": "^0.5.0",
+    "@lexical/react": "^0.9.1",
     "@next-auth/prisma-adapter": "^1.0.5",
     "@next/bundle-analyzer": "^12.3.1",
     "@prisma/client": "^4.10.0",
@@ -30,6 +30,7 @@
     "cross-env": "^7.0.3",
     "csv-parser": "^3.0.0",
     "framer-motion": "^6.5.1",
+    "lexical": "^0.9.1",
     "lucide-react": "^0.121.0",
     "next": "^13.1.6",
     "next-auth": "^4.19.2",
