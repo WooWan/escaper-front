@@ -3,38 +3,38 @@
 @tailwind utilities;
 
 @layer components {
-    .handle {
-        border: none;
-        border-radius: 0.5rem;
-        opacity: 0;
-        flex-grow: 0;
-        flex-shrink: 0;
-        background-color: rgba(0, 0, 0, .5);
-        z-index: 10;
-        margin: var(--img-gap) 0;
-        width: var(--handle-size);
-        height: 12.3rem;
-        cursor: pointer;
-        font-size: 5rem;
-        align-items: center;
-        justify-content: center;
-        line-height: 0;
-        transition: opacity 500ms ease-in-out;
-    }
+  .handle {
+    border: none;
+    border-radius: 0.5rem;
+    flex-grow: 0;
+    flex-shrink: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 10;
+    margin: var(--img-gap) 0;
+    width: var(--handle-size);
+    cursor: pointer;
+    font-size: 5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    line-height: 0;
+    transition: opacity 450ms ease-in-out;
+  }
 
-    .leftHandle {
-        border-top-left-radius: 0;
-        border-bottom-left-radius: 0;
-    }
+  .leftHandle {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
 
-    .rightHandle {
-        border-top-right-radius: 0;
-        border-bottom-right-radius: 0;
-    }
+  .rightHandle {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
 
-    .chevron {
-        color: white;
-        font-size: 2rem;
-        transition: transform 400ms ease-in-out;
-    }
+  .chevron {
+    color: white;
+    font-size: 2rem;
+    transition: transform 200ms ease-in-out;
+  }
 }
