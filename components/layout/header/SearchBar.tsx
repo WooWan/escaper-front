@@ -7,12 +7,16 @@ const SearchBar = () => {
   const [keyword, setKeyword] = useState('')
   const router = useRouter()
   const debouncedKeyword = useDebounce({ value: keyword, delay: 250 })
+  const [originalPage, setOriginalPage] = useState('')
 
   useEffect(() => {
+    setOriginalPage(router.pathname)
+  }, [])
+  useEffect(() => {
     if (!debouncedKeyword) {
-      console.log('debouncedKeyword is ', debouncedKeyword, router.pathname)
-      if (router.pathname === '/home') return
-      router.push('/home')
+      if (originalPage) {
+        router.push(originalPage)
+      }
     } else {
       router.push('/search?q=' + debouncedKeyword)
     }
