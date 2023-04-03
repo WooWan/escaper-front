@@ -46,7 +46,7 @@ model User {
   accounts      Account[]
   sessions      Session[]
   Review        Review[]
-  likes          Like[]
+  likes         Like[]
 }
 
 model VerificationToken {
@@ -60,15 +60,14 @@ model VerificationToken {
 model Cafe {
   id          String        @id @default(cuid())
   name        String
-    city        String
-  area     String @default("없음")
-  street      String @default("없음")
+  city        String
+  area        String        @default("없음")
+  street      String        @default("없음")
   phoneNumber String
   website     String
   rating      Float
   themeList   EscapeTheme[]
 }
-
 
 model EscapeTheme {
   name           String
@@ -76,9 +75,9 @@ model EscapeTheme {
   rating         Float
   id             String   @id @default(cuid())
   description    String?
-  timeLimitation Int     @default(60)
-  imageURL       String @default("https://images.unsplash.com/photo-1600000000000-000000000000?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1000&q=80")
-  cost           Int    @default(22000)
+  timeLimitation Int      @default(60)
+  imageURL       String   @default("https://images.unsplash.com/photo-1600000000000-000000000000?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1000&q=80")
+  cost           Int      @default(22000)
   cafeId         String
   reviewList     Review[]
 }
@@ -90,10 +89,10 @@ model Review {
   userId        String
   user          User        @relation(fields: [userId], references: [id])
   rating        Float?
-  review   String?
-  createdAt     DateTime?    @default(now())
-  likeCount     Int?         @default(0)
-  likes          Like[]
+  review        String?
+  createdAt     DateTime?   @default(now())
+  likeCount     Int?        @default(0)
+  likes         Like[]
 
   @@unique([escapeThemeId, userId])
 }
