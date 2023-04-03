@@ -10,7 +10,7 @@ module.exports = {
       },
       colors: {
         gray200: '#C8CAD4',
-        main500: '#EE7330',
+        main500: '#5437DC',
       },
       fontSize: {
         h1: ['1.375rem', { fontWeight: 800, lineHeight: '1.875rem', letterSpacing: '-0.8px' }],
