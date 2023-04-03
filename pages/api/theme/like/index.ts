@@ -11,7 +11,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           userId: userId,
         },
       })
-      console.log(`userId: ${userId}, escapeThemeId: ${escapeThemeId}, existingLike: ${existingLike}`)
       if (!existingLike) {
         await prisma.themeLike.create({
           data: {
@@ -20,6 +19,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           },
         })
       }
+      break
     }
     case 'GET': {
       const { escapeThemeId } = req.query
@@ -29,6 +29,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         },
       })
       res.json(likeCount)
+      break
     }
+    default:
+      res.status(405).end(
+        JSON.stringify({
+          message: 'Method Not Allowed',
+        })
+      )
+      break
   }
 }
