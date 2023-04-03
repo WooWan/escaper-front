@@ -10,27 +10,27 @@ export default function Sidebar() {
   const router = useRouter()
 
   return (
-    <nav className="sticky top-0 min-h-screen min-w-[88px] border-r-[1px] border-solid border-r-slate-100 pt-10 md:min-w-[240px] md:pl-6">
+    <nav className="sticky top-0 min-h-screen min-w-[88px] border-r-[1px] border-solid border-r-slate-100 pt-10 md:min-w-[220px] md:pl-6">
       <div>
         <ul className="flex flex-col gap-y-6 border-b-[1px] border-r-slate-100 pb-6">
           <Link href="/home">
             <li
-              className={clsx('flex cursor-pointer flex-col items-center gap-x-4 border-r-[4px] md:flex-row', {
-                'border-main500': router.asPath === '/home',
+              className={clsx('flex cursor-pointer flex-col items-center gap-x-4 md:flex-row', {
+                'border-r-4 border-main500': router.asPath === '/home',
               })}
             >
-              <Home
-                color={'black'}
-                size={24}
-                className={clsx('shrink-0 ', { 'border-main500': router.asPath === '/home' })}
-              />
-              <span className="hidden md:inline">Home</span>
+              <Home color={'black'} size={24} />
+              <span className="hidden md:inline">홈</span>
             </li>
           </Link>
-          <Link href="/theme">
-            <li className="flex flex-col items-center gap-x-4 md:flex-row">
+          <Link href="/inventory">
+            <li
+              className={clsx('flex cursor-pointer flex-col items-center gap-x-4 md:flex-row', {
+                'border-r-4 border-main500': router.asPath === '/inventory',
+              })}
+            >
               <Album color={'black'} size={24} className="shrink-0" />
-              <span className="hidden md:inline">Bookmark</span>
+              <span className="hidden md:inline">보관함</span>
             </li>
           </Link>
           <li className="flex flex-col items-center gap-x-4 md:flex-row">
@@ -51,7 +51,7 @@ export default function Sidebar() {
                 <span className="hidden md:inline">로그인</span>
               )}
             </li>
-            <Link href="/mypage">
+            <Link href="/inventory">
               <li className="flex flex-col items-center gap-x-4 md:flex-row">
                 <Settings />
                 <span className="hidden md:inline">마이 페이지</span>

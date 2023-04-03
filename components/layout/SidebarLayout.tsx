@@ -10,7 +10,7 @@ export default function SidebarLayout({ children }: Props) {
   return (
     <div>
       <Header />
-      <div className="grid grid-cols-[80px_1fr] gap-x-4 md:grid-cols-[240px_1fr]">
+      <div className="grid grid-cols-[80px_1fr] gap-x-4 md:grid-cols-[220px_1fr]">
         <Sidebar />
         {children}
       </div>
