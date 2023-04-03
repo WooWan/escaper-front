@@ -38,15 +38,16 @@ model Session {
 }
 
 model User {
-  id            String    @id @default(cuid())
-  name          String?
-  email         String?   @unique
-  emailVerified DateTime?
-  image         String?
-  accounts      Account[]
-  sessions      Session[]
-  Review        Review[]
-  likes         Like[]
+  id                String      @id @default(cuid())
+  name              String?
+  email             String?     @unique
+  emailVerified     DateTime?
+  image             String?
+  accounts          Account[]
+  sessions          Session[]
+  Review            Review[]
+  likes             Like[]
+  likedEscapeThemes ThemeLike[]
 }
 
 model VerificationToken {
@@ -71,15 +72,16 @@ model Cafe {
 
 model EscapeTheme {
   name           String
-  cafe           Cafe     @relation(fields: [cafeId], references: [id])
+  cafe           Cafe        @relation(fields: [cafeId], references: [id])
   rating         Float
-  id             String   @id @default(cuid())
+  id             String      @id @default(cuid())
   description    String?
-  timeLimitation Int      @default(60)
-  imageURL       String   @default("https://images.unsplash.com/photo-1600000000000-000000000000?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1000&q=80")
-  cost           Int      @default(22000)
+  timeLimitation Int         @default(60)
+  imageURL       String      @default("https://images.unsplash.com/photo-1600000000000-000000000000?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1000&q=80")
+  cost           Int         @default(22000)
   cafeId         String
   reviewList     Review[]
+  likes          ThemeLike[]
 }
 
 model Review {
@@ -104,4 +106,14 @@ model Like {
   userId    String
   user      User     @relation(fields: [userId], references: [id])
   createdAt DateTime @default(now())
+}
+
+model ThemeLike {
+  themeId   String
+  theme     EscapeTheme @relation(fields: [themeId], references: [id])
+  userId    String
+  user      User        @relation(fields: [userId], references: [id])
+  createdAt DateTime    @default(now())
+
+  @@id([themeId, userId])
 }
