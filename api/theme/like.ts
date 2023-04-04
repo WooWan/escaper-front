@@ -1,4 +1,5 @@
 import { httpClient } from '@/service/httpClient'
+import { LikeResponse } from '@/types/like'
 
 export const addEscapeThemeLike = async (escapeThemeId: string, userId: string) => {
   const response = await httpClient.post(`/theme/like`, {
@@ -8,7 +9,7 @@ export const addEscapeThemeLike = async (escapeThemeId: string, userId: string) 
   return response.data
 }
 
-export const fetchEscapeThemeLikeCount = async (escapeThemeId: string) => {
+export const fetchEscapeThemeLikeList = async (escapeThemeId: string): Promise<LikeResponse[]> => {
   const response = await httpClient.get(`/theme/like/?escapeThemeId=${escapeThemeId}`)
   return response.data
 }

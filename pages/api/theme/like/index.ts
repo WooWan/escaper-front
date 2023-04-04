@@ -18,17 +18,32 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             themeId: escapeThemeId,
           },
         })
+      } else {
+        await prisma.themeLike.delete({
+          where: {
+            themeId_userId: {
+              themeId: String(existingLike.themeId),
+              userId: String(existingLike.userId),
+            },
+          },
+        })
       }
+      res.status(200).end()
       break
     }
     case 'GET': {
       const { escapeThemeId } = req.query
-      const likeCount = await prisma.themeLike.count({
+      const likeList = await prisma.themeLike.findMany({
         where: {
           themeId: String(escapeThemeId),
         },
+        select: {
+          userId: true,
+          themeId: true,
+        },
       })
-      res.json(likeCount)
+
+      res.json(likeList)
       break
     }
     default:
