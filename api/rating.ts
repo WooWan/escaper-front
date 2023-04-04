@@ -13,7 +13,7 @@ export const addRating = async (escapeThemeId: string, memberId: string, rating:
 export const updateRating = async (themeId: string, memberId: string, rating: number) => {
   const response = await httpClient.put('/rating', {
     rating,
-    themeId,
+    escapeThemeId: themeId,
     memberId,
   })
   return response.data

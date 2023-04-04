@@ -8,12 +8,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
     case 'POST': {
       const result = await createRating(req.body)
-      await updateThemeRate(req.body.themeId)
+      await updateThemeRate(req.body.escapeThemeId)
       return res.json(result)
     }
     case 'PUT': {
       const result = await updateRating(req.body)
-      await updateThemeRate(req.body.themeId)
+      await updateThemeRate(req.body.escapeThemeId)
       return res.json(result)
     }
   }
@@ -38,11 +38,11 @@ const getReview = async (
 }
 
 const createRating = async (body: any) => {
-  const { memberId, themeId, rating } = body
+  const { memberId, escapeThemeId, rating } = body
   const result = await prisma.review.create({
     data: {
       userId: String(memberId),
-      escapeThemeId: String(themeId),
+      escapeThemeId: String(escapeThemeId),
       rating: rating,
     },
   })
@@ -51,12 +51,13 @@ const createRating = async (body: any) => {
 }
 
 const updateRating = async (body: any) => {
-  const { memberId, themeId, rating } = body
+  const { memberId, escapeThemeId, rating } = body
+  console.log(body)
   const result = await prisma.review.update({
     where: {
       escapeThemeId_userId: {
         userId: String(memberId),
-        escapeThemeId: String(themeId),
+        escapeThemeId: String(escapeThemeId),
       },
     },
     data: {
@@ -67,13 +68,15 @@ const updateRating = async (body: any) => {
 }
 
 const updateThemeRate = async (id: string) => {
+  console.log('id', id)
   const reviews = await prisma.review.findMany({
     where: {
       escapeThemeId: id,
     },
   })
 
-  const rating = reviews.filter((review) => review.rating !== null).reduce((acc, cur) => acc + cur.rating!, 0) / reviews.length
+  const rating =
+    reviews.filter((review) => review.rating !== null).reduce((acc, cur) => acc + cur.rating!, 0) / reviews.length
   const result = await prisma.escapeTheme.update({
     where: {
       id: id,
