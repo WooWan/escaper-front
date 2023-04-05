@@ -10,7 +10,7 @@ const SearchPage = () => {
   const { data: result } = useEscapeThemeBySearch(String(q))
 
   return (
-    <div className="flex flex-wrap">
+    <div className="grid grid-cols-2 gap-x-8 gap-y-10 px-10 lg:grid-cols-3 xl:grid-cols-5">
       {result?.map((theme) => {
         return <ThemeBox key={theme.id} {...theme} />
       })}
