@@ -33,10 +33,16 @@ export default function Sidebar() {
               <span className="hidden md:inline">보관함</span>
             </li>
           </Link>
-          <li className="flex flex-col items-center gap-x-4 md:flex-row">
-            <TrendingUp color={'black'} size={24} className="shrink-0" />
-            <span className="hidden md:inline">트렌드</span>
-          </li>
+          <Link href="/mypage">
+            <li
+              className={clsx('flex cursor-pointer flex-col items-center gap-x-4 md:flex-row', {
+                'border-r-4 border-main500': router.asPath === '/mypage',
+              })}
+            >
+              <Settings />
+              <span className="hidden md:inline">마이 페이지</span>
+            </li>
+          </Link>
         </ul>
         <div className="py-6">
           <ul className="flex flex-col gap-y-6 border-b-[1px] border-r-slate-100 pb-6">
@@ -51,12 +57,6 @@ export default function Sidebar() {
                 <span className="hidden md:inline">로그인</span>
               )}
             </li>
-            <Link href="/inventory">
-              <li className="flex flex-col items-center gap-x-4 md:flex-row">
-                <Settings />
-                <span className="hidden md:inline">마이 페이지</span>
-              </li>
-            </Link>
           </ul>
         </div>
       </div>
