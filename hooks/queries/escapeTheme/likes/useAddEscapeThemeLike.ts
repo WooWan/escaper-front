@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { addEscapeThemeLike, fetchEscapeThemeLikeList } from '@/api/theme/like'
+import { addEscapeThemeLike, fetchEscapeThemeLikeList, fetchEscapeThemeLikeListByUser } from '@/api/theme/like'
 import { escapeThemeLikeKeys } from '@/hooks/queries/escapeTheme/likes/queries'
 import { LikeRequest, LikeResponse } from '@/types/like'
 
@@ -68,5 +68,12 @@ export const useEscapeThemeLikeCount = (escapeThemeId: string) => {
   return useQuery({
     queryFn: () => fetchEscapeThemeLikeList(escapeThemeId),
     queryKey: escapeThemeLikeKeys.escapeTheme(escapeThemeId),
+  })
+}
+
+export const useEscapeThemeLikeListByUser = (userId: string) => {
+  return useQuery({
+    queryFn: () => fetchEscapeThemeLikeListByUser(userId),
+    queryKey: escapeThemeLikeKeys.user(userId),
   })
 }

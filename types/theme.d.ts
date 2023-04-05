@@ -29,7 +29,7 @@ export type ThemeDetail = {
   cafeId: string
   cost: number
   imageURL: string
-  cafe: Cafe
+  cafe: CafeType
   reviewList: ReviewType[]
 }
 
@@ -42,4 +42,9 @@ export type CafeType = {
   website: string
   rating: number
   themeList: ThemeDetail[]
+}
+
+export type LikeEscapeThemeByUser = {
+  themeId: string
+  theme: ThemeDetail
 }
