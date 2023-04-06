@@ -1,41 +1,32 @@
 import { Rating } from 'react-simple-star-rating'
-import { useCreateRating, useRating, useUpdateRating } from '@/hooks/queries/rating/useRating'
 import { useSession } from 'next-auth/react'
 import resolveConfig from 'tailwindcss/resolveConfig'
 import tailwindConfig from '@/tailwind.config.js'
+import { useEscapeThemeReview, useUpsertReview } from '@/hooks/queries/review/useThemeReview'
 
-resolveConfig
 type Props = {
   id?: string
   averageRating?: number
   count: number
-  ratingCounts: number
+  ratingCounts?: number
 }
 
 function RatingSection({ id, count, averageRating, ratingCounts }: Props) {
   const { data: session } = useSession()
   const userId = session?.user.id
-  const { mutate: createRating } = useCreateRating()
-  const { mutate: updateRating } = useUpdateRating()
-  const { data } = useRating(String(userId), String(id))
+  const { data } = useEscapeThemeReview(String(userId), String(id))
+  const { mutate: updateReview } = useUpsertReview()
   const memberRating = data?.rating
   const twFullConfig = resolveConfig(tailwindConfig)
   const MAIN500 = twFullConfig?.theme?.colors?.main500 as string
 
   const handleRate = (rating: number) => {
-    if (data) {
-      updateRating({
-        escapeThemeId: String(id),
-        userId: String(userId),
-        rating,
-      })
-    } else {
-      createRating({
-        escapeThemeId: String(id),
-        userId: String(userId),
-        rating,
-      })
+    const updatedReview = {
+      escapeThemeId: String(id),
+      userId: String(userId),
+      rating: rating,
     }
+    updateReview(updatedReview)
   }
 
   return (

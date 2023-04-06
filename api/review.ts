@@ -1,23 +1,34 @@
 import { httpClient } from '@/service/httpClient'
+import { ReviewRequest, ReviewResponse } from '@/types/review'
 
-export type ReviewRequest = {
-  userId: string
-  escapeThemeId: string
-  review: string
-}
-
-export const addReviewApi = async (review: ReviewRequest) => {
-  return httpClient.post('/review', {
+export const updateReview = async (review: ReviewRequest) => {
+  const response = await httpClient.put('/review', {
     review,
   })
+  return response.data
 }
 
-export const getReviewsApi = async (themeId: string) => {
-  const response = await httpClient.get(`/review/${themeId}`)
+export const getReviewsApi = async (themeId: string, userId?: string): Promise<ReviewResponse[]> => {
+  const response = await httpClient.get(`/reviews`, {
+    params: {
+      themeId: themeId,
+      userId: userId,
+    },
+  })
   return response.data
 }
 
 export const getReviewsOfCafeApi = async (cafeId: string) => {
   const response = await httpClient.get(`/review/cafe/${cafeId}`)
+  return response.data
+}
+
+export const fetchReviewByUser = async (memberId: string, themeId: string): Promise<ReviewResponse> => {
+  const response = await httpClient.get('/rating', {
+    params: {
+      memberId,
+      themeId,
+    },
+  })
   return response.data
 }

@@ -1,24 +1,20 @@
-import styled from 'styled-components'
 import { ReviewType } from '@/types'
 import Review from '@/components/review/review/Review'
-
-const Container = styled.ul`
-  display: flex;
-  flex-direction: column;
-  padding-left: 0.5rem;
-`
+import { ReviewResponse } from '@/types/review'
 
 type Props = {
-  reviews?: ReviewType[]
+  reviews?: ReviewResponse[]
+  userReview?: ReviewResponse
 }
 
-function Reviews({ reviews }: Props) {
+function Reviews({ reviews, userReview }: Props) {
   return (
-    <Container className="w-full">
-      {reviews?.map((review) => (
-        <Review key={review.id} {...review} />
-      ))}
-    </Container>
+    <ul className="mt-4 flex w-full flex-col border-t-[1px]">
+      <Review review={userReview} />
+      {reviews?.map((review) => {
+        return <Review key={review.id} review={review} />
+      })}
+    </ul>
   )
 }
 
