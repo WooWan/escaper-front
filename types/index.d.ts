@@ -49,12 +49,6 @@ export interface ICommentResponse {
   createdDate: Date
 }
 
-export interface IReviewResult {
-  data: IReview[]
-  count: number
-  averageRating: number
-}
-
 export type ReviewType = {
   createdAt: Date
   escapeThemeId: string
@@ -64,29 +58,6 @@ export type ReviewType = {
   review: string
   userId: string
   user: User
-}
-
-export interface IReview {
-  // reviewId: number;
-  // content: string;
-  // rate?: number;
-  // themeId: number;
-  // themeName: string;
-  // likes: number;
-  // memberResponse: IMember;
-  id: string
-  escapeThemeId: string
-  likeCount: number
-  rating: number
-  review: string
-  user: User
-  usrId: string
-}
-
-export interface IRatingRequest {
-  themeId: string | string[] | undefined
-  memberId: number
-  rating: number
 }
 
 export interface ICafe {
