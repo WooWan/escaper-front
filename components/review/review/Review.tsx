@@ -1,40 +1,63 @@
-import styled from 'styled-components'
-import { ReviewType } from '@/types'
 import { MoreVertical } from 'lucide-react'
-import { Container, Header, Article } from './Review.style'
-import { Rating } from 'react-simple-star-rating'
-
-export const RatingBox = styled.div`
-  display: flex;
-  align-items: center;
-  column-gap: 0.25rem;
-`
-export const RatingWrapper = styled.section`
-  display: flex;
-  flex-direction: column;
-  row-gap: 0.5rem;
-`
+import { Header } from './Review.style'
+import { ReviewResponse } from '@/types/review'
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown/DropdownMenu'
+import { useRemoveReview } from '@/hooks/queries/review/useThemeReview'
+import { Rating } from '@/components/ui/rating/Rating'
 
 const ZERO = 0
-function Review({ review, likeCount, rating, user }: ReviewType) {
-  const { name } = user
+
+type Props = {
+  review?: ReviewResponse
+  userId?: string
+  openReviewEdit?: () => void
+}
+function Review({ review, userId, openReviewEdit }: Props) {
+  const removeReview = useRemoveReview()
+  const handleDeleteReview = () => {
+    if (!review) return
+    removeReview.mutate(review?.id)
+  }
+
+  if (!review) return null
 
   return (
-    <Container>
+    <section className="flex flex-col gap-y-3 border-b-[1px] px-2 py-6 ">
       <Header>
-        <RatingWrapper>
-          <RatingBox>
-            <Rating SVGstyle={{ display: 'inline-block' }} initialValue={rating ? rating : 0} size={30} readonly />
-            <span className="text-s3">{rating ? rating?.toFixed(1) : ZERO.toFixed(1)}</span>
-          </RatingBox>
-        </RatingWrapper>
-        <div className="flex items-center">
-          <span className="text-s3">{name}</span>
-          <MoreVertical size={16} />
+        <div className="flex flex-col gap-y-2">
+          <div className="flex items-center gap-x-2">
+            <Rating
+              SVGstyle={{ display: 'inline-block' }}
+              initialValue={review.rating ? review.rating : 0}
+              size={30}
+              readonly
+            />
+            <span className="text-s3">{review.rating ? review.rating?.toFixed(1) : ZERO.toFixed(1)}</span>
+            <label className="rounded-md bg-purple-200 px-[4px] py-[1px] text-s1 text-main500">나의 평가</label>
+          </div>
+        </div>
+        <div className="flex items-center gap-x-1">
+          <span className="text-s3">{review.user?.name}</span>
+          {review.userId === userId && (
+            <DropdownMenu>
+              <DropdownMenuTrigger>
+                <MoreVertical size={16} />
+              </DropdownMenuTrigger>
+              <DropdownMenuContent>
+                <DropdownMenuItem onClick={openReviewEdit}>수정하기</DropdownMenuItem>
+                <DropdownMenuItem onClick={handleDeleteReview}>삭제하기</DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          )}
         </div>
       </Header>
-      <Article>{review}</Article>
-    </Container>
+      <article>{review?.review}</article>
+    </section>
   )
 }
 
