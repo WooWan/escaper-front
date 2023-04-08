@@ -115,7 +115,7 @@ export function Rating({
   disableFillHover = false,
 
   fillIcon = null,
-  fillColor = '#ffbc0b',
+  fillColor = '#5437DC',
   fillColorArray = [],
   fillStyle,
   fillClassName = 'filled-icons',
