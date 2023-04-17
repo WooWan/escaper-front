@@ -10,7 +10,7 @@ const nextConfig = withBundleAnalyzer({
     styledComponents: true,
   },
   images: {
-    domains: ['adhgloqjygnspxqhqpmq.supabase.co', 'img.danawa.com'],
+    domains: ['adhgloqjygnspxqhqpmq.supabase.co', 'img.danawa.com', 'images.unsplash.com'],
   },
 })
 
