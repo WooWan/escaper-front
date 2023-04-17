@@ -1,10 +1,12 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import { prisma } from '@/lib/prisma'
+import withErrorHandling from '@/lib/error/withErrorHandling'
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   switch (req.method) {
     case 'GET': {
-      return res.json(await getReview(req.query))
+      const review = await getReview(req.query)
+      return res.json(review)
     }
     case 'POST': {
       const result = await createRating(req.body)
@@ -32,6 +34,9 @@ const getReview = async (
         escapeThemeId: String(themeId),
         userId: String(memberId),
       },
+    },
+    include: {
+      user: true,
     },
   })
   return result
@@ -68,7 +73,6 @@ const updateRating = async (body: any) => {
 }
 
 const updateThemeRate = async (id: string) => {
-  console.log('id', id)
   const reviews = await prisma.review.findMany({
     where: {
       escapeThemeId: id,
@@ -87,3 +91,5 @@ const updateThemeRate = async (id: string) => {
   })
   return result
 }
+
+export default withErrorHandling(handler)
