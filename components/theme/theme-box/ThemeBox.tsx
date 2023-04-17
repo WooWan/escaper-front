@@ -7,10 +7,10 @@ function ThemeBox(theme: ThemeDetail) {
   return (
     <div>
       <Link key={theme.id} href={`/theme/${theme.id}`}>
-        <div className="relative aspect-square">
+        <div className="relative aspect-[4/5]">
           <Image src={theme.imageURL} fill alt="logo" />
         </div>
-        <div className="flex flex-col">
+        <div className="flex flex-col px-1">
           <span>{theme.name}</span>
           <div className="relative flex h-4 w-0 items-center">
             <div className="flex items-baseline gap-y-2">
