@@ -1,18 +1,63 @@
-import type { NextPage } from 'next'
-import Posts from '../components/posts/Posts'
-import Head from 'next/head'
-import { useSession } from 'next-auth/react'
+import SidebarLayout from '@/components/layout/SidebarLayout'
+import React, { ReactElement, useState } from 'react'
+import { useRootState } from '@/store/utils'
+import { useEscapeThemeBySearch } from '@/hooks/queries/search/useSearchTheme'
+import styles from './index.module.css'
+import ThemeBox from '@/components/theme/theme-box/ThemeBox'
 
-const Home: NextPage = () => {
-  const { data } = useSession()
+export default function Home() {
+  const searchKeyword = useRootState((state) => state.search.searchKeyword)
+  const [sliderIndex, setSliderIndex] = useState(0)
+  const { data: result } = useEscapeThemeBySearch(searchKeyword)
+  const itemCount = 20
+  const itemPerSlide = 5
+  const slideCount = itemCount / itemPerSlide
+
+  const handleLeftSlide = () => {
+    if (sliderIndex > 0) {
+      setSliderIndex((prev) => prev - 1)
+    } else {
+      setSliderIndex(slideCount - 1)
+    }
+  }
+
+  const handleRightSlide = () => {
+    if (sliderIndex < slideCount - 1) {
+      setSliderIndex((prev) => prev + 1)
+    } else {
+      setSliderIndex(0)
+    }
+  }
   return (
-    <div>
-      <Head>
-        <title>Room escaper</title>
-      </Head>
-      {/* <Posts /> */}
-    </div>
+    <section>
+      <div className={`group/container ${styles.container}`}>
+        <button
+          className={`handle leftHandle group/handle group-hover/container:opacity-100`}
+          onClick={handleLeftSlide}
+        >
+          <div className={`chevron group-hover/handle:scale-150`}>&#8249;</div>
+        </button>
+        <div
+          className={styles.slider}
+          style={{
+            transform: `translateX(${-sliderIndex * 100}%)`,
+          }}
+        >
+          {result?.slice(0, itemCount).map((theme) => (
+            <ThemeBox {...theme} key={theme.id} />
+          ))}
+        </div>
+        <button
+          onClick={handleRightSlide}
+          className={`handle rightHandle group/handle group-hover/container:opacity-100`}
+        >
+          <div className={`chevron group-hover/handle:scale-150`}>&#8250;</div>
+        </button>
+      </div>
+    </section>
   )
 }
 
-export default Home
+Home.getLayout = function getLayout(page: ReactElement) {
+  return <SidebarLayout>{page}</SidebarLayout>
+}
