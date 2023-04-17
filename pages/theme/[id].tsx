@@ -1,13 +1,11 @@
 import { GetStaticPropsContext } from 'next'
-import { IReviewResult } from '@/types'
-import { fetchReview, fetchThemeById, fetchThemeList } from '@/api/theme'
-import styled from 'styled-components'
+import { fetchThemeById, fetchThemeList } from '@/api/theme'
 import ThemeInfo from '@/components/theme/theme/Theme'
 import { dehydrate, QueryClient, useQuery } from '@tanstack/react-query'
 import { useRouter } from 'next/router'
 import ReviewRegister from '@/components/review/review-register'
 import Reviews from '@/components/review/Reviews'
-import { ReactElement } from 'react'
+import { ReactElement, useState } from 'react'
 import { escapeThemeKey } from '@/hooks/queries/escapeTheme/queries'
 import { useSession } from 'next-auth/react'
 import SidebarLayout from '@/components/layout/SidebarLayout'
@@ -18,42 +16,42 @@ import {
   useRemoveEscapeThemeLike,
 } from '@/hooks/queries/escapeTheme/likes/useAddEscapeThemeLike'
 import clsx from 'clsx'
-
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  max-width: 920px;
-  margin: 0 auto;
-  height: 100%;
-`
+import { useEscapeThemeReview, useReviewsByEscapeTheme } from '@/hooks/queries/review/useThemeReview'
+import ReviewEdit from '@/components/review/ReviewEdit'
 
 function ThemePage() {
   const router = useRouter()
   const themeId = router.query.id
-  const { data: session } = useSession()
-  const { data: theme } = useQuery(['theme', themeId], () => fetchThemeById(String(themeId)))
-  const { data: reviews } = useQuery<IReviewResult>(['review', themeId], () => fetchReview(themeId))
+  const { data: session, status: userStatus } = useSession()
+  const escapeTheme = useQuery(['theme', themeId], () => fetchThemeById(String(themeId)))
+  const userId = session?.user.id
+  const { data: reviews } = useReviewsByEscapeTheme(String(themeId), String(userId), userStatus)
   const { data: likeList } = useEscapeThemeLikeCount(String(themeId))
   const addLike = useAddEscapeThemeLike()
   const deleteLike = useRemoveEscapeThemeLike()
   const isLiked = likeList?.some((like) => like.userId === session?.user.id)
-  const reviews2 = theme?.reviewList
-  const memberId = session?.user.id
+  const { data: userReview, status: reviewStatus } = useEscapeThemeReview(String(userId), String(themeId), userStatus)
+  const [isReviewEditOpen, setIsReviewEditOpen] = useState(false)
 
   const handleLike = () => {
     if (isLiked) {
-      deleteLike.mutate({ escapeThemeId: String(themeId), userId: String(memberId) })
+      deleteLike.mutate({ escapeThemeId: String(themeId), userId: String(userId) })
     } else {
-      addLike.mutate({ escapeThemeId: String(themeId), userId: String(memberId) })
+      addLike.mutate({ escapeThemeId: String(themeId), userId: String(userId) })
     }
   }
+  const closeReviewEdit = () => {
+    setIsReviewEditOpen(false)
+  }
+  const openReviewEdit = () => {
+    setIsReviewEditOpen(true)
+  }
+  if (escapeTheme.isLoading) return <div>loading...</div>
+  if (escapeTheme.isError) return <div>error</div>
 
   return (
-    <Container>
-      {/* <Suspense fallback={<>..loading</>}> */}
-      <ThemeInfo theme={theme} />
-      {/* </Suspense> */}
+    <section className="mx-auto flex h-full flex-col">
+      <ThemeInfo theme={escapeTheme.data} />
       <div>
         <div className="flex gap-x-5 py-2">
           <div onClick={handleLike} className="flex cursor-pointer items-center gap-x-1">
@@ -67,14 +65,22 @@ function ThemePage() {
             <MessageCircle size={18} />
             <span className="flex items-center gap-1">
               댓글
-              <h4 className="text-s3">{reviews2?.length}</h4>
+              <h4 className="text-s3">{reviews?.length}</h4>
             </span>
           </div>
         </div>
-        <ReviewRegister />
-        <Reviews reviews={reviews2} />
+        <ReviewRegister userReview={userReview} />
+        {isReviewEditOpen && (
+          <ReviewEdit
+            closeReviewEdit={closeReviewEdit}
+            userReview={userReview}
+            themeId={escapeTheme.data.id}
+            userId={userId}
+          />
+        )}
+        <Reviews userId={userId} openReviewEdit={openReviewEdit} reviews={reviews} userReview={userReview} />
       </div>
-    </Container>
+    </section>
   )
 }
 
