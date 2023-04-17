@@ -26,10 +26,10 @@ export default function Sidebar() {
     <nav className="sticky top-0 min-h-screen min-w-[88px] border-r-[1px] border-solid border-r-slate-100 pt-10 md:min-w-[220px] md:pl-6">
       <div>
         <ul className="flex flex-col gap-y-6 border-b-[1px] border-r-slate-100 pb-6">
-          <Link href="/home">
+          <Link href="/">
             <li
               className={clsx('flex cursor-pointer flex-col items-center gap-x-4 md:flex-row', {
-                'border-r-4 border-main500': router.asPath === '/home',
+                'border-r-4 border-main500': router.asPath === '/',
               })}
             >
               <Home color={'black'} size={24} />

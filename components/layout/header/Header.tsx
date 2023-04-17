@@ -16,7 +16,7 @@ const Header = () => {
   const router = useRouter()
   return (
     <header className="flex max-h-[100px] items-center justify-between px-8 py-4">
-      <Link href="/home">
+      <Link href="/">
         <div>
           <span className="text-h2 text-main500">Escapers</span>
           {/* <Image src="/images/escape.jpeg" width={40} height={40} alt="logo" /> */}
