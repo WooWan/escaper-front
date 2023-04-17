@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 import { escapeThemeKey } from './queries'
-import { getThemeListApi, getUserRatedMovies } from '@/api/themes'
+import { getThemeListApi, getUserRatedThemes } from '@/api/themes'
 
 export const useEscapeThemeList = () => {
   return useQuery({
@@ -12,7 +12,7 @@ export const useEscapeThemeList = () => {
 export const useUserRatedTheme = (userId: string) => {
   return useQuery({
     queryKey: escapeThemeKey.all,
-    queryFn: () => getUserRatedMovies(userId),
+    queryFn: () => getUserRatedThemes(userId),
     enabled: userId !== 'undefined',
   })
 }
