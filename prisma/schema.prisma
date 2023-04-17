@@ -24,7 +24,8 @@ model Account {
   id_token          String? @db.Text
   session_state     String?
 
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  refresh_token_expires_in Int?
+  user                     User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
 }
@@ -89,7 +90,7 @@ model Review {
   escapeThemeId String
   escapeTheme   EscapeTheme @relation(fields: [escapeThemeId], references: [id])
   userId        String
-  user          User        @relation(fields: [userId], references: [id])
+  user          User        @relation(fields: [userId], references: [id], onDelete: Cascade)
   rating        Float?
   review        String?
   createdAt     DateTime?   @default(now())
