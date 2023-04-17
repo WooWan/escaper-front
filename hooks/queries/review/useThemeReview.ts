@@ -1,4 +1,4 @@
-import { fetchReviewByUser, updateReview } from '@/api/review'
+import { fetchReviewByUser, removeReviewApi, updateReview } from '@/api/review'
 import { reviewKeys } from './queries'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { getReviewsApi } from '@/api/review'
@@ -16,10 +16,15 @@ export const useReviewsByEscapeTheme = (
   })
 }
 
-export const useEscapeThemeReview = (userId: string, themeId: string) => {
+export const useEscapeThemeReview = (
+  userId: string,
+  themeId: string,
+  status: 'authenticated' | 'loading' | 'unauthenticated'
+) => {
   return useQuery({
     queryKey: reviewKeys.detailByUser(userId, themeId),
     queryFn: () => fetchReviewByUser(userId, themeId),
+    enabled: status !== 'loading',
   })
 }
 
@@ -33,9 +38,12 @@ export const useUpsertReview = () => {
   })
 }
 
-export const useCafeReviews = (cafeId: string) => {
-  return useQuery({
-    queryKey: reviewKeys.detail(cafeId),
-    queryFn: () => getReviewsApi(cafeId),
+export const useRemoveReview = () => {
+  const queryClient = useQueryClient()
+  return useMutation({
+    mutationFn: (reviewId: string) => removeReviewApi(reviewId),
+    onSuccess: ({ escapeThemeId }) => {
+      queryClient.invalidateQueries(reviewKeys.detail(escapeThemeId))
+    },
   })
 }
