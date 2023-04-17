@@ -14,6 +14,7 @@ export default function MyPage() {
   const userId = session?.user?.id
   const { data } = useUserRatedTheme(String(userId))
   const { data: themes } = useEscapeThemeLikeListByUser(String(userId))
+
   return (
     <div>
       <h3 className="pb-3 text-h1">보관함</h3>
