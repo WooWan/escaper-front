@@ -18,6 +18,11 @@ export const getReviewsApi = async (themeId: string, userId?: string): Promise<R
   return response.data
 }
 
+export const removeReviewApi = async (reviewId: string) => {
+  const response = await httpClient.delete(`/review/${reviewId}`)
+  return response.data
+}
+
 export const getReviewsOfCafeApi = async (cafeId: string) => {
   const response = await httpClient.get(`/review/cafe/${cafeId}`)
   return response.data

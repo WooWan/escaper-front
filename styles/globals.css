@@ -8,10 +8,11 @@
     border-radius: 0.5rem;
     flex-grow: 0;
     flex-shrink: 0;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.2);
     z-index: 10;
     margin: var(--img-gap) 0;
     width: var(--handle-size);
+    height: 15.25rem;
     cursor: pointer;
     font-size: 5rem;
     display: flex;
@@ -25,16 +26,18 @@
   .leftHandle {
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
+    margin-right: 0.25rem;
   }
 
   .rightHandle {
+    margin-left: 0.25rem;
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
   }
 
   .chevron {
     color: white;
-    font-size: 2rem;
+    font-size: 4rem;
     transition: transform 200ms ease-in-out;
   }
 }
