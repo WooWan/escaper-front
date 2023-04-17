@@ -16,10 +16,6 @@ export interface IThemeDetail {
   address: IAddress
 }
 
-export interface IMemberRating {
-  memberRating: number
-}
-
 export type ThemeDetail = {
   id: string
   name: number
