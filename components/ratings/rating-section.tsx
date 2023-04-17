@@ -1,8 +1,6 @@
-import { Rating } from 'react-simple-star-rating'
 import { useSession } from 'next-auth/react'
-import resolveConfig from 'tailwindcss/resolveConfig'
-import tailwindConfig from '@/tailwind.config.js'
 import { useEscapeThemeReview, useUpsertReview } from '@/hooks/queries/review/useThemeReview'
+import { Rating } from '@/components/ui/rating/Rating'
 
 type Props = {
   id?: string
@@ -12,13 +10,11 @@ type Props = {
 }
 
 function RatingSection({ id, count, averageRating, ratingCounts }: Props) {
-  const { data: session } = useSession()
+  const { data: session, status } = useSession()
   const userId = session?.user.id
-  const { data } = useEscapeThemeReview(String(userId), String(id))
+  const { data } = useEscapeThemeReview(String(userId), String(id), status)
   const { mutate: updateReview } = useUpsertReview()
   const memberRating = data?.rating
-  const twFullConfig = resolveConfig(tailwindConfig)
-  const MAIN500 = twFullConfig?.theme?.colors?.main500 as string
 
   const handleRate = (rating: number) => {
     const updatedReview = {
@@ -36,7 +32,6 @@ function RatingSection({ id, count, averageRating, ratingCounts }: Props) {
         <span className="text-center text-h2">{memberRating ? memberRating : 0.0}</span>
         <Rating
           SVGstyle={{ display: 'inline-block' }}
-          fillColor={MAIN500}
           SVGclassName="w-7 h-7 sm:w-9 sm:h-9"
           allowFraction
           onClick={handleRate}
@@ -48,7 +43,6 @@ function RatingSection({ id, count, averageRating, ratingCounts }: Props) {
         <span className="text-center text-h2">{averageRating}</span>
         <Rating
           SVGstyle={{ display: 'inline-block' }}
-          fillColor={MAIN500}
           SVGclassName="w-7 h-7 sm:w-9 sm:h-9"
           allowFraction
           initialValue={averageRating}
