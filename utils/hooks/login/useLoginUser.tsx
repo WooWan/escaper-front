@@ -1,9 +1,9 @@
 import { useEffect } from 'react'
-import { loginMember } from '../../../api/member'
-import { loginUser, selectUser } from '../../../store/slices/user/user'
+import { loginMember } from '@/src/api/member'
+import { loginUser, selectUser } from '@/src/store/slices/user/user'
 import { useRouter } from 'next/router'
 import { useDispatch, useSelector } from 'react-redux'
-import { setToken } from '../../../store/slices/Token'
+import { setToken } from '@/src/store/slices/Token'
 import { setCookie } from '../../Cookie'
 
 export default function useLoginUser() {

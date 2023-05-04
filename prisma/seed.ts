@@ -1,4 +1,4 @@
-import { prisma } from '@/lib/prisma'
+import { prisma } from '@/src/lib/prisma'
 import fs from 'fs'
 import path from 'path'
 import csv from 'csv-parser'

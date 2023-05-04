@@ -1,7 +1,7 @@
-import { ICommentUpdateRequest } from '@/types'
+import { ICommentUpdateRequest } from 'src/types'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { IComment, ICommentResponse } from '@/types'
-import { httpClient } from '@/service/httpClient'
+import { IComment, ICommentResponse } from 'src/types'
+import { httpClient } from '@/src/service/httpClient'
 
 async function addComment(comment: IComment) {
   const content = comment.content

@@ -1,18 +1,18 @@
-import { useDispatch, useSelector } from "react-redux";
-import { openModal } from "../store/slices/Modal";
-import { selectUser } from "../store/slices/user/user";
+import { useDispatch, useSelector } from 'react-redux'
+import { openModal } from '@/src/store/slices/Modal'
+import { selectUser } from '@/src/store/slices/user/user'
 
 function useValidateUser() {
-  const { user, isLogin } = useSelector(selectUser);
-  const dispatch = useDispatch();
+  const { user, isLogin } = useSelector(selectUser)
+  const dispatch = useDispatch()
 
   const validateUser = () => {
     if (!isLogin) {
-      dispatch(openModal({ modalType: "LoginErrorModal", isOpen: true }));
+      dispatch(openModal({ modalType: 'LoginErrorModal', isOpen: true }))
     }
-  };
+  }
 
-  return { user, validateUser };
+  return { user, validateUser }
 }
 
-export default useValidateUser;
+export default useValidateUser

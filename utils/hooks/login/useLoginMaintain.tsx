@@ -1,10 +1,10 @@
 import { useDispatch } from 'react-redux'
 import { useEffect } from 'react'
-import { loginUser } from '@/store/slices/user/user'
+import { loginUser } from '@/src/store/slices/user/user'
 import { useQuery } from '@tanstack/react-query'
-import { loginMember } from '@/api/member'
-import { IMember } from '@/types/member'
-import { ApiResponse } from '@/types/apiResponse'
+import { loginMember } from '@/src/api/member'
+import { IMember } from '@/src/types/member'
+import { ApiResponse } from '@/src/types/apiResponse'
 import { getCookie } from '@/utils/Cookie'
 
 export default function useLoginMaintain() {
