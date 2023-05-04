@@ -42,11 +42,7 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
       <QueryClientProvider client={queryClient}>
         <Hydrate state={pageProps.dehydratedState}>
           <CookiesProvider>
-            <Provider store={store}>
-              {/* <Layout> */}
-              {getLayout(<Component {...pageProps} />)}
-              {/* </Layout> */}
-            </Provider>
+            <Provider store={store}>{getLayout(<Component {...pageProps} />)}</Provider>
           </CookiesProvider>
         </Hydrate>
         <ReactQueryDevtools initialIsOpen={false} />
