@@ -44,7 +44,7 @@ function ReviewRegister({ userReview }: Props) {
     setReview(event.target.value)
   }
 
-  if (!userReview) {
+  if (!userReview?.review) {
     return (
       <>
         <textarea
