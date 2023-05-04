@@ -13,7 +13,7 @@ export interface ISignUpRequest extends ISignUpForm {
   email: string | string[] | undefined
 }
 
-export type User = {
+export type AuthUser = {
   id: string
   email: string
   emailVerified: boolean

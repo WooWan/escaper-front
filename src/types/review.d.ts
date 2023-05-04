@@ -1,5 +1,5 @@
 import { ThemeDetail } from '@/src/types/theme'
-import { User } from '@/src/types/member'
+import { AuthUser } from '@/src/types/member'
 
 export type ReviewResponse = {
   id: string
@@ -10,7 +10,7 @@ export type ReviewResponse = {
   rating?: number
   review?: string
   escapeTheme: ThemeDetail
-  user: User
+  user: AuthUser
 }
 
 export type ReviewRequest = {

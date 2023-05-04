@@ -1,4 +1,4 @@
-import NextAuth from 'next-auth'
+import { AuthUser } from '@/src/types/member'
 
 declare module 'next-auth' {
   /**
@@ -6,9 +6,6 @@ declare module 'next-auth' {
    */
   interface Session {
     // custom user type
-    user: {
-      id: string
-      name: string
-    }
+    user: AuthUser
   }
 }

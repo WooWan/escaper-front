@@ -1,4 +1,4 @@
-import { IMember, User } from './member'
+import { IMember, AuthUser } from './member'
 
 export interface IThemesType {
   id?: number
@@ -57,7 +57,7 @@ export type ReviewType = {
   rating: number
   review: string
   userId: string
-  user: User
+  user: AuthUser
 }
 
 export interface ICafe {
