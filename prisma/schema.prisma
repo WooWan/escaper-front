@@ -75,9 +75,9 @@ model EscapeTheme {
   name           String
   cafe           Cafe        @relation(fields: [cafeId], references: [id])
   rating         Float
-  id             String      @id @default(cuid())
-  description    String?
   timeLimitation Int         @default(60)
+  description    String?
+  id             String      @id @default(cuid())
   imageURL       String      @default("https://images.unsplash.com/photo-1600000000000-000000000000?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1000&q=80")
   cost           Int         @default(22000)
   cafeId         String
