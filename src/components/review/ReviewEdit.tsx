@@ -1,10 +1,9 @@
-import Button from '@/src/components/ui/button/Button'
 import React, { useState } from 'react'
 import { ReviewResponse } from '@/src/types/review'
 import { useUpsertReview } from '@/src/hooks/queries/review/useThemeReview'
+import { Button } from '@/src/components/ui/button/Button'
 
 type Props = {
-  // isReviewEditOpen: boolean
   userReview?: ReviewResponse
   themeId: string
   userId?: string
@@ -41,7 +40,7 @@ const ReviewEdit = ({ userReview, themeId, userId, closeReviewEdit }: Props) => 
         onChange={handleReviewChange}
       />
       <div className="flex justify-end">
-        <Button intent="primary" size="small" onClick={onReviewHandle}>
+        <Button size="sm" onClick={onReviewHandle}>
           리뷰 작성
         </Button>
       </div>
