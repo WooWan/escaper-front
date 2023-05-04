@@ -13,10 +13,17 @@ export interface ISignUpRequest extends ISignUpForm {
   email: string | string[] | undefined
 }
 
-type User = {
+export type User = {
+  id: string
   email: string
   emailVerified: boolean
-  id: string
   image: string
-  name: string
+  username: string
+}
+
+export type UserRequest = {
+  id: string
+  username?: string
+  email?: string
+  image?: string
 }
