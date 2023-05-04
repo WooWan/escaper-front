@@ -3,21 +3,11 @@ import { fetchPost, fetchPosts } from '@/src/api/post/post'
 import { GetStaticPropsContext } from 'next'
 import Post from '@/src/components/post/Post'
 import { useRouter } from 'next/router'
-import { useCommentData } from '@/utils/comment'
+import { useCommentData } from '@/src/utils/comment'
 import Comments from '@/src/components/comment/comments'
-import styled from 'styled-components'
 import CommentRegister from '@/src/components/comment/register/Register'
 import Font from '@/src/components/core/font/Font'
 import { dehydrate, QueryClient, useQuery } from '@tanstack/react-query'
-
-const CommentSection = styled.div`
-  margin: 0 auto;
-`
-
-export const Container = styled.div`
-  max-width: 920px;
-  margin: 0 auto;
-`
 
 function PostDetail() {
   const router = useRouter()
@@ -27,14 +17,14 @@ function PostDetail() {
 
   if (isLoading || isError) return
   return (
-    <Container>
+    <section className={'mx-auto max-w-[920px]'}>
       <Post data={data} />
-      <CommentSection>
+      <div className={'mx-auto'}>
         <Font fontType="subtitle">{comments?.length}개의 댓글</Font>
         <CommentRegister postId={postId} />
         <Comments comments={comments} />
-      </CommentSection>
-    </Container>
+      </div>
+    </section>
   )
 }
 
