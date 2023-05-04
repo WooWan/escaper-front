@@ -9,6 +9,9 @@ const nextConfig = withBundleAnalyzer({
   compiler: {
     styledComponents: true,
   },
+  experimental: {
+    appDir: true,
+  },
   images: {
     domains: ['adhgloqjygnspxqhqpmq.supabase.co', 'img.danawa.com', 'images.unsplash.com'],
   },
