@@ -1,10 +1,10 @@
-import NextAuth from 'next-auth'
+import NextAuth, { NextAuthOptions } from 'next-auth'
 import GoogleProvider from 'next-auth/providers/google'
 import KakaoProvider from 'next-auth/providers/kakao'
 import { PrismaAdapter } from '@next-auth/prisma-adapter'
 import { prisma } from '@/src/lib/prisma'
 
-export default NextAuth({
+export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
   providers: [
     GoogleProvider({
@@ -19,12 +19,12 @@ export default NextAuth({
   // debug: true,
   secret: process.env.JWT_SECRET!,
   callbacks: {
-    // async jwt(token, user, account, profile, isNewUser) {
-    // },
     async session({ session, user }) {
       // Send properties to the client, like an access_token and user id from a provider.
       session.user.id = user.id
       return session
     },
   },
-})
+}
+
+export default NextAuth(authOptions)
