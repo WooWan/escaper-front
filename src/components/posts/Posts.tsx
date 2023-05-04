@@ -3,8 +3,8 @@ import styled from 'styled-components'
 import { useEffect, useRef } from 'react'
 import { IPost } from '@/src/types'
 import { useInfiniteQuery } from '@tanstack/react-query'
-import { fetchPostsInfinite } from '@/utils/posts'
-import { useObserver } from '@/utils/hooks/useObserver'
+import { fetchPostsInfinite } from '@/src/utils/posts'
+import { useObserver } from '@/src/utils/hooks/useObserver'
 
 const PostList = styled.ul`
   display: grid;

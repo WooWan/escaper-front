@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { store } from '@/src/store/config'
-import { getCookie } from '../../utils/Cookie'
+import { getCookie } from '@/src/utils/Cookie'
 
 export const httpClient = axios.create({
   // baseURL: process.env.API_URL,

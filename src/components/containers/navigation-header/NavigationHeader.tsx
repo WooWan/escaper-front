@@ -6,11 +6,11 @@ import { openModal } from '@/src/store/slices/Modal'
 import { useRouter } from 'next/router'
 import Font from '@/src/components/core/font/Font'
 import { Button } from '@/src/components/comment/comment/Comment.style'
-import useToggleDarkMode from '@/utils/hooks/dark-mode/useToggleDarkMode'
+import useToggleDarkMode from '@/src/utils/hooks/dark-mode/useToggleDarkMode'
 import { selectDarkMode } from '@/src/store/slices/Theme'
 import Moon from '@/src/components/icons/moon'
 import Sun from '@/src/components/icons/Sun'
-import { removeCookie } from '@/utils/Cookie'
+import { removeCookie } from '@/src/utils/Cookie'
 
 function NavigationHeader() {
   const dispatch = useDispatch()

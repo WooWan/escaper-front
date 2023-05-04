@@ -1,7 +1,7 @@
 import React, { useRef } from 'react'
-import { useAddComment, useUpdateComment } from '../../../../utils/comment'
+import { useAddComment, useUpdateComment } from '@/src/utils/comment'
 import { useRouter } from 'next/router'
-import useValidateUser from '../../../../utils/useValidateUser'
+import useValidateUser from '@/src/utils/useValidateUser'
 import { ButtonWrapper, CommentTextArea } from './Register.style'
 import Button from '../../core/button/Button'
 

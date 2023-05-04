@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Search, X } from 'lucide-react'
-import useDebounce from '@/utils/useDebounce'
+import useDebounce from '@/src/utils/useDebounce'
 import { useRouter } from 'next/router'
 
 const SearchBar = () => {
@@ -27,7 +27,7 @@ const SearchBar = () => {
   }
 
   return (
-    <div className="flex items-center gap-x-2 rounded-md border-[1px] border-gray-300 bg-white py-1 px-4">
+    <div className="flex items-center gap-x-2 rounded-md border-[1px] border-gray-300 bg-white px-4 py-1">
       <Search className="h-4 w-4 cursor-pointer" />
       <input
         className="focus:outline-none"

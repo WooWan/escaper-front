@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useRouter } from 'next/router'
 import { useDispatch } from 'react-redux'
-import useValidateUser from '@/utils/useValidateUser'
+import useValidateUser from '@/src/utils/useValidateUser'
 import { openModal } from '@/src/store/slices/Modal'
 import { useUpsertReview } from '@/src/hooks/queries/review/useThemeReview'
 import { useSession } from 'next-auth/react'

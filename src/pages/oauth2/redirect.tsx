@@ -1,4 +1,4 @@
-import useLoginUser from '../../../utils/hooks/login/useLoginUser'
+import useLoginUser from '@/src/utils/hooks/login/useLoginUser'
 
 export default function Redirect() {
   useLoginUser()
