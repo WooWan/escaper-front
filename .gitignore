@@ -39,3 +39,7 @@ yarn-error.log*
 
 # http test
 *.http
+
+
+.yarnrc.yml
+.yarn
